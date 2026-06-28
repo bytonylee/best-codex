@@ -1,0 +1,31 @@
+{
+  "name": "imagegen-api",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Fast, stable image generation API via Codex private backend with prompt, number, aspect_ratio, reference_file params.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "imagegen": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "bunx tsc",
+    "clean": "rm -rf dist",
+    "test": "bunx vitest run",
+    "test:watch": "bunx vitest",
+    "start": "bun dist/server.js",
+    "cli": "bun dist/cli.js",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "engines": {
+    "bun": ">=1.3"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.22.4",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.9"
+  }
+}
