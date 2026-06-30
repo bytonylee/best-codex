@@ -1,0 +1,31 @@
+{
+  "name": "cc-bridge",
+  "version": "0.1.0",
+  "description": "Local bridge that lets ChatGPT Developer Mode work directly in one local repository while a terminal-owned Codex watcher executes handoff plans locally.",
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "bin": {
+    "cc-bridge": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --import tsx tests/*.test.ts tests/smoke/*.test.ts",
+    "smoke": "node --test --import tsx tests/smoke/*.test.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "minimatch": "^10.2.5",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
