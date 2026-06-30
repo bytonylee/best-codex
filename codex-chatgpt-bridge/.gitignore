@@ -1,0 +1,9 @@
+node_modules/
+dist/
+docs/
+excalidraw.log
+*.log
+.cc-bridge/
+assets/generated/
+tests/
+test-output/
