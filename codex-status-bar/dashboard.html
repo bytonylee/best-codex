@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex Status Bar — Motion Dashboard</title>
+<style>
+  :root {
+    --bg: #0d0f0e;
+    --panel: #151918;
+    --panel-2: #1d2322;
+    --line: #2a3231;
+    --text: #e6eceb;
+    --muted: #8a9795;
+    --accent: #7B94F0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(1200px 600px at 50% -10%, #16201d 0%, var(--bg) 60%);
+    color: var(--text);
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    min-height: 100vh;
+    padding: 40px 24px 64px;
+  }
+  header { max-width: 1080px; margin: 0 auto 32px; position: relative; }
+  h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  h1 .dot { color: #7B94F0; }
+  p.sub { color: var(--muted); margin: 0; font-size: 13px; }
+  .source-tags { display: flex; gap: 8px; margin-top: 12px; }
+  .source-tag {
+    min-width: 44px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel-2);
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 700;
+  }
+  main { max-width: 1080px; margin: 0 auto; display: grid; gap: 20px; }
+
+  .section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+  .section h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin: 0 0 4px;
+    font-weight: 600;
+  }
+  .section .desc { color: var(--muted); font-size: 12px; margin: 0 0 18px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .character-grid { display: grid; grid-template-columns: repeat(3, minmax(220px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 16px 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .stage {
+    width: 160px; height: 160px;
+    display: grid; place-items: center;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 16px 16px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 16px 16px,
+      #0b0e0d;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    image-rendering: pixelated;
+  }
+  .stage svg, .stage img { width: 128px; height: 128px; image-rendering: pixelated; display: block; }
+  .label { font-size: 12px; color: var(--text); text-align: center; }
+  .label small { color: var(--muted); display: block; font-size: 11px; margin-top: 2px; }
+  .badge { color: var(--accent); font-size: 11px; }
+
+  .controls { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+  .controls button {
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--line); border-radius: 8px;
+    padding: 6px 14px; font-size: 12px; cursor: pointer;
+  }
+  .controls button:hover { border-color: var(--accent); }
+  .controls .speed { color: var(--muted); font-size: 12px; }
+  input[type=range] { accent-color: var(--accent); }
+
+  .frames { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+  .frames figure { margin: 0; text-align: center; }
+  .frames img { width: 38px; height: 38px; image-rendering: pixelated; display: block; }
+  .frames figcaption { color: var(--muted); font-size: 10px; margin-top: 4px; }
+
+  footer { max-width: 1080px; margin: 28px auto 0; color: var(--muted); font-size: 11px; }
+  code { background: var(--panel-2); padding: 1px 5px; border-radius: 4px; color: var(--accent); }
+  .color-picker { position: absolute; top: 40px; right: 24px; display: flex; align-items: center; gap: 8px; }
+  .color-picker label { color: var(--muted); font-size: 12px; }
+  .color-picker select {
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--line); border-radius: 8px;
+    padding: 5px 10px; font-size: 12px; cursor: pointer;
+  }
+  .color-picker select:hover { border-color: var(--accent); }
+  @media (max-width: 720px) {
+    .character-grid { grid-template-columns: 1fr; }
+    .color-picker { position: static; margin-bottom: 18px; justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="color-picker">
+    <label for="color-mode">Color</label>
+    <select id="color-mode">
+      <option value="bluePurple">Blue and purple</option>
+      <option value="bw">Black and white</option>
+    </select>
+  </div>
+  <h1><span class="dot">●</span> Motion Dashboard</h1>
+  <p class="sub">Live preview of the four animation styles.</p>
+  <div class="source-tags" aria-label="Codex sources">
+    <span class="source-tag">CLI</span>
+    <span class="source-tag">APP</span>
+  </div>
+</header>
+
+<main>
+
+  <section class="section">
+    <h2>Programmatic styles — drawn live from IconRenderer.swift</h2>
+    <p class="desc">Same geometry, FPS, frame counts, and blue-purple gradient (#7B94F0 → #364396) as the Swift renderer.<br>Each stage renders at 128px for visibility; the app draws at 18px.</p>
+    <div class="grid">
+
+      <div class="card">
+        <div class="stage" id="stage-orbit"></div>
+        <div class="label">Codex Orbit <small>hexagonal aperture · 24 frames @ 12fps <span class="badge">2.0s loop</span></small></div>
+      </div>
+
+      <div class="card">
+        <div class="stage" id="stage-pulse"></div>
+        <div class="label">Codex CLI <small>shimmering bullet •/◦ · 4 frames @ 4fps <span class="badge">1.0s loop</span></small></div>
+      </div>
+
+      <div class="card">
+        <div class="stage" id="stage-spark"></div>
+        <div class="label">Codex Spark <small>4-point burst, rotating + breathing · 12 frames @ 10fps <span class="badge">1.2s loop</span></small></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Animation style — bundled PNG frames</h2>
+    <p class="desc">Base, world cup, and sleeping character states as rendered by the app.<br>The displayed set follows the Color dropdown.</p>
+    <div class="character-grid">
+
+      <div class="card">
+        <div class="stage"><img id="png-char" src="public/assets/character/bp/00.png" alt="character frame"></div>
+        <div class="label" id="char-label">Character (Blue and purple) <small><span id="char-path">public/assets/character/bp/0{0..5}.png</span> <span class="badge">6 frames @ 12.5fps</span></small></div>
+        <div class="frames" id="frames-char"></div>
+      </div>
+
+      <div class="card">
+        <div class="stage"><img id="png-worldcup" src="public/assets/character-worldcup/bp/00.png" alt="character worldcup frame"></div>
+        <div class="label" id="worldcup-label">Character Worldcup (Blue and purple) <small><span id="worldcup-path">public/assets/character-worldcup/bp/0{0..5}.png</span> <span class="badge">6 frames @ 12.5fps</span></small></div>
+        <div class="frames" id="frames-worldcup"></div>
+      </div>
+
+      <div class="card">
+        <div class="stage"><img id="png-sleeping" src="public/assets/sleeping-character/bp/00.png" alt="sleeping character frame"></div>
+        <div class="label" id="sleeping-label">Character Sleeping (Blue and purple) <small><span id="sleeping-path">public/assets/sleeping-character/bp/00.png</span> <span class="badge">idle state</span></small></div>
+      </div>
+
+    </div>
+    <div class="controls">
+      <button id="play-toggle">Pause</button>
+      <span class="speed">Speed</span>
+      <input type="range" id="speed" min="25" max="200" value="100" step="5">
+      <span class="speed" id="speed-val">1.00×</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  All motion is reproduced from <code>Sources/IconRenderer.swift</code> and <code>public/assets/</code>.
+</footer>
+
+<script>
+// ---------- Shared constants (mirror IconRenderer.swift) ----------
+const D = 128;                  // display size (app uses 18)
+const cx = D / 2, cy = D / 2;
+const GRAD_ID = 'sysGrad';
+const MODES = {
+  bluePurple: { top: '#7B94F0', bot: '#364396', stroke: '#7B94F0', dir: 'public/assets/character/bp', worldcupDir: 'public/assets/character-worldcup/bp', sleepingDir: 'public/assets/sleeping-character/bp' },
+  bw:     { top: '#FFFFFF', bot: '#000000', stroke: '#E5E5E5', dir: 'public/assets/character/bw', worldcupDir: 'public/assets/character-worldcup/bw', sleepingDir: 'public/assets/sleeping-character/bw' },
+};
+let colorMode = 'bluePurple';
+let gradTop = MODES.bluePurple.top, gradBot = MODES.bluePurple.bot, strokeColor = MODES.bluePurple.stroke;
+
+function svgShell(inner) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${D}" height="${D}" viewBox="0 0 ${D} ${D}">
+    <defs><linearGradient id="${GRAD_ID}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${gradTop}"/><stop offset="1" stop-color="${gradBot}"/>
+    </linearGradient></defs>${inner}</svg>`;
+}
+
+// ---------- Orbit: rotating hexagonal aperture ----------
+const orbitFrames = 24, orbitFPS = 12;
+function orbitSVG(frame) {
+  const angle = (frame / orbitFrames) * Math.PI * 2;
+  const R = D * 0.46, rStar = D * 0.24, rStarIn = rStar * 0.45;
+  let hex = '';
+  for (let i = 0; i < 6; i++) {
+    const a = angle + i * Math.PI / 3;
+    const p = [cx + R * Math.cos(a), cy + R * Math.sin(a)];
+    hex += (i === 0 ? 'M' : 'L') + p[0].toFixed(2) + ' ' + p[1].toFixed(2);
+  }
+  hex += 'Z';
+  let star = '';
+  for (let i = 0; i < 12; i++) {
+    const a = angle + i * Math.PI / 6;
+    const rr = (i % 2 === 0) ? rStar : rStarIn;
+    const p = [cx + rr * Math.cos(a), cy + rr * Math.sin(a)];
+    star += (i === 0 ? 'M' : 'L') + p[0].toFixed(2) + ' ' + p[1].toFixed(2);
+  }
+  star += 'Z';
+  return svgShell(
+    `<path fill-rule="evenodd" fill="url(#${GRAD_ID})" d="${hex} ${star}"/>`
+  );
+}
+
+// ---------- Pulse: shimmering bullet •/◦ ----------
+const pulseFrames = 4, pulseFPS = 4;
+const pulseScales = [0.50, 0.34, 0.22, 0.34];
+const pulseHollow = [false, false, true, true];
+function pulseSVG(frame) {
+  const i = frame % pulseFrames;
+  const d = D * pulseScales[i];
+  const r = (D - d) / 2;
+  if (pulseHollow[i]) {
+    const sw = Math.max(1, d * 0.18);
+    return svgShell(
+      `<circle cx="${cx}" cy="${cy}" r="${(d/2).toFixed(2)}" fill="none" stroke="${strokeColor}" stroke-width="${sw.toFixed(2)}"/>`
+    );
+  }
+  return svgShell(
+    `<circle cx="${cx}" cy="${cy}" r="${(d/2).toFixed(2)}" fill="url(#${GRAD_ID})"/>`
+  );
+}
+
+// ---------- Spark: rotating, breathing 4-point burst ----------
+const sparkFrames = 12, sparkFPS = 10;
+function sparkSVG(frame) {
+  const angle = (frame / sparkFrames) * Math.PI * 2;
+  const breath = 0.7 + 0.3 * (0.5 + 0.5 * Math.cos(angle * 2));
+  const R = D * 0.46 * breath, r = D * 0.10 * breath;
+  let d = '';
+  for (let i = 0; i < 4; i++) {
+    const aOut = angle + i * Math.PI / 2;
+    const aIn = aOut + Math.PI / 4;
+    const out = [cx + R * Math.cos(aOut), cy + R * Math.sin(aOut)];
+    const inn = [cx + r * Math.cos(aIn), cy + r * Math.sin(aIn)];
+    d += (i === 0 ? 'M' : 'L') + out[0].toFixed(2) + ' ' + out[1].toFixed(2);
+    d += 'L' + inn[0].toFixed(2) + ' ' + inn[1].toFixed(2);
+  }
+  d += 'Z';
+  return svgShell(`<path fill="url(#${GRAD_ID})" d="${d}"/>`);
+}
+
+// ---------- Character: bundled PNG frames ----------
+const charFrames = 6, charFPS = 12.5;
+const pad = n => String(n).padStart(2, '0');
+const pngChar = document.getElementById('png-char');
+const charLabel = document.getElementById('char-label');
+const charPath = document.getElementById('char-path');
+const framesChar = document.getElementById('frames-char');
+const pngWorldcup = document.getElementById('png-worldcup');
+const worldcupLabel = document.getElementById('worldcup-label');
+const worldcupPath = document.getElementById('worldcup-path');
+const framesWorldcup = document.getElementById('frames-worldcup');
+const pngSleeping = document.getElementById('png-sleeping');
+const sleepingLabel = document.getElementById('sleeping-label');
+const sleepingPath = document.getElementById('sleeping-path');
+let charFrame = 0;
+
+function charDir() { return MODES[colorMode].dir; }
+function worldcupDir() { return MODES[colorMode].worldcupDir; }
+function sleepingDir() { return MODES[colorMode].sleepingDir; }
+function charTitle() { return colorMode === 'bw' ? 'Character (B&W)' : 'Character (Blue and purple)'; }
+function worldcupTitle() { return colorMode === 'bw' ? 'Character Worldcup (B&W)' : 'Character Worldcup (Blue and purple)'; }
+function sleepingTitle() { return colorMode === 'bw' ? 'Character Sleeping (B&W)' : 'Character Sleeping (Blue and purple)'; }
+
+function buildStrip(target, dir) {
+  target.innerHTML = '';
+  for (let i = 0; i < charFrames; i++) {
+    const f = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = `${dir}/${pad(i)}.png`;
+    img.alt = `frame ${i}`;
+    const cap = document.createElement('figcaption');
+    cap.textContent = pad(i);
+    f.appendChild(img); f.appendChild(cap);
+    target.appendChild(f);
+  }
+}
+function refreshChar() {
+  const dir = charDir();
+  pngChar.src = `${dir}/${pad(charFrame)}.png`;
+  charLabel.firstChild.textContent = charTitle() + ' ';
+  charPath.textContent = `${dir}/0{0..5}.png`;
+  buildStrip(framesChar, dir);
+
+  const worldcup = worldcupDir();
+  pngWorldcup.src = `${worldcup}/${pad(charFrame)}.png`;
+  worldcupLabel.firstChild.textContent = worldcupTitle() + ' ';
+  worldcupPath.textContent = `${worldcup}/0{0..5}.png`;
+  buildStrip(framesWorldcup, worldcup);
+
+  const sleeping = sleepingDir();
+  pngSleeping.src = `${sleeping}/00.png`;
+  sleepingLabel.firstChild.textContent = sleepingTitle() + ' ';
+  sleepingPath.textContent = `${sleeping}/00.png`;
+}
+
+// ---------- Animation driver ----------
+// Each entry: { el, frames, fps, render(frame) }
+const drivers = [
+  { id: 'orbit',  frames: orbitFrames,  fps: orbitFPS,  render: orbitSVG  },
+  { id: 'pulse',  frames: pulseFrames,  fps: pulseFPS,  render: pulseSVG  },
+  { id: 'spark',  frames: sparkFrames,  fps: sparkFPS,  render: sparkSVG  },
+];
+drivers.forEach(d => { d.el = document.getElementById('stage-' + d.id); d.frame = 0; });
+
+let speedMul = 1.0;
+let playing = true;
+let raf = null;
+let last = 0;
+
+function step(now) {
+  if (!playing) return;
+  const dt = last ? (now - last) : 0;
+  last = now;
+  for (const d of drivers) {
+    d.acc = (d.acc || 0) + dt;
+    const period = 1000 / (d.fps * speedMul);
+    while (d.acc >= period) {
+      d.acc -= period;
+      d.frame = (d.frame + 1) % d.frames;
+      d.el.innerHTML = d.render(d.frame);
+    }
+  }
+  // character frames
+  charAcc = (charAcc || 0) + dt;
+  const charPeriod = 1000 / (charFPS * speedMul);
+  while (charAcc >= charPeriod) {
+    charAcc -= charPeriod;
+    charFrame = (charFrame + 1) % charFrames;
+    pngChar.src = `${charDir()}/${pad(charFrame)}.png`;
+    pngWorldcup.src = `${worldcupDir()}/${pad(charFrame)}.png`;
+  }
+  raf = requestAnimationFrame(step);
+}
+let charAcc = 0;
+
+// initial render
+refreshChar();
+drivers.forEach(d => { d.el.innerHTML = d.render(0); });
+
+function play() { playing = true; last = 0; raf = requestAnimationFrame(step); document.getElementById('play-toggle').textContent = 'Pause'; }
+function pause() { playing = false; if (raf) cancelAnimationFrame(raf); document.getElementById('play-toggle').textContent = 'Play'; }
+
+document.getElementById('play-toggle').addEventListener('click', () => playing ? pause() : play());
+document.getElementById('speed').addEventListener('input', e => {
+  speedMul = +e.target.value / 100;
+  document.getElementById('speed-val').textContent = speedMul.toFixed(2) + '×';
+});
+
+document.getElementById('color-mode').addEventListener('change', e => {
+  colorMode = e.target.value;
+  const m = MODES[colorMode];
+  gradTop = m.top; gradBot = m.bot; strokeColor = m.stroke;
+  // re-render programmatic styles at current frame
+  drivers.forEach(d => { d.el.innerHTML = d.render(d.frame); });
+  // swap character frames + label to match
+  refreshChar();
+});
+
+play();
+</script>
+</body>
+</html>
