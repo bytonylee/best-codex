@@ -1,0 +1,18 @@
+# Keep repo status focused on the selected root files and projects.
+*
+!/.gitignore
+!/README.md
+!/README.ko.md
+!/public/
+!/public/assets/
+!/public/assets/readme/
+!/public/assets/readme/**
+/public/assets/readme/.DS_Store
+!/codex-chatgpt-bridge/
+!/codex-chatgpt-bridge/**
+!/codex-linker/
+!/codex-linker/**
+!/codex-status-bar/
+!/codex-status-bar/**
+!/codex-imagegen-api/
+!/codex-imagegen-api/**
