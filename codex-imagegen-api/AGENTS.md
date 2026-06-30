@@ -15,6 +15,18 @@ comparison and decision.
 - `bun run typecheck` — type-check without emitting
 - Hook script: `.agents/skills/imagegen/scripts/imagegen-hook.sh`
 
+## File and directory rules
+
+- Source files live in `src/`; use lower camel-case TypeScript filenames that
+  match the exported responsibility, e.g. `generate.ts` or `privateCodex.ts`.
+- Tests live in `tests/`; name test files `*.test.ts`.
+- Generated API output stays under `outputs/`, `out/`, or `test-output/` and
+  must not be committed.
+- Request output directories follow
+  `<output-root>/<local-yyyy-mm-dd>/<prompt-slug>[-n]/`.
+- Generated image filenames are fixed: `image.png` for one result, or
+  `image-1.png`, `image-2.png`, etc. for multiple results.
+
 ## Cross-surface feature parity
 
 CLI, library API (`src/index.ts`), and HTTP server must stay
