@@ -1,0 +1,26 @@
+{
+  "name": "codex-linker",
+  "version": "0.0.1",
+  "description": "Create linked Codex homes for multiple ChatGPT OAuth accounts.",
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "bin": {
+    "codex-linker": "dist/src/cli.js"
+  },
+  "main": "dist/src/cli.js",
+  "scripts": {
+    "build": "bunx tsc",
+    "typecheck": "bunx tsc --noEmit",
+    "test": "node --test --import tsx tests/*.test.ts"
+  },
+  "engines": {
+    "bun": ">=1.3",
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
