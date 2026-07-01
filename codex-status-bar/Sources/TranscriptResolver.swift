@@ -11,6 +11,12 @@ final class TranscriptResolver {
     private let sessionsRoot: String
     private let fm: FileManager
 
+    // Cache metadata per (uuid, mtime) so repeated ticks for the same recent
+    // session don't re-open and re-parse the transcript every 0.4s. Bounded:
+    // cleared once it grows past the cap to avoid unbounded growth over weeks.
+    private var metadataCache: [String: (mtime: Date, metadata: SessionMetadata)] = [:]
+    private let metadataCacheCap = 64
+
     init(homeDirectory: String = NSHomeDirectory(), fileManager: FileManager = .default) {
         let hiddenDir = "." + ["co", "dex"].joined()
         let root = ((homeDirectory as NSString).appendingPathComponent(hiddenDir) as NSString)
@@ -25,6 +31,16 @@ final class TranscriptResolver {
     }
 
     func metadata(uuid: String, mtime: Date) -> SessionMetadata {
+        if let cached = metadataCache[uuid], cached.mtime == mtime {
+            return cached.metadata
+        }
+        if metadataCache.count > metadataCacheCap { metadataCache.removeAll() }
+        let result = computeMetadata(uuid: uuid, mtime: mtime)
+        metadataCache[uuid] = (mtime, result)
+        return result
+    }
+
+    private func computeMetadata(uuid: String, mtime: Date) -> SessionMetadata {
         let transcript = transcriptPath(uuid: uuid, mtime: mtime)
         guard !transcript.isEmpty else {
             return SessionMetadata(project: "", transcript: "", title: "", source: "CLI")
