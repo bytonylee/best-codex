@@ -14,6 +14,7 @@ const dir = path.join(os.homedir(), ".codex", "statusbar");
 const sessDir = path.join(dir, "sessions.d");
 const statePath = path.join(dir, "state.json");
 const sessionStateDir = path.join(dir, "session-state");
+const userQuitFlag = path.join(dir, "user_quit");
 const event = process.argv[2];
 
 function writeJsonAtomic(file, value) {
@@ -74,6 +75,9 @@ function run() {
     }
     try { fs.writeFileSync(path.join(sessDir, id), ""); } catch {}
     clearStaleState(id);
+    // Honor an explicit user quit: don't auto-relaunch the app. The session
+    // marker above is still written so a manually launched app tracks it.
+    if (fs.existsSync(userQuitFlag)) return;
     cp.spawn("open", ["-g", "-j", "-b", BUNDLE_ID], { stdio: "ignore", detached: true }).unref();
   } else if (event === "end") {
     try { fs.rmSync(path.join(sessDir, id), { force: true }); } catch {}

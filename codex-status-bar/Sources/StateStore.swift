@@ -24,7 +24,13 @@ final class SessionStore {
     }
 
     func recentSessionPayloads(limit: Int) -> [StatusPayload] {
-        recentSessionFiles(limit: limit).compactMap { entry in
+        payloads(for: recentSessionFiles(limit: limit))
+    }
+
+    // Decode session-state payloads for an already-scanned file list, so the
+    // caller can reuse one scan result instead of re-scanning directories.
+    func payloads(for files: [(uuid: String, mtime: Date)]) -> [StatusPayload] {
+        files.compactMap { entry in
             let path = paths.sessionStatePath(for: entry.uuid)
             guard let data = fm.contents(atPath: path), !data.isEmpty else { return nil }
             return try? JSONDecoder().decode(StatusPayload.self, from: data)
