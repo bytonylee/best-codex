@@ -21,6 +21,12 @@ final class StatusController: NSObject, NSMenuDelegate {
     var sessionsDir: String { paths.activeSessionsDir }
 
     var lastMTime: Date = .distantPast
+    // Cached session scan: reused across evaluate() ticks when the session
+    // directories haven't changed, so idle polling doesn't stat + decode dozens
+    // of files every 0.4s. Invalidated when sessions.d/ or session-state/ mtime
+    // changes (all hook writes go through atomic rename, which bumps the parent
+    // dir mtime).
+    var sessionScanCache: (sessionsDirMtime: Date, sessionStateDirMtime: Date, stateMtime: Date, files: [(uuid: String, mtime: Date)], payloads: [StatusPayload])?
     var pollTimer: Timer?
     var animTimer: Timer?
     var menuIsOpen = false
@@ -77,6 +83,9 @@ final class StatusController: NSObject, NSMenuDelegate {
 
     override init() {
         super.init()
+        // A manual launch means the user wants the app back: clear any prior
+        // "user quit" flag so SessionStart hooks may auto-relaunch us again.
+        try? FileManager.default.removeItem(atPath: paths.userQuitFlagPath)
         let d = UserDefaults.standard
         if d.object(forKey: "showTimer") != nil { showTimer = d.bool(forKey: "showTimer") }
         selectedRecentSessionId = d.string(forKey: "selectedRecentSessionId")
@@ -283,7 +292,13 @@ final class StatusController: NSObject, NSMenuDelegate {
         return item
     }
 
-    @objc func quit() { NSApp.terminate(nil) }
+    @objc func quit() {
+        // Mark an explicit user quit so SessionStart hooks don't auto-relaunch
+        // us on the next Codex session. Cleared on the next manual launch.
+        // createFile overwrites if the flag already exists.
+        _ = FileManager.default.createFile(atPath: paths.userQuitFlagPath, contents: nil)
+        NSApp.terminate(nil)
+    }
 
     @objc func openCodex() {
         let ws = NSWorkspace.shared
@@ -347,16 +362,6 @@ final class StatusController: NSObject, NSMenuDelegate {
 
     func recentSessionFiles(limit: Int) -> [(uuid: String, mtime: Date)] {
         sessionStore.recentSessionFiles(limit: limit)
-    }
-
-    func recentHeaderSessions(limit: Int) -> [RecentSession] {
-        recentSessionFiles(limit: limit).map { (uuid, mtime) in
-            RecentSession(uuid: uuid, mtime: mtime, title: "", project: "", transcript: "", source: "")
-        }
-    }
-
-    func recentSessionPayloads(limit: Int) -> [StatusPayload] {
-        sessionStore.recentSessionPayloads(limit: limit)
     }
 
     // Build a menu item for a recent session with a two-line attributed title:
@@ -566,9 +571,39 @@ final class StatusController: NSObject, NSMenuDelegate {
         if menuIsOpen { refreshOpenMenuRows() }
     }
 
+    // Scan sessions.d/ and session-state/ once, caching the result until either
+    // directory's mtime changes. This turns the idle polling path from "4 dir
+    // scans + 24 file reads + 36 transcript opens per 0.4s" into "3 stat calls
+    // per 0.4s" when nothing on disk has changed.
+    //
+    // Three mtimes are tracked: sessions.d/ (marker create/delete), session-state/
+    // (per-session payload, written via atomic rename), and state.json (global
+    // payload, written via atomic rename). The state.json gate is defense-in-depth:
+    // update.js always writes state.json via rename, so its dir mtime always bumps.
+    // But sessions.d/ markers are overwritten in-place by update.js, which does NOT
+    // bump the parent dir mtime on macOS. Gating on state.json too ensures we never
+    // serve stale payloads even if a future hook writes sessions.d/ without also
+    // writing session-state/.
+    func sessionScan() -> (files: [(uuid: String, mtime: Date)], payloads: [StatusPayload]) {
+        let fm = FileManager.default
+        let sessionsMtime = (try? fm.attributesOfItem(atPath: sessionsDir))?[.modificationDate] as? Date ?? .distantPast
+        let sessionStateMtime = (try? fm.attributesOfItem(atPath: paths.sessionStateDir))?[.modificationDate] as? Date ?? .distantPast
+        let stateMtime = (try? fm.attributesOfItem(atPath: statePath))?[.modificationDate] as? Date ?? .distantPast
+        if let cache = sessionScanCache,
+           cache.sessionsDirMtime == sessionsMtime,
+           cache.sessionStateDirMtime == sessionStateMtime,
+           cache.stateMtime == stateMtime {
+            return (cache.files, cache.payloads)
+        }
+        let files = sessionStore.recentSessionFiles(limit: 24)
+        let payloads = sessionStore.payloads(for: files)
+        sessionScanCache = (sessionsMtime, sessionStateMtime, stateMtime, files, payloads)
+        return (files, payloads)
+    }
+
     func evaluate() {
-        let sessionPayloads = recentSessionPayloads(limit: 24)
-        let headerRecents = recentHeaderSessions(limit: 12)
+        let (sessionFiles, sessionPayloads) = sessionScan()
+        let headerRecents = sessionFiles.prefix(12).map { RecentSession(uuid: $0.uuid, mtime: $0.mtime, title: "", project: "", transcript: "", source: "") }
         let resolution = HeaderStatusPolicy.resolve(
             storedId: selectedRecentSessionId,
             recents: headerRecents.map { HeaderSessionChoice(uuid: $0.uuid) },
