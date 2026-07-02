@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v0.0.1-111111?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-v0.0.3-111111?style=flat-square" alt="Version">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/macOS-12%2B-111111?style=flat-square" alt="macOS 12+">
   <img src="https://img.shields.io/badge/Swift-menu%20bar-111111?style=flat-square" alt="Swift menu bar app">
@@ -25,13 +25,7 @@
 
 ---
 
-<p align="center">
-  <img src="./public/assets/readme/codex-status-bar-wideview.gif" alt="Codex Status Bar menu bar wideview" width="100%">
-</p>
-
-Codex Status Bar shows when Codex is thinking, running tools, waiting for
-permission, or done. No window. No dock icon. No dashboard. Just a live
-character in your macOS menu bar.
+> *Codex Status Bar shows when Codex is thinking, running tools, waiting for permission, or done. No window. No dock icon. No dashboard. Just a live character in your macOS menu bar.*
 
 Click the menu to choose a recent session, toggle the timer, switch animation
 styles, and control sounds.
@@ -224,11 +218,12 @@ copy.
 
 ## Release
 
-Current tag: [`v0.0.1`](https://github.com/tonylee/codex-status-bar/releases/tag/v0.0.1)
+Current tag: [`v0.0.3`](https://github.com/bytonylee/best-codex/releases/tag/v0.0.3)
 
-The `v0.0.1` release includes the menu bar app, Codex hook installer,
-multi-session status tracking, animation styles, completion and permission
-sounds, and DMG packaging.
+The `v0.0.3` release adds a styled DMG installer window with a custom
+background (black curved arrow on a grainy white background) guiding the user
+to drag the app icon into the Applications folder, matching the mac-whisper
+installer layout (660x440 window, 80px icons).
 
 ## Acknowledgements
 
@@ -241,4 +236,4 @@ We thank the authors and maintainers of this project.
 
 ## License
 
-MIT
+[MIT](./LICENSE)

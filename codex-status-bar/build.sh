@@ -23,8 +23,8 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
   <key>CFBundleDisplayName</key><string>Codex Status Bar</string>
   <key>CFBundleIdentifier</key><string>com.local.codexstatusbar</string>
   <key>CFBundleExecutable</key><string>CodexStatusBar</string>
-  <key>CFBundleVersion</key><string>0.0.2</string>
-  <key>CFBundleShortVersionString</key><string>0.0.2</string>
+  <key>CFBundleVersion</key><string>0.0.3</string>
+  <key>CFBundleShortVersionString</key><string>0.0.3</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>LSMinimumSystemVersion</key><string>12.0</string>
   <key>LSUIElement</key><true/>
@@ -74,11 +74,50 @@ if [[ "${1:-}" == "--dmg" ]]; then
   echo "Packaging DMG…"
   DMG="build/CodexStatusBar.dmg"
   STAGE="build/dmg-stage"
-  rm -rf "$STAGE" "$DMG" build/rw.dmg
-  mkdir -p "$STAGE"
+  RWDMG="build/rw.dmg"
+  VOLNAME="Codex Status Bar"
+  BG="public/assets/dmg/dmg-background.png"
+  # Window geometry mirrors the mac-whisper installer: a 660x440 Finder
+  # icon-view window with 80px icons, the app on the left and the
+  # Applications alias on the right, sitting on top of the background arrow.
+  WIN_W=660; WIN_H=440
+  APP_X=160; APP_Y=220
+  APPS_X=500; APPS_Y=220
+  rm -rf "$STAGE" "$DMG" "$RWDMG"
+  mkdir -p "$STAGE/.background"
   cp -R "$APP" "$STAGE/"
   ln -s /Applications "$STAGE/Applications"
-  hdiutil create -volname "Codex Status Bar" -srcfolder "$STAGE" -ov -format UDZO "$DMG" >/dev/null
+  cp "$BG" "$STAGE/.background/background.png"
+
+  # Build a read-write DMG first so Finder view options can be persisted.
+  hdiutil create -volname "$VOLNAME" -srcfolder "$STAGE" -ov -format UDRW "$RWDMG" >/dev/null
   rm -rf "$STAGE"
+
+  # Mount it (silent, no Finder, no browsing) and style the window.
+  hdiutil attach -readwrite -nobrowse "$RWDMG" >/dev/null 2>&1
+  VOL="/Volumes/$VOLNAME"
+  osascript \
+    -e "tell application \"Finder\"" \
+    -e "set dmg to disk \"$VOLNAME\"" \
+    -e "open dmg" \
+    -e "set current view of container window of dmg to icon view" \
+    -e "set toolbar visible of container window of dmg to false" \
+    -e "set statusbar visible of container window of dmg to false" \
+    -e "set the bounds of container window of dmg to {100, 100, $((WIN_W + 100)), $((WIN_H + 100))}" \
+    -e "set theViewOptions to the icon view options of container window of dmg" \
+    -e "set arrangement of theViewOptions to not arranged" \
+    -e "set icon size of theViewOptions to 80" \
+    -e "set background picture of theViewOptions to POSIX file \"$VOL/.background/background.png\" as alias" \
+    -e "set position of item \"CodexStatusBar\" of dmg to {$APP_X, $APP_Y}" \
+    -e "set position of item \"Applications\" of dmg to {$APPS_X, $APPS_Y}" \
+    -e "set the bounds of container window of dmg to {100, 100, $((WIN_W + 100)), $((WIN_H + 100))}" \
+    -e "close dmg" \
+    -e "end tell"
+
+  # Give Finder a moment to flush, then detach and convert to compressed RO.
+  sleep 1
+  hdiutil detach "$VOL" -force >/dev/null
+  hdiutil convert "$RWDMG" -format UDZO -ov -o "$DMG" >/dev/null
+  rm -f "$RWDMG"
   echo "Built $DMG"
 fi
