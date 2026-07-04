@@ -1,6 +1,7 @@
 # Keep repo status focused on the selected root files and projects.
 *
 !/.gitignore
+!/.pre-commit-config.yaml
 !/README.md
 !/README.ko.md
 !/public/
