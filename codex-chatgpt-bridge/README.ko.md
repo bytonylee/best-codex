@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v0.1.0-111111?style=flat-square" alt="Version">
-  <img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="License: MIT">
+  <img src="https://img.shields.io/badge/version-v0.0.1-111111?style=flat-square" alt="Version">
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="License: MIT"></a>
   <a href="./package.json"><img src="https://img.shields.io/badge/Bun-%3E%3D1.3-111111?style=flat-square" alt="Bun >= 1.3"></a>
   <a href="./package.json"><img src="https://img.shields.io/badge/Node-runtime%20%3E%3D20-111111?style=flat-square" alt="Node.js runtime >= 20"></a>
 </p>
@@ -309,9 +309,9 @@ bun run test
 
 ## 릴리스
 
-현재 패키지 버전: `v0.1.0`.
+현재 패키지 버전: `v0.0.1`.
 
-`v0.1.0`에는 TypeScript CLI, stateless HTTP MCP 서버, 단일 루트 작업공간
+`v0.0.1`에는 TypeScript CLI, stateless HTTP MCP 서버, 단일 루트 작업공간
 도구, 안전한 bash 정책, 이미지 아티팩트 저장, 로컬 전용 Codex 핸드오프
 명령, 터널 헬퍼, 테스트 커버리지가 포함됩니다.
 

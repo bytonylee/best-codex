@@ -74,6 +74,7 @@ animations from this image."
 
 - `scripts/pixel_snap.py` — alpha threshold, palette quantization, pixelate-scale edge hardening
 - `scripts/validate_64_sheet.py` — frame validation + contact-sheet generation
+- `scripts/validate_loop_animation.py` — loop-seam, identity-drift, and broken/dropped-frame QA for cyclic actions (idle/walk/run)
 - `scripts/export_animation_previews.py` — export GIF/PNG previews per animation row
 
 ## Requirements

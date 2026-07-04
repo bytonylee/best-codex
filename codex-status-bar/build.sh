@@ -1,9 +1,13 @@
 #!/bin/bash
-# Builds CodexStatusBar.app (and optionally a .dmg with: ./build.sh --dmg).
+# Builds Codex Status Bar.app (and optionally a .dmg with: ./build.sh --dmg).
+# The bundle directory is named "Codex Status Bar.app" so Finder/Launchpad
+# display "Codex Status Bar"; the executable binary inside stays
+# "CodexStatusBar" (pgrep/pkill -x CodexStatusBar keep working). The DMG
+# file is still named CodexStatusBar.dmg.
 set -euo pipefail
 cd "$(dirname "$0")"
 
-APP="build/CodexStatusBar.app"
+APP="build/Codex Status Bar.app"
 BIN="$APP/Contents/MacOS/CodexStatusBar"
 
 rm -rf "$APP"
@@ -75,7 +79,7 @@ if [[ "${1:-}" == "--dmg" ]]; then
   DMG="build/CodexStatusBar.dmg"
   STAGE="build/dmg-stage"
   RWDMG="build/rw.dmg"
-  VOLNAME="Codex Status Bar"
+  VOLNAME="CodexStatusBar"
   BG="public/assets/dmg/dmg-background.png"
   # Window geometry mirrors the mac-whisper installer: a 660x440 Finder
   # icon-view window with 80px icons, the app on the left and the
@@ -108,7 +112,7 @@ if [[ "${1:-}" == "--dmg" ]]; then
     -e "set arrangement of theViewOptions to not arranged" \
     -e "set icon size of theViewOptions to 80" \
     -e "set background picture of theViewOptions to POSIX file \"$VOL/.background/background.png\" as alias" \
-    -e "set position of item \"CodexStatusBar\" of dmg to {$APP_X, $APP_Y}" \
+    -e "set position of item \"Codex Status Bar\" of dmg to {$APP_X, $APP_Y}" \
     -e "set position of item \"Applications\" of dmg to {$APPS_X, $APPS_Y}" \
     -e "set the bounds of container window of dmg to {100, 100, $((WIN_W + 100)), $((WIN_H + 100))}" \
     -e "close dmg" \

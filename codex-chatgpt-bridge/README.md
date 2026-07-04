@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v0.1.0-111111?style=flat-square" alt="Version">
-  <img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="License: MIT">
+  <img src="https://img.shields.io/badge/version-v0.0.1-111111?style=flat-square" alt="Version">
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="License: MIT"></a>
   <a href="./package.json"><img src="https://img.shields.io/badge/Bun-%3E%3D1.3-111111?style=flat-square" alt="Bun >= 1.3"></a>
   <a href="./package.json"><img src="https://img.shields.io/badge/Node-runtime%20%3E%3D20-111111?style=flat-square" alt="Node.js runtime >= 20"></a>
 </p>
@@ -312,9 +312,9 @@ HTTP MCP smoke flows, token auth, image saving, and URL building.
 
 ## Release
 
-Current package version: `v0.1.0`.
+Current package version: `v0.0.1`.
 
-`v0.1.0` includes the TypeScript CLI, stateless HTTP MCP server, one-root
+`v0.0.1` includes the TypeScript CLI, stateless HTTP MCP server, one-root
 workspace tools, safe bash policy, image artifact persistence, local-only
 Codex handoff commands, tunnel helpers, and test coverage.
 

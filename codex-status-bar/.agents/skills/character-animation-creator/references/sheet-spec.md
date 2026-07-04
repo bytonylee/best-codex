@@ -50,6 +50,13 @@ Workflow constraint:
 
 Generate base sprite first, then separate action-direction strips. Do not prompt a full multi-row atlas unless the user explicitly accepts lower consistency.
 
+Loop constraint:
+
+- Cyclic actions (idle, walk, run, and any motion that repeats forever) must be authored as seamless loops: the last frame flows back into the first with no pop, flicker, teleport, or identity change.
+- Use an even frame count and a closed pose plan (including secondary motion like hair/cape/tail) so the wrap step matches every other step.
+- The pixel character must keep its identity, palette, silhouette mass, and footing across the whole cycle; no empty/dropped frames and no mid-loop garbling.
+- Loops must pass `scripts/validate_loop_animation.py` and be watched wrapping at least twice in the exported GIF/WebP before acceptance.
+
 Reference provenance constraint:
 
 - Real art tests must use image generation grounded in the user's reference image.
