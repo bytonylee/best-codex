@@ -9,10 +9,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-v0.0.3-111111?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-0.0.3-111111?style=flat-square" alt="Version">
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/macOS-12%2B-111111?style=flat-square" alt="macOS 12+">
-  <img src="https://img.shields.io/badge/Swift-menu%20bar-111111?style=flat-square" alt="Swift menu bar app">
 </p>
 
 <p align="center">
