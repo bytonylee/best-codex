@@ -781,5 +781,27 @@ final class StatusController: NSObject, NSMenuDelegate {
 
 let app = NSApplication.shared
 app.setActivationPolicy(.accessory) // hide from dock; menu bar only
+
+// Migrate a pre-rename install: if /Applications/CodexStatusBar.app exists
+// with our bundle ID, rename it to /Applications/Codex Status Bar.app so the
+// displayed name updates for existing users. Runs once at launch.
+func migrateOldInstallName() {
+    let fm = FileManager.default
+    let oldPath = "/Applications/CodexStatusBar.app"
+    let newPath = "/Applications/Codex Status Bar.app"
+    guard fm.fileExists(atPath: oldPath) else { return }
+    guard let bid = Bundle(path: oldPath)?.bundleIdentifier,
+          bid == "com.local.codexstatusbar" else { return }
+    let myPath = Bundle.main.bundlePath
+    if myPath == oldPath { return } // can't rename our own running bundle
+    if myPath == newPath || fm.fileExists(atPath: newPath) {
+        // New name already in place; the old bundle is now redundant.
+        try? fm.removeItem(atPath: oldPath)
+        return
+    }
+    try? fm.moveItem(atPath: oldPath, toPath: newPath)
+}
+migrateOldInstallName()
+
 let controller = StatusController()
 app.run()
