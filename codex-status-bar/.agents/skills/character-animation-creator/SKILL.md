@@ -127,11 +127,12 @@ attack: 6 frames
 8. Assemble strips with `scripts/assemble_action_sheet.py`.
 9. Clean with `scripts/pixel_snap.py` using chroma-key cleanup.
 10. Validate geometry, residue, and motion with `scripts/validate_sheet.py` and `scripts/audit_sprite_motion.py`.
-11. For multi-size jobs, validate resolution hierarchy with `scripts/validate_resolution_hierarchy.py`.
-12. Export previews with `scripts/export_animation_previews.py`.
-13. Visually inspect every contact sheet and at least one GIF/WebP per direction group, then write `qa/visual-review.json`. Do not rely on validation JSON alone for art quality.
-14. Validate provenance and visual acceptance with `scripts/validate_run_manifest.py`.
-15. Regenerate only weak directions or frames. Do not redo strong rows.
+11. For cyclic actions (idle, walk, run, and other looping rows), validate loop seamlessness, identity stability, and broken/dropped frames with `scripts/validate_loop_animation.py`.
+12. For multi-size jobs, validate resolution hierarchy with `scripts/validate_resolution_hierarchy.py`.
+13. Export previews with `scripts/export_animation_previews.py`.
+14. Visually inspect every contact sheet and at least one GIF/WebP per direction group, then write `qa/visual-review.json`. For loops, watch the GIF wrap at least twice and confirm no seam pop, flicker, teleport, or identity change. Do not rely on validation JSON alone for art quality.
+15. Validate provenance and visual acceptance with `scripts/validate_run_manifest.py`.
+16. Regenerate only weak directions or frames. Do not redo strong rows.
 
 Do not generate a complete 8-direction sheet in one image prompt. One-shot sheets often create near-duplicate walk frames, direction drift, missing directions, and inconsistent characters.
 
@@ -340,6 +341,46 @@ For archer attacks, animate draw, hold/aim, release, recoil, and recovery. The p
 
 If an attack looks cut off, inspect edge pixels and bbox. Regenerate only that row with "full body and weapon inside every frame, no crop, centered with 2-4 px margin."
 
+## Loop Animation
+
+Cyclic actions (`idle`, `walk`, `run`, `breathe`, `float`, `blink`, `flicker`, any motion that repeats forever) are loop animations. The whole point is that frame `N-1` flows back into frame `0` with no visible hitch. A walk that looks fine as a strip can still "pop" every cycle when it loops. Treat the loop seam as a real frame transition, not a free join.
+
+Design every cyclic action so the cycle is closed before generation:
+
+- Use an **even frame count** and a symmetric pose plan so the last frame is the natural lead-in to the first. Walk: `contact, down, passing, up, contact, passing`. Idle: `neutral, settle, low, settle, neutral, rise`. The wrap (`passing -> contact` / `rise -> neutral`) must be the same size step as any other.
+- Generate cyclic rows as **one continuous cycle**, never as a start pose plus a different end pose. Tell imagegen: "seamless looping cycle, the last frame must continue smoothly into the first frame, equal motion spacing between all frames including the wrap."
+- Keep secondary motion (hair, cape, tail, ears, antenna) on a **closed sub-cycle** too. A cape that is mid-swing on the last frame but at rest on the first frame is the most common seam pop.
+- Hold the character's **identity, palette, silhouette mass, and footing** constant across the whole loop. A loop that recolors, gains/loses limbs, or resizes the body mid-cycle is a broken character, not a stylistic choice.
+
+> ⚠️ **LOOP QUALITY ALERT — do not ship a loop you have not seen wrap.**
+> A passing geometry/motion validation does **not** prove the loop is seamless. You must watch the exported looping GIF/WebP run at least twice end-to-end and confirm there is no flicker, no pop, no teleport, and no color/identity change at the wrap. The export already uses `loop=0`, so the preview repeats forever — use that to judge the seam, not a static contact sheet.
+
+> ⚠️ **BROKEN-CHARACTER ALERT — protect the pixel character across the cycle.**
+> Reject and regenerate (only the bad frames) when any of these appear anywhere in the loop:
+> - an **empty or near-empty frame** (dropped frame) — the character vanishes for one tick;
+> - a **silhouette mass or bbox spike/collapse** — the body suddenly bloats, shrinks, or garbles;
+> - **identity / palette drift** — colors, outfit, or species shift mid-loop;
+> - a **centroid teleport** — the sprite snaps to a new position between neighbouring frames or on the wrap;
+> - **seam pop / hitch** — the last→first transition jumps further than a normal in-cycle step.
+> Never "fix" these by deleting frames, equal-slicing harder, or duplicating a good frame over a bad one to fake smoothness. Regenerate the specific frame from the canonical base.
+
+Validate loops with the dedicated gate before claiming a cyclic action is done:
+
+```bash
+python "<skill>/scripts/validate_loop_animation.py" \
+  --input path/to/final/idle-sheet-clean.png \
+  --rows <rows> \
+  --columns 6 \
+  --cell <cell> \
+  --row-names <comma-separated-requested-directions> \
+  --json-out path/to/qa/idle-loop.json \
+  --fail-on-warnings
+```
+
+The validator reports per-row `seam_diff` vs `median_adjacent_diff` (seam pop), `alpha_mass`/`bbox_area` stability (broken/garbled/dropped frame), `palette_overlap` (identity drift), and `centroid_jumps` including the wrap (jitter/teleport). Empty frames are hard errors; the rest are warnings — use `--fail-on-warnings` for a strict gate, and treat each warning as a single-frame regeneration target, not a reason to redo the whole row. Tune thresholds (`--seam-factor`, `--mass-spike`, `--palette-min`, `--centroid-jump`) only when a known-good loop is being flagged, and record the override in the run notes.
+
+Run `validate_loop_animation.py` on **every** `idle`, `walk`, `run`, and other cyclic row in addition to `audit_sprite_motion.py`. Non-looping actions (`attack`, `jump`, `death`, `hurt`) do not need the seam gate, but still benefit from the broken-frame checks.
+
 ## Chroma Key And Cleanup
 
 Remove chroma key in two passes:
@@ -468,6 +509,8 @@ Block acceptance when:
 - chroma-key residue remains
 - transparent GIF frames accumulate or smear
 - walk frames are near-duplicates
+- a cyclic row pops, flickers, or teleports at the loop seam (last frame does not flow into the first)
+- a loop contains an empty/dropped frame, a silhouette mass/bbox spike or collapse, or mid-cycle identity/palette drift
 - rows drift to the wrong direction
 - attack effects are detached, oversized, or clipped
 - run manifest does not prove imagegen/reference provenance
