@@ -1,0 +1,14 @@
+book.en.html
+book.ko.html
+docs/
+openspec/
+work/en/
+work/ko/
+work/zh/
+work/shots/
+work/__pycache__/
+work/*.json
+work/*.md
+work/*.py
+work/*.js
+*.log
