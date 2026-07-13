@@ -1,0 +1,822 @@
+<h3>Code management (Git and GitHub workflows)</h3>
+<p>When you use Codex on real projects, you need a basic understanding of Git and GitHub.</p>
+<p>For beginners, start with this:</p>
+<pre><code class="language-text">Git = a local code version-management tool
+GitHub = a platform for putting code online and collaborating
+Codex = an AI programming assistant that helps you read code, edit code, and run commands
+</code></pre>
+<p>In one sentence, it works like this:</p>
+<pre><code class="language-text">Git records code changes.
+GitHub handles remote storage and collaboration.
+Codex helps you complete specific programming tasks.
+</code></pre>
+<h4>Difference between Git and GitHub</h4>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Git</th>
+<th>GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simply put</td>
+<td>A local version management tool</td>
+<td>A code cloud drive + collaboration platform</td>
+</tr>
+<tr>
+<td>Main purpose</td>
+<td>Records what changed in the code each time</td>
+<td>Stores code remotely and supports team collaboration</td>
+</tr>
+<tr>
+<td>Where it is used</td>
+<td>On your computer</td>
+<td>In the browser / cloud</td>
+</tr>
+<tr>
+<td>Core features</td>
+<td>commit, branch, diff, merge</td>
+<td>repository, issue, pull request</td>
+</tr>
+<tr>
+<td>Requires internet?</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Relationship with Codex</td>
+<td>After Codex edits code, use Git to inspect and save it</td>
+<td>Codex Web / Cloud often works together with GitHub</td>
+</tr>
+</tbody>
+</table>
+<h5>Git concepts beginners should know first</h5>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Simply put</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repository</td>
+<td>A code repository</td>
+<td>Stores the whole project</td>
+</tr>
+<tr>
+<td>Commit</td>
+<td>A saved snapshot of code</td>
+<td>Records what changed this time</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>A branch</td>
+<td>Lets you change code without affecting the main line</td>
+</tr>
+<tr>
+<td>Diff</td>
+<td>A comparison of changes</td>
+<td>Shows what was added, deleted, or modified</td>
+</tr>
+<tr>
+<td>Stage</td>
+<td>The staging area</td>
+<td>Prepares which changes will be saved into a commit</td>
+</tr>
+<tr>
+<td>Merge</td>
+<td>Merge</td>
+<td>Combines changes from one branch into another branch</td>
+</tr>
+<tr>
+<td>Conflict</td>
+<td>Conflict</td>
+<td>Both sides changed the same code, so you must choose manually</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>Push</td>
+<td>Uploads local code to GitHub</td>
+</tr>
+<tr>
+<td>Pull</td>
+<td>Pull</td>
+<td>Syncs new code from GitHub to your local machine</td>
+</tr>
+<tr>
+<td>Clone</td>
+<td>Clone</td>
+<td>Downloads a project from GitHub to your local machine</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>GitHub concepts beginners should know first</h5>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Simply put</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repository</td>
+<td>A project repository on GitHub</td>
+<td>Stores code</td>
+</tr>
+<tr>
+<td>Issue</td>
+<td>A problem / requirement record</td>
+<td>Records bugs, requirements, and tasks</td>
+</tr>
+<tr>
+<td>Pull Request / PR</td>
+<td>A request to merge code</td>
+<td>Requests a merge after code changes are complete</td>
+</tr>
+<tr>
+<td>Main Branch</td>
+<td>The main branch</td>
+<td>The stable version of the project</td>
+</tr>
+<tr>
+<td>Feature Branch</td>
+<td>A feature branch</td>
+<td>Used to develop new features</td>
+</tr>
+<tr>
+<td>Review</td>
+<td>Code review</td>
+<td>Checks code before merging</td>
+</tr>
+<tr>
+<td>Actions</td>
+<td>Automated workflows</td>
+<td>Automates testing, building, and deployment</td>
+</tr>
+<tr>
+<td>README</td>
+<td>Project documentation</td>
+<td>Tells others how to use the project</td>
+</tr>
+<tr>
+<td>.gitignore</td>
+<td>A list of ignored files</td>
+<td>Prevents unrelated or sensitive files from being uploaded</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4>Why Git matters more when using Codex</h4>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Why Git is needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex changed a lot of code</td>
+<td>You can see exactly what changed</td>
+</tr>
+<tr>
+<td>Codex made a wrong change</td>
+<td>You can roll back to an earlier version</td>
+</tr>
+<tr>
+<td>Codex deleted something it should have kept</td>
+<td>You can recover it with Git</td>
+</tr>
+<tr>
+<td>You ask Codex for several rounds of changes</td>
+<td>Each commit saves one step</td>
+</tr>
+<tr>
+<td>You want Codex to try risky changes</td>
+<td>Use a branch or worktree to isolate risk</td>
+</tr>
+<tr>
+<td>You want to put the project on GitHub</td>
+<td>You need to push it to a remote repository</td>
+</tr>
+<tr>
+<td>Team collaboration</td>
+<td>You need PRs, reviews, and merge steps</td>
+</tr>
+</tbody>
+</table>
+<p>In one sentence, it works like this:</p>
+<pre><code class="language-text">Without Git, it is hard to roll back when Codex makes a wrong change.
+With Git, Codex can experiment safely, and you can inspect and restore at any time.
+</code></pre>
+<hr>
+<h4>How to use Git in Codex</h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Initialize Git</td>
+<td>Start tracking the project with Git</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Write a proper .gitignore</td>
+<td>Prevent junk files and secrets from being uploaded</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Make an initial commit</td>
+<td>Save a clean baseline</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Create a new branch</td>
+<td>Give Codex a safe place to experiment</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Let Codex edit the code</td>
+<td>Complete the specific task</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Review the diff</td>
+<td>Inspect what Codex changed</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Run the project / build</td>
+<td>Check for errors</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Commit when satisfied</td>
+<td>Save this update</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Push to GitHub</td>
+<td>Upload to the remote repository</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Create a PR</td>
+<td>Check once more before merging</td>
+</tr>
+</tbody>
+</table>
+<h5>Enter this in the Codex chat box: initialize the project as a Git project and exclude unnecessary files</h5>
+<p align="center">
+  <img src="assets/images/image-049-1201459d2a.png" alt="Interface for using Git in Codex" width="860">
+</p>
+
+<hr>
+<h5>Codex can write the .gitignore file directly</h5>
+<p align="center">
+  <img src="assets/images/image-050-c05fba79fd.png" alt="Interface for using Git in Codex" width="860">
+</p>
+
+<h4>Using GitHub in Codex</h4>
+<h5>What you need before using it</h5>
+<table>
+<thead>
+<tr>
+<th>Item to prepare</th>
+<th>Purpose</th>
+<th>Simply put</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GitHub account</td>
+<td>Store remote code</td>
+<td>A code cloud drive account</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>Local version management</td>
+<td>Records code changes</td>
+</tr>
+<tr>
+<td>GitHub repository</td>
+<td>Hold project code</td>
+<td>A remote project folder</td>
+</tr>
+<tr>
+<td>Local project</td>
+<td>The code Codex will edit</td>
+<td>A project folder on your computer</td>
+</tr>
+<tr>
+<td>GitHub login permissions</td>
+<td>Allow push / PR</td>
+<td>Proves this is your repository</td>
+</tr>
+<tr>
+<td>.gitignore</td>
+<td>Prevent unrelated files from being uploaded</td>
+<td>Do not upload junk files or secrets</td>
+</tr>
+</tbody>
+</table>
+<h5>Standard upload workflow</h5>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Create a new repository on GitHub</td>
+<td>Create a remote project space</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Copy the repository URL</td>
+<td>Connect the local project to it later</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Paste the URL into Codex</td>
+<td>Tell Codex which repository to upload to</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Push to GitHub</td>
+<td>Upload the code to the repository</td>
+</tr>
+</tbody>
+</table>
+<h6>Create a GitHub repository</h6>
+<p align="center">
+  <img src="assets/images/image-051-7fe82d6fc2.png" alt="GitHub repository creation page" width="860">
+</p>
+
+<h6>Copy the repository URL</h6>
+<p align="center">
+  <img src="assets/images/image-052-d903af3360.png" alt="Interface for copying the repository URL while creating a repository on GitHub" width="860">
+</p>
+
+<h6>Paste the URL into Codex</h6>
+<p align="center">
+  <img src="assets/images/image-053-1cdc6096db.png" alt="Page for the “Build a homepage” project in the Codex platform" width="860">
+</p>
+
+<h6>Push to GitHub</h6>
+<h4>Rolling back code</h4>
+<h5>Edit the code</h5>
+<p>First, let Codex edit the code.</p>
+<p align="center">
+  <img src="assets/images/image-054-220c086985.png" alt="Interface for the “Build a homepage” project in the Codex platform" width="860">
+</p>
+
+<h5>Commit to Git and save the current version</h5>
+<p align="center">
+  <img src="assets/images/image-055-05e59b1fdc.png" alt="Interface for using Git to manage code in the Codex platform" width="860">
+</p>
+
+<h5>Continue editing the code</h5>
+<p align="center">
+  <img src="assets/images/image-056-ea768961ca.png" alt="Code rollback interface for using Git in Codex" width="860">
+</p>
+
+<h5>Open the IDE to view the code and roll it back</h5>
+<p>First, open the IDE to view the code.</p>
+<p align="center">
+  <img src="assets/images/image-057-f9516b1833.png" alt="Interface for using Git in Codex" width="860">
+</p>
+
+<h5>Copy the version number</h5>
+<p align="center">
+  <img src="assets/images/image-058-72172c5bd0.png" alt="Interface for rolling back code with Codex in VS Code" width="860">
+</p>
+
+<h5>Paste it into Codex and ask it to roll the code back to that version</h5>
+<p align="center">
+  <img src="assets/images/image-059-9cdba830ef.png" alt="Interface for using Git to roll back code in Codex" width="860">
+</p>
+
+<h4>Git Worktree</h4>
+<p>Open another independent working copy for the same Git project.</p>
+<p>Think of it as a scratchpad. When the result is ready, merge it back into the official project.</p>
+<h5>Why Worktree is needed</h5>
+<p>Ordinary Git branches can be switched, but one folder can use only one branch at a time.</p>
+<p>Worktree helps in these cases:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>What Worktree does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You want Codex to try risky code changes</td>
+<td>Give it a separate copy</td>
+</tr>
+<tr>
+<td>You do not want to affect the current project</td>
+<td>Keep the main project unchanged</td>
+</tr>
+<tr>
+<td>You want to work on multiple tasks at the same time</td>
+<td>Use one worktree for each task</td>
+</tr>
+<tr>
+<td>You want to compare multiple solutions</td>
+<td>Keep options A / B / C separate</td>
+</tr>
+<tr>
+<td>A change is broken and you do not want it</td>
+<td>Delete the worktree</td>
+</tr>
+<tr>
+<td>You are making large changes / refactoring</td>
+<td>Reduce the risk of affecting the main project</td>
+</tr>
+</tbody>
+</table>
+<h5>Create a Worktree</h5>
+<p align="center">
+  <img src="assets/images/image-060-1e3fd3edad.png" alt="Operation menu for the “hello - Codex” project in the Codex mobile interface" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-061-1e67e75a88.png" alt="Codex platform interface with the project list on the left, where the “hello - codex_2” project is highlighted with a red box" width="860">
+</p>
+
+<h5>Use a branch for a task</h5>
+<p align="center">
+  <img src="assets/images/image-062-677190e8ff.png" alt="Code editing area for the “hello - codex_2” branch in the Gitpod interface" width="860">
+</p>
+
+<h5>Merge back to the main line</h5>
+<p>After you check the result, merge it back to the main line and delete this branch if you no longer need it.</p>
+<p align="center">
+  <img src="assets/images/image-063-8c0f374e82.png" alt="Interface for using Worktree for code management on GitHub" width="860">
+</p>
+
+<h3>Running in the cloud</h3>
+<p>Codex cloud tasks are useful when you cannot keep your local computer running. If your account and client support mobile access, you can also check some tasks or move them forward while you are away.</p>
+<pre><code class="language-text">Give code tasks to Codex and let it run them by itself in a cloud environment.
+</code></pre>
+<p>For beginners, think of it this way:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Where it runs</th>
+<th>Simply put</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local</td>
+<td>Your local project on your computer</td>
+<td>Codex edits code directly on your computer</td>
+</tr>
+<tr>
+<td>Worktree</td>
+<td>A local copy on your computer</td>
+<td>Codex edits code in a safe copy</td>
+</tr>
+<tr>
+<td>Cloud</td>
+<td>OpenAI cloud environment</td>
+<td>Codex pulls the GitHub repository in the cloud and handles the task</td>
+</tr>
+</tbody>
+</table>
+<h4>What Codex cloud execution is</h4>
+<p>Codex cloud execution works like this:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runtime environment</td>
+<td>Cloud container</td>
+</tr>
+<tr>
+<td>Code source</td>
+<td>GitHub repository</td>
+</tr>
+<tr>
+<td>How it works</td>
+<td>Codex reads, edits, runs, and verifies code in the cloud</td>
+</tr>
+<tr>
+<td>Final result</td>
+<td>Generates changes and a diff, and creates a PR when needed</td>
+</tr>
+<tr>
+<td>Suitable tasks</td>
+<td>Fixing bugs, changing features, writing documentation, code review, handling issues</td>
+</tr>
+<tr>
+<td>Unsuitable tasks</td>
+<td>Local private files, projects not uploaded to GitHub, high-risk production operations</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4>Differences between cloud execution and local execution</h4>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Local execution: Local / Worktree</th>
+<th>Cloud execution: Cloud</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code location</td>
+<td>On your computer</td>
+<td>GitHub repository</td>
+</tr>
+<tr>
+<td>Execution location</td>
+<td>Your computer</td>
+<td>Cloud container</td>
+</tr>
+<tr>
+<td>Uses your computer?</td>
+<td>Yes</td>
+<td>Mostly no</td>
+</tr>
+<tr>
+<td>Requires GitHub?</td>
+<td>Not necessarily</td>
+<td>Usually yes</td>
+</tr>
+<tr>
+<td>Good for background tasks?</td>
+<td>Moderate</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Good for parallel tasks?</td>
+<td>Moderate</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Permission risks</td>
+<td>Mainly local file permissions</td>
+<td>Mainly repository, environment variable, and network permissions</td>
+</tr>
+<tr>
+<td>Suitable for beginners?</td>
+<td>Better for learning first</td>
+<td>Use it after learning GitHub</td>
+</tr>
+</tbody>
+</table>
+<h4>Cloud execution steps</h4>
+<h5>Push code to GitHub</h5>
+<p align="center">
+  <img src="assets/images/image-064-c6cc5dc4d9.png" alt="Interface for pushing code to a repository on GitHub" width="860">
+</p>
+
+<h5>Open Codex Web</h5>
+<p align="center">
+  <img src="assets/images/image-065-7be7472fae.png" alt="Codex operation interface where the “Open Codex web” option in a dropdown menu is highlighted with a red box" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-066-e3aead10bc.png" alt="Codex cloud interface" width="860">
+</p>
+
+<h5>Select the repository to modify</h5>
+<p>After selecting it, let Codex handle the task.</p>
+<p align="center">
+  <img src="assets/images/image-067-e4aba35bff.png" alt="Interface for selecting the repository we want to modify during Codex cloud execution steps" width="860">
+</p>
+
+<h5>After the changes are complete, upload them to the GitHub repository</h5>
+<p align="center">
+  <img src="assets/images/image-068-81826d70e0.png" alt="Interface for uploading completed changes to the GitHub repository during Codex cloud execution steps" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-069-cfd1040092.png" alt="A GitHub repository page showing commit history by user Vink567 in the “Polish landing page design #2” repository" width="860">
+</p>
+
+<h5>Before making local changes, sync the latest code from the GitHub repository</h5>
+<p>If a cloud task has already pushed changes back to GitHub, sync the latest code before continuing local development. This avoids editing an old version and creating conflicts. Whether Codex automatically applies the changes for you, or you manually run <code>git pull</code> / <code>codex apply</code>, depends on the current entry point and task type.</p>
+<p align="center">
+  <img src="assets/images/image-070-548c4bfced.png" alt="Codex cloud execution interface" width="860">
+</p>
+
+<h3>Memory system</h3>
+<p>Let Codex remember information that is useful over time so later work is easier.</p>
+<h4>Project-level AGENTS.md</h4>
+<pre><code class="language-text">A project rulebook written for Codex.
+</code></pre>
+<p>For beginners, think of it this way:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Main reader</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>README.md</td>
+<td>People</td>
+<td>Tells people what this project is, how to install it, and how to use it</td>
+</tr>
+<tr>
+<td>AGENTS.md</td>
+<td>Codex / AI Agent</td>
+<td>Tells AI how it should work in this project</td>
+</tr>
+<tr>
+<td>.gitignore</td>
+<td>Git</td>
+<td>Tells Git which files not to upload</td>
+</tr>
+</tbody>
+</table>
+<h5>Where to put AGENTS.md</h5>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Scope</th>
+<th>Simply put</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AGENTS.md in the project root</td>
+<td>The whole project</td>
+<td>The overall rules for the current project</td>
+</tr>
+<tr>
+<td>AGENTS.md in a subdirectory</td>
+<td>The current subdirectory and related tasks</td>
+<td>Dedicated rules for a specific module</td>
+</tr>
+<tr>
+<td>User-level <code>~/.codex/AGENTS.md</code></td>
+<td>All your projects</td>
+<td>Personal general rules</td>
+</tr>
+<tr>
+<td>Project-level AGENTS.md + user-level AGENTS.md</td>
+<td>Applied together</td>
+<td>Personal habits + current project rules</td>
+</tr>
+</tbody>
+</table>
+<h5>How to write AGENTS.md</h5>
+<p>You can give the project to AI and ask it to summarize the core rules in an AGENTS.md file.</p>
+<h6>Frontend project AGENTS.md template</h6>
+<pre><code class="language-text"># AGENTS.md
+
+## Project description
+
+This is a frontend web project used to build product pages, tool pages, or personal portfolio pages.
+
+## Tech stack
+
+- React
+- Vite
+- Tailwind CSS
+- JavaScript / TypeScript
+
+## Common commands
+
+- Install dependencies: `npm install`
+- Start the project: `npm run dev`
+- Build the project: `npm run build`
+
+## Project structure
+
+- `src/`: main source code
+- `src/components/`: shared components
+- `src/pages/`: page files
+- `src/assets/`: static assets such as images and icons
+- `public/`: public static files
+
+## Code conventions
+
+- Prefer React function components
+- Prefer Tailwind CSS for styling
+- Do not introduce Bootstrap
+- Do not refactor unrelated code on a large scale
+- Keep the file structure clear when editing
+- Interface copy should be natural, concise, and suitable for ordinary users
+
+## UI rules
+
+- Pages should have a clear information hierarchy
+- Buttons, cards, headings, and spacing should be consistent
+- Mobile should be basically usable
+- Do not overuse gradients, shadows, or an AI-template feel
+- Prioritize a real product feel rather than a demo feel
+
+## Prohibited actions
+
+- Do not modify `.env` or `.env.local`
+- Do not output API keys, tokens, or passwords
+- Do not delete existing core features
+- Do not add large dependencies casually
+- Do not directly modify files unrelated to the current task
+
+## After completing a task
+
+After each change is complete, output:
+
+1. Which files were modified
+2. What changed in each file
+3. Why these changes were made
+4. Whether `npm run build` needs to be run
+5. Remind me to check the diff
+</code></pre>
+<h6>What makes a good AGENTS.md</h6>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Specific</td>
+<td>Lists the tech stack, commands, and directories clearly</td>
+</tr>
+<tr>
+<td>Concise</td>
+<td>Stays short</td>
+</tr>
+<tr>
+<td>Actionable</td>
+<td>Codex can tell what to do after reading it</td>
+</tr>
+<tr>
+<td>Has limits</td>
+<td>Names the files that must not be touched</td>
+</tr>
+<tr>
+<td>Has validation</td>
+<td>Names the command to run for checks</td>
+</tr>
+<tr>
+<td>Has completion criteria</td>
+<td>Lets Codex know what to deliver</td>
+</tr>
+<tr>
+<td>Maintainable</td>
+<td>Updated when the project changes</td>
+</tr>
+</tbody>
+</table>
+<h4>Global-level AGENTS.md</h4>
+<h5>Open Codex settings and find personalization</h5>
+<p align="center">
+  <img src="assets/images/image-071-c36b13b759.png" alt="Codex personalization settings interface" width="860">
+</p>
+
+<h5>Enter instructions here. They act as your personal general preferences and affect later Codex sessions</h5>
+<p>When using AI for programming, a common worry is that AI may delete things carelessly. You can use these instructions.</p>
+<p>Do not delete files or directories in batches.</p>
+<p>Do not use:</p>
+<ul>
+<li><code>del /s</code></li>
+<li><code>rd /s</code></li>
+<li><code>rmdir /s</code></li>
+<li><code>Remove-Item -Recurse</code></li>
+<li><code>rm -rf</code></li>
+</ul>
+<p>When you delete files, delete only one file at one explicit path at a time.</p>
+<p>Correct example:</p>
+<pre><code class="language-powershell">Remove-Item &quot;C:\path\to\file.txt&quot;
+</code></pre>
+<p>If files need to be deleted in batches, stop the operation and ask the user to delete them manually.</p>
