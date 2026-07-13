@@ -1,0 +1,299 @@
+<h2>3부: 핵심 기능 자세히 보기</h2>
+<h3>자동화</h3>
+<h4>자동화란 무엇인가</h4>
+<p><strong>Codex 자동화 = Codex가 사용자의 지시를 따르는 것에 더해, 규칙에 따라 정기적으로 프로젝트를 점검하고, 문제를 발견하고, 처리하게 하는 것입니다.</strong></p>
+<p>프로젝트에 “AI 당직 엔지니어”를 둔 셈입니다.</p>
+<blockquote>
+<p>평소에는 방해하지 않고,
+ 문제가 있으면 알려 주며,
+ 간단한 문제는 먼저 고쳐 보고,
+ 마지막에는 사용자가 검토해 결정하게 합니다.</p>
+</blockquote>
+<h4>자동화 사용 방법</h4>
+<p>“주간 Codex 세션 자동 회고”를 예로 들면, Codex는 시간이 갈수록 더 유용해집니다.</p>
+<p>Codex가 최근 일정 기간의 세션 기록, 작업 결과, 자주 발생한 문제를 정기적으로 점검하고, 이를 재사용 가능한 워크플로 프로필로 정리하게 합니다.</p>
+<p>예시 프롬프트는 다음과 같습니다.</p>
+<pre><code class="language-text">최근 1주일의 Codex 세션 기록과 실행 로그를 검색하고 회고하여 “Codex 세션 회고 및 개인 스타일 프로필”을 유지해 주세요.
+
+요구사항:
+1. 사용 가능한 세션 이력 검색 기능을 우선 사용합니다. 로그를 읽어야 한다면 검색, 메타데이터 추출, 관련 조각 추출만 수행하고, 대용량 session 파일 전체를 불러오지 마세요.
+2. 원본 로그, 개인정보, 키, 내부 reasoning, 긴 대화 원문을 재현하지 마세요.
+3. 실행 경험을 요약하세요. 어떤 방식이 문제를 일으켰는지, 최종적으로 올바른 방식은 무엇이었는지, 어떤 상황에서 재사용하기 적합한지 정리합니다.
+4. 내 선호를 요약하세요. UI 디자인 선호, 제품 철학, 인터랙션 원칙, 콘텐츠 시스템 선호, 워크플로 선호를 포함합니다.
+5. 재사용 가능한 규칙 목록을 정리하세요. 회고 결론을 이후 Codex 세션이 따를 수 있는 간결한 규칙으로 다시 작성합니다.
+6. 문서를 업데이트할 때는 중복을 제거하고 유사한 규칙을 병합하며, 날짜 범위나 작업 유형을 출처 단서로 남깁니다.
+7. 장기적으로 재사용하기 적합한 규칙이 있다면, 프로젝트 수준 또는 사용자 수준 AGENTS.md에 추가할지 제안해 주세요.
+</code></pre>
+<p align="center">
+  <img src="assets/images/image-039-1274ebbc52.png" alt="Codex 플랫폼의 자동화 페이지" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-040-9839b03471.png" alt="왼쪽에 기능 탐색 막대가 있고 ‘자동화’ 옵션이 선택된 Codex 데스크톱 인터페이스" width="860">
+</p>
+
+<h3>플러그인</h3>
+<p>Codex에 추가로 설치하는 “기능 패키지”입니다.</p>
+<h4>플러그인이란 무엇인가</h4>
+<p>Codex 자체도 이미 코드를 읽고, 수정하고, 명령을 실행합니다. 플러그인은 여기에 도구 연결, 고정 절차, 특정 전문 기능을 더합니다.</p>
+<p>예를 들면 다음과 같습니다.</p>
+<table>
+<thead>
+<tr>
+<th>플러그인 유형</th>
+<th>Codex가 할 수 있게 되는 일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chrome 플러그인</td>
+<td>웹페이지 열기, 페이지 검사, 브라우저와 함께 디버깅하기</td>
+</tr>
+<tr>
+<td>Gmail 플러그인</td>
+<td>메일 요약, 답장 초안 작성</td>
+</tr>
+<tr>
+<td>Google Drive 플러그인</td>
+<td>문서, 스프레드시트, 슬라이드 읽기</td>
+</tr>
+<tr>
+<td>Slack 플러그인</td>
+<td>채널 메시지 요약, 팀 답장 초안 작성</td>
+</tr>
+<tr>
+<td>Security 플러그인</td>
+<td>코드 보안 문제 검사</td>
+</tr>
+<tr>
+<td>Computer Use 플러그인</td>
+<td>컴퓨터의 애플리케이션 조작</td>
+</tr>
+</tbody>
+</table>
+<h4>플러그인, Skill, MCP의 관계(먼저 이 표를 보세요)</h4>
+<p>플러그인, Skill, MCP는 이 부분에서 가장 헷갈리기 쉬운 세 가지 개념입니다. 서로를 대체하지 않고 각각 다른 계층을 담당합니다. 먼저 아래의 전체 표를 확인하세요. 뒤의 각 절에서는 이 비교를 반복하지 않습니다.</p>
+<table>
+<thead>
+<tr>
+<th>비교</th>
+<th>플러그인 Plugin</th>
+<th>Skill</th>
+<th>MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>한 문장으로</td>
+<td>기능 설치 패키지</td>
+<td>고정된 작업 방법 한 세트</td>
+<td>외부 도구를 연결하는 인터페이스</td>
+</tr>
+<tr>
+<td>해결하는 문제</td>
+<td>기능 설치, 패키징, 배포</td>
+<td>유사한 작업을 “어떻게 할지”</td>
+<td>“어떤 도구나 데이터에 연결할지”</td>
+</tr>
+<tr>
+<td>범위</td>
+<td>가장 큽니다. Skill, MCP 등을 패키징합니다.</td>
+<td>더 작습니다. 단일 작업 유형의 절차입니다.</td>
+<td>단일 외부 도구 또는 데이터 소스와의 연결입니다.</td>
+</tr>
+<tr>
+<td>비유</td>
+<td>도구 상자</td>
+<td>도구 상자 안의 설명서</td>
+<td>도구 상자에 전원을 연결하는 콘센트</td>
+</tr>
+<tr>
+<td>누가 사용하는가</td>
+<td>일반 사용자도 한 번의 클릭으로 설치 가능합니다.</td>
+<td>일반 사용자도 사용할 수 있습니다.</td>
+<td>개발자와 팀 설정에 더 가깝습니다.</td>
+</tr>
+<tr>
+<td>예시</td>
+<td>GitHub 플러그인, Figma 플러그인</td>
+<td>README Skill, 코드 Review Skill</td>
+<td>데이터베이스 MCP, 문서 MCP</td>
+</tr>
+</tbody>
+</table>
+<p>한 문장으로 기억하세요. <strong>플러그인은 Skill과 MCP를 설치하기 쉬운 기능 패키지로 묶고, Skill은 “어떻게 할지”를 담당하며, MCP는 “어떤 도구에 연결할지”를 담당합니다.</strong></p>
+<h4>Codex App에서 플러그인을 설치하는 방법</h4>
+<h5>Codex App 열기</h5>
+<p align="center">
+  <img src="assets/images/image-041-2ec5f4e518.png" alt="Codex App의 플러그인 페이지" width="860">
+</p>
+
+<h5>플러그인 검색 또는 둘러보기</h5>
+<p>필요한 플러그인을 검색해도 됩니다.</p>
+<p align="center">
+  <img src="assets/images/image-042-c93789737a.png" alt="Codex App의 플러그인 페이지" width="860">
+</p>
+
+<h5>플러그인 상세 정보 열기</h5>
+<p align="center">
+  <img src="assets/images/image-043-b5ddc23cd8.png" alt="Codex App에서 GitHub 플러그인의 상세 페이지" width="860">
+</p>
+
+<h5>Add to Codex 또는 추가 버튼 클릭</h5>
+<p align="center">
+  <img src="assets/images/image-044-d06ab5db7e.png" alt="Codex App의 플러그인 상세 페이지 화면" width="860">
+</p>
+
+<h5>설치가 완료되면 새 thread를 열어 사용하기</h5>
+<p align="center">
+  <img src="assets/images/image-045-053d643836.png" alt="Codex App의 “hello - Codex” 프로젝트 페이지" width="860">
+</p>
+
+<h4>Codex CLI에서 플러그인을 설치하는 방법</h4>
+<p>프로젝트 디렉터리로 이동한 뒤, 먼저 Codex를 실행합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>그다음 Codex CLI에서 다음 명령을 입력합니다.</p>
+<pre><code class="language-text">/plugins
+</code></pre>
+<p>플러그인 목록에서는 다음 작업이 가능합니다.</p>
+<table>
+<thead>
+<tr>
+<th>작업</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>플러그인 검색</td>
+<td>필요한 플러그인을 찾습니다.</td>
+</tr>
+<tr>
+<td>상세 정보 보기</td>
+<td>플러그인의 기능과 필요한 권한을 확인합니다.</td>
+</tr>
+<tr>
+<td>Install plugin</td>
+<td>플러그인을 설치합니다.</td>
+</tr>
+<tr>
+<td>Uninstall plugin</td>
+<td>플러그인을 제거합니다.</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>설치된 플러그인을 활성화하거나 비활성화합니다.</td>
+</tr>
+</tbody>
+</table>
+<h4>자주 쓰이는 플러그인과 기능 방향</h4>
+<p>플러그인 디렉터리는 Codex 버전, 워크스페이스, 계정 권한에 따라 달라집니다. 아래 내용은 고정 순위가 아니라 흔한 기능 방향입니다. 실제 설치 항목은 현재 Codex 플러그인 페이지에 표시되는 내용을 기준으로 합니다.</p>
+<table>
+<thead>
+<tr>
+<th>유형</th>
+<th>포함 플러그인</th>
+<th>적합한 작업</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>브라우저와 컴퓨터 조작</td>
+<td>Chrome, Computer Use</td>
+<td>웹 테스트, 자동 클릭, 소프트웨어 조작</td>
+</tr>
+<tr>
+<td>코드와 프로젝트 협업</td>
+<td>GitHub</td>
+<td>리포지토리 관리, 버그 수정, PR 생성</td>
+</tr>
+<tr>
+<td>프런트엔드와 디자인</td>
+<td>Build Web Apps, Figma</td>
+<td>웹페이지 생성, 디자인 시안을 코드로 변환</td>
+</tr>
+<tr>
+<td>업무 문서 산출</td>
+<td>Documents, Presentations, Spreadsheets</td>
+<td>문서, PPT, 스프레드시트 분석</td>
+</tr>
+<tr>
+<td>영상 생성</td>
+<td>HyperFrames, Remotion</td>
+<td>코드 또는 HTML로 영상 생성</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>번호</th>
+<th>플러그인 / 기능</th>
+<th>주요 역할</th>
+<th>쉽게 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Chrome</td>
+<td>Codex가 브라우저를 직접 조작하게 합니다.</td>
+<td>웹페이지 열기, 버튼 클릭, 페이지 효과 확인, 웹 기능 테스트를 수행합니다.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GitHub</td>
+<td>코드 리포지토리 관리와 협업</td>
+<td>Codex가 리포지토리를 읽고, issue를 처리하고, 코드를 수정하고, PR을 만들게 합니다.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Computer Use</td>
+<td>Codex가 컴퓨터를 조작하게 합니다.</td>
+<td>사람처럼 화면을 보고 버튼을 누르며 소프트웨어를 조작합니다. 권한은 비교적 높습니다.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Build Web Apps</td>
+<td>한 문장으로 프런트엔드 웹 애플리케이션 생성</td>
+<td>요구사항을 입력하면 웹페이지, 작은 도구, 랜딩 페이지, Demo를 생성합니다.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Figma</td>
+<td>디자인 시안을 코드로 변환하고 프로토타입을 설계</td>
+<td>Figma 디자인 시안을 프런트엔드 페이지로 바꾸며, UI 개발에 적합합니다.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Documents</td>
+<td>공식 문서 작성을 돕습니다.</td>
+<td>README, 프로젝트 설명, 튜토리얼 문서, 제품 문서를 생성합니다.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Presentations</td>
+<td>고품질 PPT를 생성합니다.</td>
+<td>내용을 바탕으로 보고서, 강의, 제품 소개, 제안형 PPT를 생성합니다.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Spreadsheets</td>
+<td>AI 데이터 분석 및 스프레드시트 처리</td>
+<td>Excel 정리, 데이터 분석, 스프레드시트 결론 생성을 돕습니다.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>HyperFrames</td>
+<td>HTML에서 직접 영상 생성</td>
+<td>웹페이지/HTML 구조로 영상 콘텐츠를 생성합니다.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Remotion</td>
+<td>코드로 고품질 영상 생성</td>
+<td>React/코드 방식으로 더 전문적인 영상을 생성합니다.</td>
+</tr>
+</tbody>
+</table>
