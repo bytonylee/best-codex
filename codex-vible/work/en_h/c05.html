@@ -1,0 +1,1278 @@
+<h4>How the CLI works</h4>
+<p>Codex CLI follows this general flow:</p>
+<pre><code class="language-text">Read the project
+→ Understand the task
+→ Propose a plan
+→ Modify files
+→ Run commands
+→ Wait for approval
+→ Show the diff
+→ Handle failures
+</code></pre>
+<p>Beginners do not need to understand every technical detail at first. Just know this:</p>
+<p>Codex CLI does more than chat. It works in the current project directory: it reads files, edits files, runs commands, and shows the results for review.</p>
+<hr>
+<h6>How Codex reads a project</h6>
+<p>When you run this in a project directory:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>Codex treats the current directory as the workspace.</p>
+<p>For example, if you start it in this directory:</p>
+<pre><code class="language-text">D:\AI-Codex-Projects\hello-codex
+</code></pre>
+<p>Codex works with the contents of that folder.</p>
+<p>It may read:</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project files</td>
+<td>Understand the current code</td>
+</tr>
+<tr>
+<td>Folder structure</td>
+<td>Identify whether the project is a frontend, backend, or script project</td>
+</tr>
+<tr>
+<td>package.json</td>
+<td>Identify startup commands, dependencies, and project type</td>
+</tr>
+<tr>
+<td>README.md</td>
+<td>Understand the project description</td>
+</tr>
+<tr>
+<td>AGENTS.md</td>
+<td>Read the working rules you defined for Codex</td>
+</tr>
+<tr>
+<td>Error logs</td>
+<td>Analyze the cause of problems</td>
+</tr>
+<tr>
+<td>Git status</td>
+<td>Identify which files have changed</td>
+</tr>
+</tbody>
+</table>
+<p>Rule:</p>
+<pre><code class="language-text">Whichever folder you start Codex in,
+Codex treats that folder as the current project by default.
+</code></pre>
+<p>Do not start it carelessly in places like these:</p>
+<pre><code class="language-text">C:\
+Desktop
+Downloads folder
+System directory
+Important data folder
+</code></pre>
+<p>Recommended practice:</p>
+<pre><code class="language-text">cd project-directory
+codex
+</code></pre>
+<hr>
+<h6>How Codex understands a task</h6>
+<p>When you enter a task, Codex first works out what you want it to do.</p>
+<p>For example, if you enter:</p>
+<pre><code class="language-text">Please help me make a simple web page with a black background and Hello Codex displayed in the center.
+</code></pre>
+<p>Codex identifies:</p>
+<table>
+<thead>
+<tr>
+<th>What it understands</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task type</td>
+<td>Create a new web page</td>
+</tr>
+<tr>
+<td>Modification scope</td>
+<td>Current project files</td>
+</tr>
+<tr>
+<td>Files that may be needed</td>
+<td>index.html, style.css</td>
+</tr>
+<tr>
+<td>Whether commands are needed</td>
+<td>Simple HTML may not require this</td>
+</tr>
+<tr>
+<td>Risk level</td>
+<td>Relatively low risk</td>
+</tr>
+</tbody>
+</table>
+<p>If you enter:</p>
+<pre><code class="language-text">Please check why npm run build is failing.
+</code></pre>
+<p>Codex identifies:</p>
+<table>
+<thead>
+<tr>
+<th>What it understands</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task type</td>
+<td>Troubleshoot a build failure</td>
+</tr>
+<tr>
+<td>Commands that may be needed</td>
+<td>npm run build</td>
+</tr>
+<tr>
+<td>Files that may need to be read</td>
+<td>package.json and files related to the error</td>
+</tr>
+<tr>
+<td>Whether code changes are needed</td>
+<td>Possibly</td>
+</tr>
+<tr>
+<td>Whether approval is needed</td>
+<td>Depends on the permission settings</td>
+</tr>
+</tbody>
+</table>
+<p>Beginner tip:</p>
+<p>Clear tasks produce more stable Codex results.</p>
+<p>Recommended wording:</p>
+<pre><code class="language-text">Please help me complete [specific task].
+
+Requirements:
+1.
+2.
+3.
+
+Constraints:
+1. Do not modify unrelated files
+2. Do not delete existing features
+3. After finishing, tell me which files were changed
+</code></pre>
+<hr>
+<h6>How Codex proposes a plan</h6>
+<p>For a complex task, Codex usually analyzes the problem before proposing a plan.</p>
+<p>You can also ask it to plan first:</p>
+<pre><code class="language-text">Please give me a plan first. Do not modify files directly.
+</code></pre>
+<p>Or use:</p>
+<pre><code class="language-text">/plan
+</code></pre>
+<p>A plan usually includes:</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which files it will inspect</td>
+<td>Avoid scanning the project blindly</td>
+</tr>
+<tr>
+<td>How it will modify them</td>
+<td>Show the direction before editing</td>
+</tr>
+<tr>
+<td>Which commands it may run</td>
+<td>Review risks in advance</td>
+</tr>
+<tr>
+<td>Which areas it expects to affect</td>
+<td>Help you decide whether to accept the plan</td>
+</tr>
+</tbody>
+</table>
+<p>For example:</p>
+<pre><code class="language-text">Plan:
+1. First inspect package.json to confirm the startup command
+2. Run npm run build to reproduce the error
+3. Locate related files based on the error
+4. Fix the problem with the smallest possible change
+5. Run build again to verify
+</code></pre>
+<p>Beginner advice:</p>
+<pre><code class="language-text">For simple tasks, you can let it work directly.
+For complex tasks, ask it to /plan first.
+</code></pre>
+<p>Planning first is especially recommended for these tasks:</p>
+<pre><code class="language-text">Fixing complex bugs
+Modifying multiple files
+Refactoring a project
+Adding features
+Build failures
+Dependency upgrades
+</code></pre>
+<hr>
+<h6>How Codex modifies files</h6>
+<p>After Codex decides that files need changes, it edits them in the current project.</p>
+<p>It may:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create a new file</td>
+<td>Create index.html</td>
+</tr>
+<tr>
+<td>Modify a file</td>
+<td>Modify style.css</td>
+</tr>
+<tr>
+<td>Delete code</td>
+<td>Delete unused code</td>
+</tr>
+<tr>
+<td>Rename a file</td>
+<td>Adjust a file name</td>
+</tr>
+<tr>
+<td>Split files</td>
+<td>Split code into multiple modules</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners should note:</p>
+<p>Codex may make the right changes, but it may also change too much.</p>
+<p>Build this habit:</p>
+<pre><code class="language-text">After it finishes making changes, do not trust them immediately.
+Always review the diff.
+</code></pre>
+<p>You can add constraints in advance:</p>
+<pre><code class="language-text">Please modify only index.html and style.css. Do not modify other files.
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">Please fix the problem with the smallest possible change. Do not refactor the entire project.
+</code></pre>
+<p>This can reduce overly broad Codex changes.</p>
+<hr>
+<h6>How Codex runs commands</h6>
+<p>Codex can modify files and run terminal commands.</p>
+<p>Common commands include:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>npm install</td>
+<td>Install dependencies</td>
+</tr>
+<tr>
+<td>npm run dev</td>
+<td>Start the development project</td>
+</tr>
+<tr>
+<td>npm run build</td>
+<td>Check whether the project can build</td>
+</tr>
+<tr>
+<td>npm test</td>
+<td>Run tests</td>
+</tr>
+<tr>
+<td>git status</td>
+<td>View Git status</td>
+</tr>
+<tr>
+<td>git diff</td>
+<td>View code changes</td>
+</tr>
+</tbody>
+</table>
+<p>For example, if you ask it to fix a build failure, it may run:</p>
+<pre><code class="language-text">npm run build
+</code></pre>
+<p>It then continues editing based on the error.</p>
+<p>Beginners do not need to avoid commands, but they should understand them before allowing them.</p>
+<p>If you do not understand, you can ask it to explain first:</p>
+<pre><code class="language-text">Please first explain the commands you plan to run and what each command does. Do not execute them directly.
+</code></pre>
+<p>Be especially cautious when you see these commands:</p>
+<pre><code class="language-text">rm -rf
+sudo
+curl xxx | sh
+git reset --hard
+git clean -fd
+</code></pre>
+<p>These commands may delete files, modify the system, reset code, or execute remote scripts.</p>
+<hr>
+<h6>How Codex waits for user approval</h6>
+<p>Codex CLI includes permission controls. Not every operation runs directly.</p>
+<p>When Codex needs to perform a sensitive operation, it may stop and ask you.</p>
+<p>For example:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Why approval may be needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Install dependencies from the internet</td>
+<td>May download external code</td>
+</tr>
+<tr>
+<td>Access files outside the project</td>
+<td>Goes beyond the current workspace</td>
+</tr>
+<tr>
+<td>Modify external files</td>
+<td>May affect other projects</td>
+</tr>
+<tr>
+<td>Run high-risk commands</td>
+<td>May delete or overwrite content</td>
+</tr>
+<tr>
+<td>Use higher privileges</td>
+<td>Creates greater risk</td>
+</tr>
+</tbody>
+</table>
+<p>Approval meaning:</p>
+<pre><code class="language-text">Approve = you allow Codex to continue with this step.
+Reject = do not perform this step.
+</code></pre>
+<p>If you do not understand what it wants to do, do not click Allow immediately.</p>
+<p>You can ask first:</p>
+<pre><code class="language-text">Please explain what this operation does, its risks, and whether there is a safer alternative.
+</code></pre>
+<p>Recommended permissions for beginners:</p>
+<pre><code class="language-text">Keep approval requests enabled.
+Do not casually enable full access.
+</code></pre>
+<hr>
+<h6>How Codex shows a diff</h6>
+<p>A diff is a comparison of the code before and after Codex changes it.</p>
+<p>You can enter this in Codex CLI:</p>
+<pre><code class="language-text">/diff
+</code></pre>
+<p>Codex shows the current changes.</p>
+<p>Color meaning:</p>
+<pre><code class="language-text">Green = added content
+Red = deleted content
+</code></pre>
+<p>Use the diff to confirm:</p>
+<table>
+<thead>
+<tr>
+<th>Checkpoint</th>
+<th>What to look for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Whether the correct files were changed</td>
+<td>Whether unrelated files were changed</td>
+</tr>
+<tr>
+<td>Whether important code was deleted</td>
+<td>Pay close attention to red deleted sections</td>
+</tr>
+<tr>
+<td>Whether complex dependencies were added</td>
+<td>Whether unnecessary packages were installed</td>
+</tr>
+<tr>
+<td>Whether the change is too large</td>
+<td>A small task should not become a major refactor</td>
+</tr>
+<tr>
+<td>Whether it meets the requirement</td>
+<td>Whether it implements the effect you requested</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended flow:</p>
+<pre><code class="language-text">Codex finishes changes
+→ Enter /diff
+→ Review changes
+→ If unsatisfied, ask it to keep modifying or revert
+→ If satisfied, then git commit
+</code></pre>
+<p>Do not look only at Codex's summary.</p>
+<p>Check:</p>
+<pre><code class="language-text">What it actually changed.
+</code></pre>
+<hr>
+<h6>How Codex handles failures</h6>
+<p>Codex can fail while executing a task.</p>
+<p>Common failures include:</p>
+<table>
+<thead>
+<tr>
+<th>Failure type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command failure</td>
+<td>npm run build reports an error</td>
+</tr>
+<tr>
+<td>Missing dependency</td>
+<td>A package is not installed</td>
+</tr>
+<tr>
+<td>Code error</td>
+<td>Blank page or function error</td>
+</tr>
+<tr>
+<td>Insufficient permissions</td>
+<td>No internet or file access permission</td>
+</tr>
+<tr>
+<td>Misunderstood requirement</td>
+<td>It changed something you did not want</td>
+</tr>
+<tr>
+<td>Modification scope too large</td>
+<td>It changed unrelated files along the way</td>
+</tr>
+</tbody>
+</table>
+<p>Codex usually continues analyzing based on the failure result.</p>
+<p>For example:</p>
+<pre><code class="language-text">Running npm run build fails
+→ Read the error message
+→ Locate related files
+→ Modify code
+→ Run build again
+</code></pre>
+<p>Note:</p>
+<p>Do not let it keep retrying without a reason.</p>
+<p>If it fails repeatedly, pause it and ask it to analyze again:</p>
+<pre><code class="language-text">Stop for a moment. Please summarize the current cause of failure and do not continue modifying files.
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">Please list the methods you have already tried, why they failed, and the smallest-change plan for the next step.
+</code></pre>
+<p>If the changes became messy, you can say:</p>
+<pre><code class="language-text">Please revert the changes you just made and restore the state before the modifications.
+</code></pre>
+<p>Or check it yourself with Git:</p>
+<pre><code class="language-text">git status
+git diff
+</code></pre>
+<p>Then decide whether to keep them.</p>
+<hr>
+<h6>Recommended beginner workflow</h6>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>cd project-directory</td>
+<td>Enter the correct project</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Codex</td>
+<td>Start Codex CLI</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Enter the task</td>
+<td>Tell Codex what to do</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Use /plan first for complex tasks</td>
+<td>Review the approach first</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Wait for Codex to read the project</td>
+<td>Let it understand the context</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Approve sensitive operations</td>
+<td>Understand them before allowing them</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Wait for it to modify files</td>
+<td>Execute the task</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Run commands to check</td>
+<td>Verify the result</td>
+</tr>
+<tr>
+<td>9</td>
+<td>/diff</td>
+<td>View changes</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Continue modifying if unsatisfied</td>
+<td>Iterate and improve</td>
+</tr>
+<tr>
+<td>11</td>
+<td>git commit after you are satisfied</td>
+<td>Save the version</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>One-sentence summary</h6>
+<p>The way Codex CLI works is not "ask one question, get one answer"; it is a complete programming flow:</p>
+<pre><code class="language-text">Read the project
+→ Think through a plan
+→ Modify files
+→ Run commands
+→ Wait for approval
+→ Review the diff
+→ Fix failures
+→ Deliver the result
+</code></pre>
+<h4>Common CLI issues</h4>
+<p>Most common Codex CLI issues come from one of these areas, not from Codex itself being broken:</p>
+<h5>Most common beginner issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Common cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entering <code>codex</code> has no response</td>
+<td>Codex is not installed properly, or the command was not added to environment variables</td>
+<td>Run <code>codex --version</code> first to check</td>
+</tr>
+<tr>
+<td>Shows command not found</td>
+<td>The terminal cannot find the Codex command</td>
+<td>Reinstall Codex CLI or reopen the terminal</td>
+</tr>
+<tr>
+<td>You do not know where to run Codex</td>
+<td>You have not entered the project directory</td>
+<td>cd into the project directory first, then run Codex</td>
+</tr>
+<tr>
+<td>Codex reads the wrong project</td>
+<td>It was started in the wrong folder</td>
+<td>Exit, enter the correct project directory, and restart</td>
+</tr>
+<tr>
+<td>Login fails</td>
+<td>The browser did not open, the network has a problem, or the account is not logged in</td>
+<td>Use <code>codex login</code> to log in again</td>
+</tr>
+<tr>
+<td>API Key login fails</td>
+<td>The key is not set, the key is wrong, or the environment variable has not taken effect</td>
+<td>Set the environment variable again, then log in</td>
+</tr>
+<tr>
+<td>Codex keeps waiting</td>
+<td>It may be waiting for you to approve permissions</td>
+<td>Check whether the terminal has an approval prompt</td>
+</tr>
+<tr>
+<td>Codex cannot access the internet</td>
+<td>Sandbox or permission restrictions</td>
+<td>Manually approve when internet access is needed</td>
+</tr>
+<tr>
+<td>After changes, you do not know what changed</td>
+<td>You did not review the diff</td>
+<td>Enter /diff in Codex</td>
+</tr>
+<tr>
+<td>What if it breaks things?</td>
+<td>You did not save with Git in advance</td>
+<td>Use git diff to check, and revert if needed</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>Installation issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex --version</code> has no output</td>
+<td>Codex was not installed successfully</td>
+<td>Reinstall Codex CLI</td>
+</tr>
+<tr>
+<td><code>codex: command not found</code></td>
+<td>The command was not added to PATH</td>
+<td>Reopen the terminal or reinstall</td>
+</tr>
+<tr>
+<td>npm installation fails</td>
+<td>Node.js / npm is not installed properly</td>
+<td>Run node -v and npm -v first</td>
+</tr>
+<tr>
+<td>Cannot find the command after installing on Windows</td>
+<td>PowerShell has not refreshed environment variables</td>
+<td>Close the terminal and open it again</td>
+</tr>
+<tr>
+<td>The version is outdated</td>
+<td>Codex CLI has not been updated</td>
+<td>Run <code>codex update</code> or reinstall</td>
+</tr>
+</tbody>
+</table>
+<p>Troubleshooting commands:</p>
+<pre><code class="language-text">codex --version
+node -v
+npm -v
+codex doctor
+</code></pre>
+<p>Beginner advice:</p>
+<pre><code class="language-text">After installation, the first thing to do is not to use it directly, but to run codex --version first.
+If you can see a version number, the basic installation is normal.
+</code></pre>
+<hr>
+<h5>Login issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You do not know whether you are logged in</td>
+<td>You have not checked login status</td>
+<td>Run <code>codex login status</code></td>
+</tr>
+<tr>
+<td>The browser does not open automatically</td>
+<td>Default browser issue or remote environment</td>
+<td>Use <code>codex login --device-auth</code></td>
+</tr>
+<tr>
+<td>ChatGPT login fails</td>
+<td>Network, account, or browser cache issue</td>
+<td>Run <code>codex login</code> again</td>
+</tr>
+<tr>
+<td>API Key login fails</td>
+<td>Environment variable is not set properly</td>
+<td>Check OPENAI_API_KEY</td>
+</tr>
+<tr>
+<td>You want to switch accounts</td>
+<td>The old account is saved on this machine</td>
+<td>Run <code>codex logout</code> first, then log in again</td>
+</tr>
+</tbody>
+</table>
+<p>Common commands:</p>
+<pre><code class="language-text">codex login
+codex login status
+codex logout
+codex login --device-auth
+</code></pre>
+<p>Beginner advice:</p>
+<pre><code class="language-text">For local learning, prefer logging in with a ChatGPT account.
+API Key login is more suitable for developers, automation, and server scenarios.
+</code></pre>
+<hr>
+<h5>Project directory issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex cannot see project files</td>
+<td>You have not entered the project directory</td>
+<td>cd into the project directory first</td>
+</tr>
+<tr>
+<td>Codex reads the wrong files</td>
+<td>It was started in the wrong directory</td>
+<td>Exit, then re-enter the correct directory</td>
+</tr>
+<tr>
+<td>Codex scans too many files</td>
+<td>It was started from the desktop, downloads folder, or C drive</td>
+<td>Start it only inside the specific project folder</td>
+</tr>
+<tr>
+<td>You do not know your current location</td>
+<td>You do not know the terminal's current path</td>
+<td>Use cd on Windows and pwd on Mac</td>
+</tr>
+<tr>
+<td>Cannot find a file</td>
+<td>The file is not in the current project</td>
+<td>Use /mention to specify the file, or enter the correct directory</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended command:</p>
+<pre><code class="language-text">cd D:\AI-Codex-Projects\hello-codex
+codex
+</code></pre>
+<p>Not recommended:</p>
+<pre><code class="language-text">Run it in the C drive root directory
+Run it on the desktop
+Run it in the downloads folder
+Run it in an important data folder
+</code></pre>
+<p>In one sentence:</p>
+<pre><code class="language-text">Whichever directory you run codex in, it treats that directory as the project by default.
+</code></pre>
+<hr>
+<h5>Permission and sandbox issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex says approval is required</td>
+<td>It wants to execute a sensitive operation</td>
+<td>Allow it only after you understand it</td>
+</tr>
+<tr>
+<td>Codex cannot access the network</td>
+<td>The sandbox restricts internet access by default</td>
+<td>Manually approve when needed</td>
+</tr>
+<tr>
+<td>Codex cannot read files outside the project</td>
+<td>It is outside the workspace scope</td>
+<td>Do not loosen this restriction casually</td>
+</tr>
+<tr>
+<td>Codex cannot modify some files</td>
+<td>Insufficient permissions or read-only mode</td>
+<td>Check /permissions</td>
+</tr>
+<tr>
+<td>Codex requests full access</td>
+<td>The task requires broader permissions</td>
+<td>Beginners should not approve this casually</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended settings:</p>
+<pre><code class="language-text">sandbox: workspace-write
+approval: on-request
+</code></pre>
+<p>Setting meanings:</p>
+<pre><code class="language-text">workspace-write = allow work inside the current project
+on-request = ask you first for sensitive operations
+</code></pre>
+<p>Do not casually use:</p>
+<pre><code class="language-text">danger-full-access
+--yolo
+--dangerously-bypass-approvals-and-sandbox
+</code></pre>
+<p>When you see a permission request you do not understand, you can ask:</p>
+<pre><code class="language-text">Please explain why this operation needs permission, which files it will affect, and whether there is a safer alternative.
+</code></pre>
+<hr>
+<h5>Command-running issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>npm run dev fails</td>
+<td>Dependencies are not installed or the script does not exist</td>
+<td>Look at package.json first</td>
+</tr>
+<tr>
+<td>npm install fails</td>
+<td>Network, registry, permission, or dependency conflict</td>
+<td>Ask Codex to analyze the error first</td>
+</tr>
+<tr>
+<td>npm run build fails</td>
+<td>The project code itself has errors</td>
+<td>Ask Codex to reproduce it and make the smallest fix</td>
+</tr>
+<tr>
+<td>A command is stuck</td>
+<td>The development server keeps running</td>
+<td>Use /ps to view background tasks</td>
+</tr>
+<tr>
+<td>Want to stop a command</td>
+<td>The command keeps occupying the terminal</td>
+<td>Use /stop to stop the background task</td>
+</tr>
+</tbody>
+</table>
+<p>Common command meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>npm install</td>
+<td>Install project dependencies</td>
+</tr>
+<tr>
+<td>npm run dev</td>
+<td>Start the development environment</td>
+</tr>
+<tr>
+<td>npm run build</td>
+<td>Check whether the project can be built for production</td>
+</tr>
+<tr>
+<td>npm test</td>
+<td>Run tests</td>
+</tr>
+<tr>
+<td>git status</td>
+<td>View the project's change status</td>
+</tr>
+<tr>
+<td>git diff</td>
+<td>View specific changes</td>
+</tr>
+</tbody>
+</table>
+<p>If you do not understand a command, ask Codex to explain first:</p>
+<pre><code class="language-text">Please first explain the commands you plan to run and what each command does. Do not execute them directly.
+</code></pre>
+<hr>
+<h5>Diff and change issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You do not know what Codex changed</td>
+<td>You did not review the diff</td>
+<td>Enter /diff</td>
+</tr>
+<tr>
+<td>The diff contains too many changes</td>
+<td>Codex's modification scope is too large</td>
+<td>Ask it for the smallest possible change</td>
+</tr>
+<tr>
+<td>Unrelated files were changed</td>
+<td>The task constraints were not clear</td>
+<td>Ask it to revert unrelated changes</td>
+</tr>
+<tr>
+<td>Important code was deleted</td>
+<td>You did not check the red deleted sections</td>
+<td>Restore with Git or ask it to revert</td>
+</tr>
+<tr>
+<td>/diff shows nothing</td>
+<td>There are no file changes, or the changes have already been saved/handled</td>
+<td>Check again with git status</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended review flow:</p>
+<pre><code class="language-text">Codex completes the task
+→ Enter /diff
+→ See which files changed
+→ Check the red deleted sections
+→ Check whether unrelated files were changed
+→ If satisfied, then git commit
+</code></pre>
+<p>You can write the prompt like this:</p>
+<pre><code class="language-text">Please modify only files related to the current task.
+Do not refactor the entire project.
+After finishing, list which files were modified.
+</code></pre>
+<hr>
+<h5>Git-related issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Do not know how to recover after breaking things</td>
+<td>You did not save a version with Git</td>
+<td>Use git init and commit first next time</td>
+</tr>
+<tr>
+<td>git status shows many files</td>
+<td>Codex or you changed many things</td>
+<td>Use git diff to inspect them one by one</td>
+</tr>
+<tr>
+<td>Do not know which changes to keep</td>
+<td>You did not review the diff</td>
+<td>Do not commit yet</td>
+</tr>
+<tr>
+<td>Want to roll back after commit</td>
+<td>You are not familiar with Git basics</td>
+<td>Ask Codex to explain rollback options first</td>
+</tr>
+<tr>
+<td>Codex changed files it should not have changed</td>
+<td>The task scope was too broad</td>
+<td>Ask it to revert unrelated files</td>
+</tr>
+</tbody>
+</table>
+<p>For a beginner's first project, run this first:</p>
+<pre><code class="language-text">git init
+git add .
+git commit -m &quot;initial commit&quot;
+</code></pre>
+<p>After each Codex change, run:</p>
+<pre><code class="language-text">git status
+git diff
+</code></pre>
+<p>Git command meanings:</p>
+<pre><code class="language-text">git status = see which files changed
+git diff = see exactly what changed
+commit = save a version
+</code></pre>
+<hr>
+<h5>Model and quota issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A certain model is not visible</td>
+<td>Plan, region, or permissions differ</td>
+<td>Use one of the currently available models</td>
+</tr>
+<tr>
+<td>Tasks become slow</td>
+<td>Strong model, high reasoning, or large project</td>
+<td>Lower reasoning or narrow the task scope</td>
+</tr>
+<tr>
+<td>Quota is consumed too quickly</td>
+<td>High reasoning, many rounds of edits, or reading a large project</td>
+<td>Use low/medium reasoning for small tasks</td>
+</tr>
+<tr>
+<td>A limit message appears</td>
+<td>Your current plan's quota has been used up</td>
+<td>Wait for quota to recover or buy extra quota</td>
+</tr>
+<tr>
+<td>API Key incurs costs</td>
+<td>API login is billed by API usage</td>
+<td>Beginners should prefer ChatGPT login</td>
+</tr>
+</tbody>
+</table>
+<p>Quota-saving advice:</p>
+<pre><code class="language-text">Do not use the highest reasoning for small tasks.
+Do not ask Codex to scan the entire project at once.
+Do not repeatedly ask it to refactor broadly.
+Specify files when you can.
+For complex tasks, use /plan first, then modify.
+</code></pre>
+<p>Recommended configuration:</p>
+<pre><code class="language-text">Normal tasks: default model + medium reasoning
+Complex bugs: high reasoning
+Small changes: low reasoning
+</code></pre>
+<hr>
+<h5>Codex gets stuck or the result is wrong</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex stays idle for a long time</td>
+<td>It is waiting for permissions, a command is stuck, or the task is too large</td>
+<td>Check whether there is an approval prompt or /ps</td>
+</tr>
+<tr>
+<td>Codex repeatedly fails to fix it</td>
+<td>It has not found the root cause</td>
+<td>Ask it to summarize the failure cause first</td>
+</tr>
+<tr>
+<td>Codex makes things messier with each change</td>
+<td>The modification scope was not limited</td>
+<td>Pause it and request the smallest possible change</td>
+</tr>
+<tr>
+<td>Codex misunderstands the requirement</td>
+<td>The task description is too vague</td>
+<td>Rewrite the goal, requirements, and constraints clearly</td>
+</tr>
+<tr>
+<td>The output is too long and messy</td>
+<td>The conversation context is too long</td>
+<td>Use /compact</td>
+</tr>
+</tbody>
+</table>
+<p>You can stop it like this:</p>
+<pre><code class="language-text">Stop for a moment. Do not continue modifying files.
+Please summarize what has been done so far, where it failed, and what the smallest next change should be.
+</code></pre>
+<p>If it went in the wrong direction, you can say:</p>
+<pre><code class="language-text">This direction is wrong. Please revert the unrelated changes you just made and keep only the changes related to the homepage style.
+</code></pre>
+<hr>
+<h5>Common Windows issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PowerShell does not recognize Codex</td>
+<td>Environment variables have not refreshed</td>
+<td>Close the terminal and open it again</td>
+</tr>
+<tr>
+<td>Paths with spaces cause errors</td>
+<td>The path is not quoted</td>
+<td>Use an English path or add quotes</td>
+</tr>
+<tr>
+<td>API Key commands do not apply</td>
+<td>Windows and Mac commands are different</td>
+<td>Use the PowerShell syntax</td>
+</tr>
+<tr>
+<td>Permission pop-ups are frequent</td>
+<td>Windows security restrictions or sandbox approval</td>
+<td>Keep approval requests enabled</td>
+</tr>
+<tr>
+<td>Non-ASCII paths behave unexpectedly</td>
+<td>Some tools do not handle localized paths well</td>
+<td>Use simple ASCII project paths when possible</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended Windows project path:</p>
+<pre><code class="language-text">D:\AI-Codex-Projects\hello-codex
+</code></pre>
+<p>Not recommended:</p>
+<pre><code class="language-text">C:\Users\YourName\Desktop\NewFolder
+</code></pre>
+<p>Reason:</p>
+<pre><code class="language-text">Localized paths, spaces, and desktop directories are sometimes more likely to cause problems.
+</code></pre>
+<hr>
+<h5>Common macOS issues</h5>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shows insufficient permissions</td>
+<td>Folder permission restrictions</td>
+<td>Switch to a project folder under the user directory</td>
+</tr>
+<tr>
+<td>Command not found</td>
+<td>PATH has not taken effect</td>
+<td>Reopen Terminal</td>
+</tr>
+<tr>
+<td>npm permission issue</td>
+<td>Global installation permission issue</td>
+<td>Prefer the officially recommended installation method</td>
+</tr>
+<tr>
+<td>Browser login does not return to the terminal</td>
+<td>Browser blocking or network issue</td>
+<td>Use device auth</td>
+</tr>
+<tr>
+<td>Not familiar with paths in the terminal</td>
+<td>You do not know the current directory</td>
+<td>Use pwd and ls</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended project path:</p>
+<pre><code class="language-text">~/AI-Codex-Projects/hello-codex
+</code></pre>
+<p>Common check commands:</p>
+<pre><code class="language-text">pwd
+ls
+codex --version
+codex doctor
+</code></pre>
+<hr>
+<h5>Run <code>codex doctor</code> to troubleshoot</h5>
+<p>If you do not know where the problem is, start with this:</p>
+<pre><code class="language-text">codex doctor
+</code></pre>
+<p>Use it to troubleshoot:</p>
+<pre><code class="language-text">Installation issues
+Login issues
+Configuration issues
+Terminal environment issues
+Permission issues
+System environment issues
+</code></pre>
+<p>Command meaning:</p>
+<pre><code class="language-text">codex doctor = Codex's health check command.
+</code></pre>
+<p>When you hit a complex problem, you can send the doctor result to Codex and ask it to analyze it:</p>
+<pre><code class="language-text">Based on the output of codex doctor, please help me identify what is wrong with the CLI.
+</code></pre>
+<hr>
+<h5>General troubleshooting flow for beginners</h5>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>codex --version</code></td>
+<td>Check whether installation succeeded</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>codex login status</code></td>
+<td>Check whether you are logged in</td>
+</tr>
+<tr>
+<td>3</td>
+<td>pwd / cd</td>
+<td>Confirm the current project directory</td>
+</tr>
+<tr>
+<td>4</td>
+<td>git status</td>
+<td>View project status</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>codex doctor</code></td>
+<td>Check environment issues</td>
+</tr>
+<tr>
+<td>6</td>
+<td>/permissions</td>
+<td>Check permission settings</td>
+</tr>
+<tr>
+<td>7</td>
+<td>/diff</td>
+<td>View file changes</td>
+</tr>
+<tr>
+<td>8</td>
+<td>/ps</td>
+<td>View background tasks</td>
+</tr>
+<tr>
+<td>9</td>
+<td>/stop</td>
+<td>Stop a stuck command</td>
+</tr>
+<tr>
+<td>10</td>
+<td>/compact</td>
+<td>Compress context when the conversation is too long</td>
+</tr>
+</tbody>
+</table>
+<hr>

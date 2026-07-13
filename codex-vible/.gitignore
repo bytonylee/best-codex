@@ -1,0 +1,38 @@
+node_modules/
+dist/
+.vite/
+.vercel/
+
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+.npmrc
+.netrc
+*.key
+*.pem
+*.p12
+*.pfx
+auth.json
+*auth-state*.json
+
+# Generated reports and browser traces
+coverage/
+playwright-report/
+test-results/
+*.har
+*.webm
+*.log
+.DS_Store
+
+# Legacy and local working artifacts
+book.en.html
+book.ko.html
+assets/css/
+docs/superpowers/
+openspec/
+work/*
+!work/en_h/
+!work/en_h/**
+!work/ko_h/
+!work/ko_h/**

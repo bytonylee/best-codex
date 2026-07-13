@@ -1,0 +1,566 @@
+<h3>MCP</h3>
+<p><strong>고급 AI 프로그래밍을 할 때만 알면 됩니다. 일반 사용자는 바로 건너뛰어도 됩니다.</strong></p>
+<p>Codex가 외부 도구에 연결할 때 쓰는 인터페이스입니다.</p>
+<p>Codex 자체는 코드를 읽고 수정하며 명령을 실행합니다.</p>
+<p>MCP는 Codex를 더 많은 외부 도구, 데이터 소스 또는 서비스에 연결합니다.</p>
+<h4>MCP란 무엇인가요?</h4>
+<table>
+<thead>
+<tr>
+<th>개념</th>
+<th>쉽게 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP</td>
+<td>외부 도구를 연결하는 표준 인터페이스</td>
+</tr>
+<tr>
+<td>MCP Server</td>
+<td>도구 기능을 제공하는 서비스</td>
+</tr>
+<tr>
+<td>Tool</td>
+<td>Codex가 호출할 수 있는 구체적인 기능</td>
+</tr>
+<tr>
+<td>Config</td>
+<td>MCP 설정 파일</td>
+</tr>
+<tr>
+<td>STDIO Server</td>
+<td>로컬 명령으로 시작되는 MCP 서비스</td>
+</tr>
+<tr>
+<td>HTTP Server</td>
+<td>URL을 통해 연결되는 MCP 서비스</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>외부 도구가 Codex에 제공하는 컨텍스트</td>
+</tr>
+</tbody>
+</table>
+<p>간단한 비유로 보면 다음과 같습니다.</p>
+<pre><code class="language-text">Codex = 일을 할 줄 아는 사람
+MCP = 그 사람에게 여러 도구를 연결해 주는 콘센트
+MCP Server = 콘센트에 꽂힌 도구 상자
+Tool = 도구 상자 안의 구체적인 도구
+</code></pre>
+<p>예를 들어 문서 MCP를 쓰면 Codex가 문서를 읽습니다.</p>
+<p>데이터베이스 MCP를 쓰면 Codex가 데이터베이스를 쿼리합니다.</p>
+<p>디자인 도구 MCP를 쓰면 Codex가 디자인 시안 정보를 가져옵니다.</p>
+<hr>
+<h4>MCP는 어디에 적합한가요?</h4>
+<table>
+<thead>
+<tr>
+<th>시나리오</th>
+<th>MCP 사용 방법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>개발 문서 조회</td>
+<td>문서 MCP를 연결해 Codex가 새 버전 API를 조회합니다</td>
+</tr>
+<tr>
+<td>데이터베이스 연결</td>
+<td>Codex가 데이터베이스 구조나 테스트 데이터를 쿼리합니다</td>
+</tr>
+<tr>
+<td>디자인 도구 연결</td>
+<td>Codex가 디자인 시안과 컴포넌트 정보를 읽습니다</td>
+</tr>
+<tr>
+<td>프로젝트 관리 도구 연결</td>
+<td>issue, 작업, 요구사항 설명을 읽습니다</td>
+</tr>
+<tr>
+<td>내부 시스템 연결</td>
+<td>회사 내부 도구나 데이터 소스를 호출합니다</td>
+</tr>
+<tr>
+<td>지식 베이스 연결</td>
+<td>Codex가 팀 문서를 기준으로 작업합니다</td>
+</tr>
+<tr>
+<td>자동화 도구 연결</td>
+<td>Codex가 추가 스크립트나 서비스를 호출합니다</td>
+</tr>
+</tbody>
+</table>
+<p>초보자는 이렇게 판단하면 됩니다.</p>
+<pre><code class="language-text">일반적인 코드 작성에는 MCP가 꼭 필요하지는 않습니다.
+Codex가 외부 도구나 외부 데이터에 접근해야 할 때만 MCP를 고려하면 됩니다.
+</code></pre>
+<h4>MCP Server란 무엇인가요?</h4>
+<p>MCP Server는 이렇게 이해하면 됩니다.</p>
+<p>Codex에 도구 기능을 제공하는 서비스입니다.</p>
+<p>예시는 다음과 같습니다.</p>
+<table>
+<thead>
+<tr>
+<th>MCP Server 유형</th>
+<th>제공할 수 있는 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>문서 MCP</td>
+<td>개발 문서와 API 문서 조회</td>
+</tr>
+<tr>
+<td>데이터베이스 MCP</td>
+<td>테이블 구조 조회, 테스트 데이터 읽기</td>
+</tr>
+<tr>
+<td>GitHub MCP</td>
+<td>issue, PR, 리포지토리 정보 읽기</td>
+</tr>
+<tr>
+<td>Figma MCP</td>
+<td>디자인 시안 정보 읽기</td>
+</tr>
+<tr>
+<td>Notion MCP</td>
+<td>지식 베이스 페이지 읽기</td>
+</tr>
+<tr>
+<td>브라우저 MCP</td>
+<td>웹페이지 방문 및 페이지 정보 읽기</td>
+</tr>
+<tr>
+<td>내부 도구 MCP</td>
+<td>회사 자체 시스템에 연결</td>
+</tr>
+</tbody>
+</table>
+<p>쉽게 말하면 다음과 같습니다.</p>
+<pre><code class="language-text">MCP Server = Codex가 호출할 수 있는 외부 도구 서비스입니다.
+</code></pre>
+<h4>Codex App에서 MCP를 사용하는 방법</h4>
+<h5>Codex App에서 MCP를 사용하는 기본 흐름</h5>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>작업</th>
+<th>쉽게 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Codex App 열기</td>
+<td>데스크톱 버전 Codex를 엽니다</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Settings로 이동</td>
+<td>설정을 엽니다</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MCP servers 찾기</td>
+<td>MCP 도구 관리 영역을 엽니다</td>
+</tr>
+<tr>
+<td>4</td>
+<td>recommended servers 확인</td>
+<td>공식 또는 시스템 추천 MCP를 확인합니다</td>
+</tr>
+<tr>
+<td>5</td>
+<td>custom server 추가</td>
+<td>직접 만든 MCP server를 추가합니다</td>
+</tr>
+<tr>
+<td>6</td>
+<td>안내에 따라 권한 부여 완료</td>
+<td>일부 MCP는 외부 계정 로그인이 필요합니다</td>
+</tr>
+<tr>
+<td>7</td>
+<td>프로젝트 thread로 돌아가기</td>
+<td>작업에서 MCP를 사용합니다</td>
+</tr>
+<tr>
+<td>8</td>
+<td>결과와 권한 요청 확인</td>
+<td>Codex가 호출한 도구를 확인합니다</td>
+</tr>
+</tbody>
+</table>
+<p align="center">
+  <img src="assets/images/image-047-afc2022a08.png" alt="Codex App의 MCP Server 설정 화면" width="860">
+</p>
+
+<h5>MCP를 추가할 때 보통 입력해야 하는 것</h5>
+<table>
+<thead>
+<tr>
+<th>설정 항목</th>
+<th>역할</th>
+<th>쉽게 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>MCP 이름</td>
+<td>이 도구에 붙일 이름입니다</td>
+</tr>
+<tr>
+<td>Command / URL</td>
+<td>시작 명령 또는 서비스 주소</td>
+<td>Codex가 이 값으로 도구에 연결합니다</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>MCP 유형</td>
+<td>로컬 명령형 또는 원격 HTTP형</td>
+</tr>
+<tr>
+<td>Env</td>
+<td>환경 변수</td>
+<td>token과 설정 항목을 넣습니다</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>권한 부여 방식</td>
+<td>외부 계정 로그인이 필요한지 여부입니다</td>
+</tr>
+<tr>
+<td>Enabled tools</td>
+<td>활성화할 도구</td>
+<td>필요한 기능만 켭니다</td>
+</tr>
+</tbody>
+</table>
+<p align="center">
+  <img src="assets/images/image-048-d6664c35fe.png" alt="Codex App에서 MCP를 추가할 때의 설정 화면" width="860">
+</p>
+
+<h5>MCP를 추가한 뒤 사용하는 방법</h5>
+<p>추가한 뒤 Codex App의 thread로 돌아가 작업을 직접 설명합니다.</p>
+<table>
+<thead>
+<tr>
+<th>사용법</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>요구사항을 직접 설명</td>
+<td>Next.js App Router의 최신 사용법을 조회해 주세요</td>
+</tr>
+<tr>
+<td>MCP 사용을 명확히 요청</td>
+<td>사용 가능한 MCP 도구로 이 라이브러리의 문서를 조회해 주세요</td>
+</tr>
+<tr>
+<td>특정 MCP 지정</td>
+<td>context7로 Next.js의 최신 문서를 조회해 주세요</td>
+</tr>
+<tr>
+<td>먼저 사용 가능한 도구 확인</td>
+<td>현재 사용할 수 있는 MCP 도구에는 무엇이 있나요?</td>
+</tr>
+</tbody>
+</table>
+<p>예시 프롬프트:</p>
+<pre><code class="language-text">사용 가능한 MCP 문서 도구를 사용해
+Next.js App Router의 최신 사용법을 조회한 뒤,
+현재 프로젝트를 어떻게 수정해야 하는지 알려 주세요.
+</code></pre>
+<p>또는:</p>
+<pre><code class="language-text">Figma MCP로 이 디자인 시안을 읽고,
+페이지 구조를 분석한 다음 프런트엔드 구현 계획을 생성해 주세요.
+</code></pre>
+<h4>Codex CLI에서 MCP를 사용하는 방법</h4>
+<p>Codex CLI에서 MCP를 사용한다는 뜻은 다음과 같습니다.</p>
+<p>터미널 버전 Codex에 외부 도구를 연결합니다.</p>
+<p>예시는 다음과 같습니다.</p>
+<pre><code class="language-text">문서 MCP: Codex가 개발 문서를 조회하게 합니다
+GitHub MCP: Codex가 issue, PR, 리포지토리 정보를 읽게 합니다
+Figma MCP: Codex가 디자인 시안을 읽게 합니다
+데이터베이스 MCP: Codex가 데이터베이스 구조를 쿼리하게 합니다
+</code></pre>
+<p>초보자는 이렇게 이해하면 됩니다.</p>
+<pre><code class="language-text">Codex CLI = 터미널 안의 AI 프로그래밍 도우미
+MCP = Codex CLI에 외부 도구를 연결하는 인터페이스
+</code></pre>
+<hr>
+<h5>CLI에서 MCP를 사용하는 기본 흐름</h5>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>작업</th>
+<th>쉽게 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>터미널 열기</td>
+<td>PowerShell / Terminal</td>
+</tr>
+<tr>
+<td>2</td>
+<td>프로젝트 디렉터리로 이동</td>
+<td>Codex가 현재 프로젝트를 인식하게 합니다</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MCP server 추가</td>
+<td>Codex에 외부 도구를 연결합니다</td>
+</tr>
+<tr>
+<td>4</td>
+<td>MCP가 추가됐는지 확인</td>
+<td>도구를 사용할 수 있는지 확인합니다</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Codex CLI 시작</td>
+<td>Codex 대화 화면을 엽니다</td>
+</tr>
+<tr>
+<td>6</td>
+<td>/mcp로 도구 확인</td>
+<td>현재 사용할 수 있는 MCP를 확인합니다</td>
+</tr>
+<tr>
+<td>7</td>
+<td>작업에서 MCP 호출</td>
+<td>Codex가 외부 도구를 사용합니다</td>
+</tr>
+<tr>
+<td>8</td>
+<td>결과와 권한 안내 확인</td>
+<td>안전한지 확인합니다</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>자주 쓰는 MCP 터미널 명령</h5>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex mcp --help</code></td>
+<td>MCP 명령 도움말 보기</td>
+<td>사용법을 모를 때 먼저 확인합니다</td>
+</tr>
+<tr>
+<td><code>codex mcp list</code></td>
+<td>설정된 MCP server 보기</td>
+<td>현재 연결된 외부 도구를 확인합니다</td>
+</tr>
+<tr>
+<td><code>codex mcp add</code></td>
+<td>MCP server 추가</td>
+<td>Codex에 외부 도구를 추가합니다</td>
+</tr>
+<tr>
+<td><code>codex mcp remove</code></td>
+<td>MCP server 삭제</td>
+<td>더 이상 쓰지 않으면 제거합니다</td>
+</tr>
+<tr>
+<td><code>codex mcp get</code></td>
+<td>특정 MCP server 상세 정보 보기</td>
+<td>구체적인 설정을 확인합니다</td>
+</tr>
+<tr>
+<td><code>codex mcp login</code></td>
+<td>권한 부여가 필요한 MCP에 로그인</td>
+<td>일부 원격 MCP에 권한을 부여합니다</td>
+</tr>
+<tr>
+<td><code>codex mcp logout</code></td>
+<td>특정 MCP 권한에서 로그아웃</td>
+<td>연결 상태를 해제합니다</td>
+</tr>
+<tr>
+<td>/mcp</td>
+<td>Codex 세션에서 MCP 보기</td>
+<td>현재 세션에서 호출할 수 있는 도구를 확인합니다</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>MCP를 추가하는 기본 형식</h5>
+<p>MCP를 추가할 때 보통 다음 명령을 사용합니다.</p>
+<pre><code class="language-text">codex mcp add 이름 -- 시작-명령
+</code></pre>
+<p>쉽게 말하면 다음과 같습니다.</p>
+<pre><code class="language-text">이름 = 이 MCP에 붙이는 이름
+시작명령 = 이 MCP를 시작하는 방법
+</code></pre>
+<p>예시:</p>
+<pre><code class="language-text">codex mcp add context7 -- npx -y @upstash/context7-mcp
+</code></pre>
+<p>이 명령은 다음 뜻입니다.</p>
+<pre><code class="language-text">Codex에 context7이라는 MCP를 추가합니다.
+npx를 통해 @upstash/context7-mcp 도구를 시작합니다.
+</code></pre>
+<hr>
+<h5>이미 추가한 MCP 확인하기</h5>
+<p>추가한 뒤에는 다음을 실행합니다.</p>
+<pre><code class="language-text">codex mcp list
+</code></pre>
+<p>역할:</p>
+<pre><code class="language-text">현재 Codex CLI에 어떤 MCP server가 설정되어 있는지 봅니다.
+</code></pre>
+<p>방금 추가한 이름이 보이면 설정이 저장된 것입니다.</p>
+<hr>
+<h5>Codex 시작 후 MCP 확인하기</h5>
+<p>먼저 프로젝트 디렉터리로 이동합니다.</p>
+<pre><code class="language-text">cd 프로젝트-디렉터리
+</code></pre>
+<p>그다음 Codex를 시작합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>Codex CLI가 시작되면 다음을 입력합니다.</p>
+<pre><code class="language-text">/mcp
+</code></pre>
+<p>역할:</p>
+<pre><code class="language-text">현재 세션에서 사용할 수 있는 MCP 도구를 봅니다.
+</code></pre>
+<p>MCP가 표시되지 않으면 다음 이유를 확인합니다.</p>
+<table>
+<thead>
+<tr>
+<th>문제</th>
+<th>가능한 원인</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>추가되지 않음</td>
+<td><code>codex mcp add</code> 명령이 실패했습니다</td>
+</tr>
+<tr>
+<td>MCP 시작 실패</td>
+<td>의존성이 설치되지 않았거나 명령이 잘못되었습니다</td>
+</tr>
+<tr>
+<td>이름을 잘못 씀</td>
+<td>호출할 때 server 이름을 잘못 입력했습니다</td>
+</tr>
+<tr>
+<td>권한 부여 필요</td>
+<td>아직 외부 서비스에 로그인하지 않았습니다</td>
+</tr>
+<tr>
+<td>설정이 새로고침되지 않음</td>
+<td>Codex CLI를 다시 시작해야 합니다</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>작업에서 MCP 호출하기</h5>
+<p>MCP를 설정한 뒤에는 복잡한 명령을 기억할 필요가 없습니다.</p>
+<p>Codex CLI에서 이렇게 말하면 됩니다.</p>
+<pre><code class="language-text">사용 가능한 MCP 도구로 Next.js App Router의 최신 문서를 조회해 주세요.
+</code></pre>
+<p>특정 MCP를 지정할 수도 있습니다.</p>
+<pre><code class="language-text">context7로 Next.js App Router의 최신 사용법을 조회한 뒤,
+현재 프로젝트를 어떻게 수정해야 하는지 알려 주세요.
+</code></pre>
+<p>Figma MCP라면 이렇게 말할 수 있습니다.</p>
+<pre><code class="language-text">Figma MCP로 이 디자인 시안을 읽고,
+페이지 구조를 분석한 다음 프런트엔드 구현 계획을 생성해 주세요.
+</code></pre>
+<p>GitHub MCP라면 이렇게 말할 수 있습니다.</p>
+<pre><code class="language-text">GitHub MCP로 이 리포지토리의 최근 open issue를 확인하고,
+우선순위가 가장 높은 문제 3개를 정리해 주세요.
+</code></pre>
+<hr>
+<h5>MCP 설정 파일은 어디에 있나요?</h5>
+<p>Codex의 MCP 설정은 설정 파일에 저장됩니다.</p>
+<p>일반적인 위치는 다음입니다.</p>
+<pre><code class="language-text">~/.codex/config.toml
+</code></pre>
+<p>쉽게 말하면 다음과 같습니다.</p>
+<pre><code class="language-text">config.toml = Codex의 설정 파일
+</code></pre>
+<p>그 안에는 다음과 비슷한 설정이 들어갈 수 있습니다.</p>
+<pre><code class="language-text">[mcp_servers.context7]
+command = &quot;npx&quot;
+args = [&quot;-y&quot;, &quot;@upstash/context7-mcp&quot;]
+</code></pre>
+<p>뜻은 다음과 같습니다.</p>
+<pre><code class="language-text">context7이라는 MCP server가 있습니다.
+시작 명령은 npx -y @upstash/context7-mcp입니다.
+</code></pre>
+<p>설정 파일에 익숙하지 않다면 처음에는 직접 수정하지 마세요.</p>
+<p>처음에는 다음 명령을 사용하세요.</p>
+<pre><code class="language-text">codex mcp add
+codex mcp list
+codex mcp remove
+</code></pre>
+<hr>
+<h5>원격 MCP 추가하기</h5>
+<p>일부 MCP는 로컬 명령으로 시작하지 않고 URL로 연결됩니다.</p>
+<p>이런 유형은 보통 원격 MCP 또는 HTTP MCP라고 부릅니다.</p>
+<p>다음 항목이 필요할 수 있습니다.</p>
+<table>
+<thead>
+<tr>
+<th>설정 항목</th>
+<th>쉽게 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL</td>
+<td>원격 MCP 서비스 주소</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>로그인이 필요한지 여부</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>접근 자격 증명</td>
+</tr>
+<tr>
+<td>OAuth</td>
+<td>브라우저 권한 부여 로그인</td>
+</tr>
+</tbody>
+</table>
+<p>로그인이 필요하다면 다음을 사용합니다.</p>
+<pre><code class="language-text">codex mcp login MCP-이름
+</code></pre>
+<p>더 이상 쓰지 않을 때는 다음을 사용합니다.</p>
+<pre><code class="language-text">codex mcp logout MCP-이름
+</code></pre>
+<p>초보자에게 권장하는 방식:</p>
+<pre><code class="language-text">먼저 복잡한 권한 부여가 필요 없는 문서 계열 MCP를 사용하세요.
+나중에 로그인이 필요한 원격 MCP를 시도하세요.
+</code></pre>
+<hr>
+<h5>사용하지 않는 MCP 삭제하기</h5>
+<p>더 이상 쓰지 않는 MCP는 삭제할 수 있습니다.</p>
+<pre><code class="language-text">codex mcp remove 이름
+</code></pre>
+<p>예시는 다음과 같습니다.</p>
+<pre><code class="language-text">codex mcp remove context7
+</code></pre>
+<p>삭제한 뒤 다시 확인합니다.</p>
+<pre><code class="language-text">codex mcp list
+</code></pre>
+<p>목록에 더 이상 표시되지 않는지 확인합니다.</p>

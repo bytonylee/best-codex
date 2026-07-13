@@ -1,0 +1,297 @@
+<h2>Part 1: First, understand what Codex is</h2>
+<h3>Basic understanding of Codex</h3>
+<h4>What exactly is Codex?</h4>
+<p>When many people first hear about Codex, they think of it as “another AI tool for writing code.”</p>
+<p>But if you see Codex only as “ChatGPT that helps me write code,” you will probably underestimate it.</p>
+<p>What matters about Codex is not whether it can write a function, fill in a piece of code, or explain an error message. It shows a change in the role of AI programming tools:</p>
+<p>At first, AI was someone sitting next to you and helping complete code.</p>
+<p>Later, AI was someone working with you inside the editor to change code.</p>
+<p>Now, Codex is closer to an engineering executor that can take assigned tasks.</p>
+<p>It does more than answer “how should this code be written.” It can enter a project, read files, understand context, make a plan, modify code, run commands, check results, and finally organize the changes into something ready for review.</p>
+<p>This is the main difference between Codex and ordinary AI chat tools.</p>
+<hr>
+<h5>Four changes over five years</h5>
+<p align="center">
+  <img src="assets/images/image-002-4f0de9d6b3.png" alt="The four-stage evolution of AI programming tools" width="860">
+</p>
+
+<p><strong>The four evolutions of AI programming tools</strong></p>
+<p>Over the past few years, AI programming tools have generally gone through four stages.</p>
+<p><strong>2021: The Copilot completion era.</strong>
+The name Codex first became familiar to many developers because of GitHub Copilot. At that time, AI was mainly responsible for code completion: you wrote the beginning, and it filled in what came next; you wrote a function name, and it filled in the function body. It was like a smarter input method that helped you write faster, but splitting up a project, finding files, and running tests were still mostly done by humans.</p>
+<p><strong>2022: The ChatGPT conversation era.</strong>
+After ChatGPT appeared, AI programming moved from “completion” to “conversation.” You could ask it directly why an error happened, how to optimize code, how to write an API, or how to understand a project structure. AI changed from an input method into a Q&A partner. But it was usually not inside a real project. You had to copy code, paste errors, add context manually, and then move the answer back into the project.</p>
+<p><strong>2023–2024: The Cursor project collaboration era.</strong>
+AI editors such as Cursor brought AI into the editor for real. They could see files, modify functions, refactor across files, and complete part of a development task based on project context. AI began to move from “answering questions” to “helping modify projects.” But most of the time it was still attached to the IDE. You still had to watch its changes, decide the next step, run tests, and organize the commit.</p>
+<p><strong>2025: The Codex engineering Agent era.</strong>
+After Codex reappeared, it was no longer just the model that once handled code completion. It had become a coding agent for real software engineering tasks. It can read projects, explain code, fix bugs, add features, add tests, refactor modules, run commands, inspect diffs, write PR descriptions, and even handle multiple engineering tasks in parallel.</p>
+<p>This means the focus of AI programming tools is moving from “helping you write code” to “helping you deliver tasks.”</p>
+<p>In one sentence:</p>
+<p><strong>Copilot helps you complete code, ChatGPT helps you think through code, Cursor works with you to modify projects, and Codex begins to help you execute engineering tasks.</strong></p>
+<hr>
+<h4>What Codex can do</h4>
+<p><strong>What Codex can do</strong></p>
+<p align="center">
+  <img src="assets/images/image-003-4ba99b9c0a.png" alt="Content showing what Codex can do" width="860">
+</p>
+
+<p>When many people first use Codex, they ask directly:</p>
+<ul>
+<li>“Help me write a login page.”</li>
+<li>“Help me fix this bug.”</li>
+<li>“Help me build a project.”</li>
+</ul>
+<p>These are all possible, but they are not precise enough.</p>
+<p>Codex is best at completing a set of engineering tasks inside a real project, not generating a piece of code from nothing.</p>
+<p>It can read a project, find files, understand context, make a plan, modify code, run commands, check results, organize the diff, and finally move the task to a state ready for review.</p>
+<p>So do not treat Codex as a “code generation button.”</p>
+<p>More accurately:</p>
+<p><strong>Codex is an AI engineering assistant that can enter the project site.</strong></p>
+<p>The things it can do can be grouped into the following categories.</p>
+<hr>
+<h5>Understand an unfamiliar project</h5>
+<p>The first step in using Codex should be asking it to read the project, not asking it to write code directly.</p>
+<p>It can help you quickly figure out:</p>
+<ul>
+<li>What technology stack the project uses.</li>
+<li>Where the entry files are.</li>
+<li>Where the core modules are.</li>
+<li>What the test and build commands are.</li>
+<li>Which files must not be changed casually.</li>
+</ul>
+<p>Many Codex tasks fail not because it cannot write code, but because it is asked to start changing things before it has understood the project.</p>
+<hr>
+<h5>Explain code and clarify logic</h5>
+<p>Codex can help explain code you do not understand.</p>
+<p>For example:</p>
+<ul>
+<li>What this function does.</li>
+<li>Why this component is written this way.</li>
+<li>What the API call chain is.</li>
+<li>Where the state comes from.</li>
+<li>Which files this bug may be related to.</li>
+</ul>
+<p>It does not only explain a single function. It can also use context to clarify module relationships, data flow, and potential risks.</p>
+<p>This is especially useful when taking over an old project.</p>
+<hr>
+<h5>Fix bugs and add features</h5>
+<p>Codex is well suited to development tasks with clear boundaries.</p>
+<p>For example:</p>
+<ul>
+<li>Fix a reproducible bug.</li>
+<li>Add a settings page.</li>
+<li>Add form validation.</li>
+<li>Add an API.</li>
+<li>Add an export button.</li>
+<li>Optimize a frontend page.</li>
+</ul>
+<p>But do not give it an entire large project directly.</p>
+<p>A better approach is to break the task down:</p>
+<ol>
+<li>Read the project first.</li>
+<li>Then propose a plan.</li>
+<li>Modify only one module.</li>
+<li>Run tests.</li>
+<li>Review the diff.</li>
+<li>Continue only after confirming there is no problem.</li>
+</ol>
+<p>Codex is better at completing small tasks continuously than handling a large project in one go.</p>
+<hr>
+<h5>Write tests and refactor</h5>
+<p>Codex can help you add tests and refactor code.</p>
+<p>It can do things such as:</p>
+<ul>
+<li>Add unit tests.</li>
+<li>Add boundary conditions.</li>
+<li>Add exception scenarios.</li>
+<li>Extract duplicate logic.</li>
+<li>Split overly long functions.</li>
+<li>Organize component structure.</li>
+<li>Wrap API requests.</li>
+</ul>
+<p>But tasks like these need boundaries:</p>
+<ul>
+<li>Do not change business logic.</li>
+<li>Do not change public APIs.</li>
+<li>Do not introduce unrelated dependencies.</li>
+<li>Do not perform large-scale refactoring.</li>
+<li>Tests must be run after modification.</li>
+</ul>
+<p>Codex can refactor, but you must control the scope.</p>
+<hr>
+<h5>Write documentation and organize PRs</h5>
+<p>Codex is well suited to writing engineering documentation.</p>
+<p>For example:</p>
+<ul>
+<li>README.</li>
+<li>Installation instructions.</li>
+<li>Startup instructions.</li>
+<li>API documentation.</li>
+<li>Environment variable documentation.</li>
+<li>Project structure documentation.</li>
+<li>PR description.</li>
+<li>commit message.</li>
+<li>Changelog.</li>
+</ul>
+<p>Documentation is not an accessory.</p>
+<p>In the Codex workflow, documentation itself is context infrastructure.</p>
+<p>The clearer the documentation, the easier it is for both humans and AI to take over the project later.</p>
+<p>But you should remind Codex:</p>
+<p><strong>Do not invent commands that do not exist. Clearly mark information you are unsure about.</strong></p>
+<hr>
+<h5>Run commands, inspect diffs, and review</h5>
+<p>One of the main differences between Codex and ordinary chat tools is that it can run commands in the project environment.</p>
+<p>It can:</p>
+<ul>
+<li>Run tests.</li>
+<li>Run lint.</li>
+<li>Run typecheck.</li>
+<li>Run build.</li>
+<li>View git status.</li>
+<li>View git diff.</li>
+<li>Search code.</li>
+<li>Check modification results.</li>
+</ul>
+<p>This means Codex does not just “guess the answer”; it can verify results.</p>
+<p>But command execution also has risks.</p>
+<p>You can let it verify what can be verified.</p>
+<p>Risky actions must be approved by you.</p>
+<p>Do not let it automatically execute operations involving production environments, databases, or real user data.</p>
+<hr>
+<h5>When Codex is suitable</h5>
+<p>Tasks suitable for Codex generally have several characteristics:</p>
+<ul>
+<li>The goal is clear.</li>
+<li>The scope is controllable.</li>
+<li>The context is clear.</li>
+<li>The result can be verified.</li>
+<li>Failures can be rolled back.</li>
+<li>The risk is acceptable.</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>Reading a project.</li>
+<li>Fixing a bug.</li>
+<li>Adding a small feature.</li>
+<li>Adding tests.</li>
+<li>Writing documentation.</li>
+<li>Optimizing a frontend page.</li>
+<li>Organizing a PR.</li>
+<li>Reviewing a diff.</li>
+<li>Handling repetitive tasks.</li>
+</ul>
+<hr>
+<h5>When not to use Codex directly</h5>
+<p>It is not recommended to let Codex directly handle:</p>
+<ul>
+<li>Production databases.</li>
+<li>Real user data.</li>
+<li>Core payment logic.</li>
+<li>Permission and security core modules.</li>
+<li>Large-scale architecture migrations.</li>
+<li>Important projects without backups.</li>
+<li>Core business logic without tests.</li>
+<li>Tasks that you cannot validate yourself.</li>
+</ul>
+<p>If you cannot judge whether the result is correct, do not let Codex complete it independently.</p>
+<p>Codex can improve efficiency, but it cannot make judgments for you.</p>
+<hr>
+<h5>In one sentence</h5>
+<p>What Codex can do is not just write code.</p>
+<p>Its most important capability is:</p>
+<p><strong>Moving a clear software engineering task from requirement to a reviewable result.</strong></p>
+<p>You are not asking it to write some code at random.</p>
+<p>You are asking it to complete a controllable engineering task according to your project rules, context, and acceptance criteria.</p>
+<hr>
+<h4>The difference between Codex and ChatGPT</h4>
+<p>Many people ask:</p>
+<p>Since ChatGPT can also write code, why use Codex?</p>
+<p>The core difference is:</p>
+<p><strong>ChatGPT is more like a consultant: when you have a question, you ask GPT, get an answer, and then execute it yourself. Codex is now more like an intern: we can ask it to help us do real work, assign it tasks, and have it complete them.</strong></p>
+<p>ChatGPT is suitable for helping you think through problems.</p>
+<p>Codex is suitable for helping you move tasks forward.</p>
+<p>A more reasonable way to use them is:</p>
+<p><strong>Use ChatGPT first to think things through, then use Codex to enter the project and execute.</strong></p>
+<p align="center">
+  <img src="assets/images/image-004-408fd41f24.png" alt="Comparison table showing the differences between ChatGPT and Codex across six aspects: core positioning, main approach, suitable scenarios, project context, delivery result, and usage focus" width="860">
+</p>
+
+<h4>The difference between Codex and Cursor</h4>
+<p>Many people compare Codex and Cursor because both can help you write code, modify code, and understand projects.</p>
+<p>But their positioning is different.</p>
+<p><strong>Cursor is more like an AI editor, while Codex is more like an engineering Agent.</strong></p>
+<p>A reasonable way to use them is together:</p>
+<p><strong>Use Cursor for daily coding and local changes, and use Codex for task progress and engineering delivery.</strong></p>
+<p>Cursor is responsible for writing with you.</p>
+<p>Codex is responsible for helping you run a complete task.</p>
+<p>One leans toward IDE collaboration, while the other leans toward Agent execution.</p>
+<p>This is their main difference.</p>
+<p align="center">
+  <img src="assets/images/image-005-e2cbc7da9d.png" alt="An image titled “The difference between Cursor and Codex,” comparing their differences in core positioning, usage location, main approach, suitable scenarios, work granularity, delivery results, and usage focus" width="860">
+</p>
+
+<h4>The difference between Codex and Claude Code</h4>
+<p>Codex and Claude Code are very similar.</p>
+<p>Both are <strong>agentic coding tools,</strong> but they focus on different things.</p>
+<hr>
+<h5>Claude Code leans more toward long-term collaboration in the terminal</h5>
+<p>The Claude Code experience is more like this:</p>
+<p>You open the terminal, place it inside the project, and then keep collaborating with it around a development task.</p>
+<p>It is suitable for:</p>
+<ul>
+<li>Reading a project for a long time.</li>
+<li>Continuously tracking a complex task.</li>
+<li>Discussing and modifying inside the terminal.</li>
+<li>Handling multi-step engineering problems.</li>
+<li>Extending workflows through mechanisms such as hooks, subagents, and MCP.</li>
+</ul>
+<p>So Claude Code is more like an AI engineering partner that stays in your terminal for the long term.</p>
+<p>Its advantages are command-line workflows, deep contextual collaboration, and continuous progress on engineering tasks.</p>
+<hr>
+<h5>Codex leans more toward multi-end task execution in the OpenAI ecosystem</h5>
+<p>Codex's advantage is not only in the CLI, but also in multi-end coordination within the OpenAI ecosystem.</p>
+<p>It can be used through different entry points:</p>
+<p>Codex CLI.</p>
+<p>Codex App.</p>
+<p>Codex IDE Extension.</p>
+<p>Codex Web.</p>
+<p>The ChatGPT account system.</p>
+<p>GitHub / PR workflow.</p>
+<p>Skills and project rules.</p>
+<p>In OpenAI's official documentation, Codex CLI is the coding agent in the local terminal; Codex App provides desktop multi-threading, worktrees, automation, and Git features; Codex Skills can also be reused in the CLI, IDE extension, and Codex app.</p>
+<p>So Codex is more like an engineering task platform connected to the OpenAI ecosystem.</p>
+<p>It is not just “writing code in the terminal.” It can move across multiple entry points such as App, CLI, IDE, and Web, letting you manage, execute, and review engineering tasks in different ways.</p>
+<hr>
+<h5>How to choose</h5>
+<p>If you prefer a terminal workflow and want AI to stay in the project for a long time while continuously collaborating with you around complex tasks, Claude Code is a good fit.</p>
+<p>If you already use ChatGPT and the OpenAI ecosystem, want to switch among CLI, desktop App, IDE, and Web, and want to connect tasks, diffs, PRs, Skills, and GitHub workflows, Codex will feel smoother.</p>
+<p>But neither absolutely replaces the other.</p>
+<p>The final choice depends on:</p>
+<ul>
+<li>Model capability.</li>
+<li>Context handling.</li>
+<li>Toolchain.</li>
+<li>Price.</li>
+<li>Team habits.</li>
+<li>Your own development process.</li>
+</ul>
+<p>In one sentence:</p>
+<p><strong>Claude Code is more like a long-term engineering partner in the terminal, while Codex is more like a multi-end engineering Agent in the OpenAI ecosystem.</strong></p>
+<p align="center">
+  <img src="assets/images/image-006-0f0d88385e.png" alt="Comparison table showing the differences between Claude Code and Codex across seven aspects: core positioning, main entry points, work style, suitable scenarios, extension capabilities, ecosystem advantages, and selection criteria" width="860">
+</p>
+
+<h4>Codex in one sentence</h4>
+<ul>
+<li>Beginner usage: ask it to help you write code.</li>
+<li>Intermediate usage: ask it to help you read projects, modify features, and run tests.</li>
+<li>Advanced usage: make it your project execution agent, working with rules, context, automation, and team workflows.</li>
+</ul>
+<hr>
+<h3>Ways to use Codex</h3>
+<p align="center">
+  <img src="assets/images/image-008-7b9207fbc0.png" alt="Image titled “How to choose among Codex’s 4 entry points,” introducing four ways to use Codex: 2.1 Codex App, 2.2 Codex CLI, 2.3 Codex IDE Extensio..." width="860">
+</p>
+
+<p>If you mainly work on local projects, web practice, and daily development, starting with Codex App is usually enough. After you become familiar with Git, the terminal, and team collaboration, gradually add CLI, IDE Extension, and Web / Cloud.</p>
+<hr>

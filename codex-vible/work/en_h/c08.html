@@ -1,0 +1,753 @@
+<h3>Skill</h3>
+<p>A prepared workflow for Codex.</p>
+<p>Codex can read code, edit code, and run commands.</p>
+<p>If you often ask it to do the same type of task, such as writing a README, doing a code review, generating a web page, or organizing documents, you can turn that process into a Skill.</p>
+<h4>What is a Skill?</h4>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill</td>
+<td>A fixed way of working</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td>The prompt for the current task</td>
+</tr>
+<tr>
+<td>Workflow</td>
+<td>The process for completing the task</td>
+</tr>
+<tr>
+<td>Template</td>
+<td>A reusable template</td>
+</tr>
+<tr>
+<td>Instruction</td>
+<td>Long-term rules for Codex</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>Reference materials included with the Skill</td>
+</tr>
+<tr>
+<td>Script</td>
+<td>Optional automation scripts included with the Skill</td>
+</tr>
+</tbody>
+</table>
+<p>For example, suppose you always want Codex to write a README that must include:</p>
+<pre><code class="language-text">Project introduction
+Installation steps
+Startup commands
+File structure
+Frequently asked questions
+</code></pre>
+<p>Then you can create a README Skill.</p>
+<p>After that, you do not need to explain the rules again each time. Invoke this Skill, and Codex follows that process.</p>
+<hr>
+<h4>Skill or MCP? Which should you use?</h4>
+<p>For the overall differences among plugins, Skill, and MCP, see the earlier summary table "How plugins, Skill, and MCP relate." This section answers the most common point of confusion: should a given need use Skill or MCP?</p>
+<p>Use this rule: <strong>Use Skill for "how to do it"; use MCP for "which tool to connect to."</strong></p>
+<table>
+<thead>
+<tr>
+<th>Your need</th>
+<th>Use Skill or MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write a README or set a fixed document output format</td>
+<td>Skill</td>
+</tr>
+<tr>
+<td>Do a code review or UI review</td>
+<td>Skill</td>
+</tr>
+<tr>
+<td>Generate a landing page or standardize a bug fix process</td>
+<td>Skill</td>
+</tr>
+<tr>
+<td>Look up the latest development documentation or new version APIs</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>Connect to a database</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>Read Figma designs</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>Read GitHub issues / PRs</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>Connect to Notion, an internal knowledge base, or internal company tools</td>
+<td>MCP</td>
+</tr>
+</tbody>
+</table>
+<h4>How is a Skill different from a normal prompt?</h4>
+<p>For a one-off task, write the prompt directly. For a task you repeat often, use a Skill.</p>
+<table>
+<thead>
+<tr>
+<th>Comparison dimension</th>
+<th>Normal prompt</th>
+<th>Skill</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How it is used</td>
+<td>Entered manually each time</td>
+<td>Saved as a fixed capability</td>
+</tr>
+<tr>
+<td>Stability</td>
+<td>Requirements are easy to miss</td>
+<td>More stable</td>
+</tr>
+<tr>
+<td>Suitable scenarios</td>
+<td>Temporary tasks</td>
+<td>Repeated tasks</td>
+</tr>
+<tr>
+<td>Reusability</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Content structure</td>
+<td>One prompt</td>
+<td>Instructions, templates, materials, scripts</td>
+</tr>
+<tr>
+<td>Who it suits</td>
+<td>Everyone</td>
+<td>People who repeat the same type of task often</td>
+</tr>
+</tbody>
+</table>
+<h4>When is Skill suitable?</h4>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Suitable for a Skill?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You often repeat the same type of task</td>
+<td>Suitable</td>
+</tr>
+<tr>
+<td>You need to write a lot of rules every time</td>
+<td>Suitable</td>
+</tr>
+<tr>
+<td>You want Codex output to be more stable</td>
+<td>Suitable</td>
+</tr>
+<tr>
+<td>Multiple people on a team need to use the same process</td>
+<td>Suitable</td>
+</tr>
+<tr>
+<td>A small one-time task</td>
+<td>Not necessarily needed</td>
+</tr>
+<tr>
+<td>Temporarily changing one line of copy</td>
+<td>Not needed</td>
+</tr>
+<tr>
+<td>Just asking about a concept</td>
+<td>Not needed</td>
+</tr>
+</tbody>
+</table>
+<h4>What does a Skill usually include?</h4>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>instructions</td>
+<td>Tells Codex how to do it</td>
+</tr>
+<tr>
+<td>resources</td>
+<td>Stores reference materials, templates, and standards</td>
+</tr>
+<tr>
+<td>scripts</td>
+<td>Optional scripts for handling tasks automatically</td>
+</tr>
+<tr>
+<td>examples</td>
+<td>Example inputs and example outputs</td>
+</tr>
+<tr>
+<td>checklist</td>
+<td>A checklist to avoid missing steps</td>
+</tr>
+</tbody>
+</table>
+<h4>Basic structure of a Skill</h4>
+<p>You can write a simple Skill like this:</p>
+<pre><code class="language-text"># Skill name
+
+## Suitable scenarios
+What this Skill is suitable for.
+
+## Work goal
+What result Codex should ultimately deliver.
+
+## Workflow
+1. First analyze the input content
+2. Then confirm the task type
+3. Then process it according to fixed steps
+4. Finally output the result and checklist
+
+## Output format
+Specify how Codex should output the final result.
+
+## Notes
+What must not be done, and which risks should be pointed out.
+</code></pre>
+<p>For example, a README Skill:</p>
+<pre><code class="language-text"># README generation Skill
+
+## Suitable scenarios
+Used to generate a README document based on the current project.
+
+## Work goal
+Output a well-structured README suitable for beginners.
+
+## Workflow
+1. Read the project structure
+2. Check package.json or the main entry file
+3. Determine the project type
+4. Generate the project introduction
+5. Add installation steps and startup commands
+6. Explain the file structure
+7. Output frequently asked questions
+
+## Output format
+Use Markdown format.
+
+## Notes
+Do not invent features that do not exist.
+Clearly mark anything uncertain.
+</code></pre>
+<h4>How to add a Skill in Codex App</h4>
+<p>Adding a Skill in Codex App has two cases:</p>
+<pre><code class="language-text">1. Use an existing Skill
+2. Create your own Skill
+</code></pre>
+<h5>Use an existing Skill</h5>
+<p>In the plugins Skill section, you can see several Skill items recommended by the system.</p>
+<p align="center">
+  <img src="assets/images/image-046-d0b772835b.png" alt="Skill-related interface in Codex App" width="860">
+</p>
+
+<h5>Create your own Skill</h5>
+<p>If you want to create a Skill yourself, use this in a Codex App thread:</p>
+<pre><code class="language-text">$skill-creator
+</code></pre>
+<p>It works as a Skill creation assistant. It helps you organize a repeated process into a Skill.</p>
+<p>Steps:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Open Codex App</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Select a project</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create a new thread</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Enter <code>$skill-creator</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Tell it which Skill you want to create</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Provide usage scenarios, rules, and example output</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Have Codex generate the Skill file</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Check the generated result</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Use this Skill later in a new thread</td>
+</tr>
+</tbody>
+</table>
+<p>Example prompt:</p>
+<pre><code class="language-text">$skill-creator
+
+Please help me create a README Skill.
+
+Purpose of this Skill:
+Automatically generate a README suitable for beginners based on the current project.
+
+Trigger scenarios:
+Use it when I say “generate README,” “write project instructions,” or “organize project documentation.”
+
+Workflow:
+1. First read the project structure
+2. Check package.json, README, and entry files
+3. Determine the project type
+4. Generate a project summary
+5. Write installation steps
+6. Write startup commands
+7. Explain the purpose of the main folders
+8. Add frequently asked questions
+9. Do not invent anything uncertain
+
+Output format:
+Use Markdown.
+
+Must include:
+- Project summary
+- Features
+- Installation steps
+- Startup commands
+- File structure
+- Frequently asked questions
+- Future optimization directions
+</code></pre>
+<h5>Recommended Skill items</h5>
+<table>
+<thead>
+<tr>
+<th>Skill / project</th>
+<th>Main purpose</th>
+<th>GitHub URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Superpowers</td>
+<td>Adds a complete "software development methodology" to Coding Agent: clarify requirements, write specifications, create an implementation plan, and then develop through TDD / task breakdown. Suitable for engineering Agents such as Codex, Claude Code, Cursor, and Gemini CLI.</td>
+<td>https://github.com/obra/superpowers</td>
+</tr>
+<tr>
+<td>skill-creator</td>
+<td>A helper Skill for creating Skill items. The Skill items built into or available in Codex depend on what your current environment shows; Skill items with the same name from different sources may be implemented differently.</td>
+<td>Use the current Codex Skill list as the source of truth</td>
+</tr>
+<tr>
+<td>find-skills</td>
+<td>A "Skill for finding Skill items." When you ask "is there a Skill for a certain feature," it helps you search for, discover, and install Agent Skill items. Underneath, it works with npx skills find / add / check / update.</td>
+<td>https://github.com/vercel-labs/skills/tree/main/skills/find-skills</td>
+</tr>
+</tbody>
+</table>
+<h4>How to add a Skill in Codex CLI</h4>
+<p>There are three main ways to add a Skill in Codex CLI:</p>
+<pre><code class="language-text">1. Use an existing Skill
+2. Use $skill-creator to create a Skill
+3. Manually create a SKILL.md file
+</code></pre>
+<h5>Three ways to add a Skill</h5>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Who it suits</th>
+<th>In simple terms</th>
+<th>Recommendation level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use an existing Skill</td>
+<td>New users</td>
+<td>Call an existing Skill directly</td>
+<td>Recommended</td>
+</tr>
+<tr>
+<td>Create with <code>$skill-creator</code></td>
+<td>People who want to turn prompts into a Skill</td>
+<td>Have Codex organize the Skill for you</td>
+<td>Most recommended</td>
+</tr>
+<tr>
+<td>Manually create <code>SKILL.md</code></td>
+<td>People familiar with the file structure</td>
+<td>Write the Skill file yourself</td>
+<td>Advanced</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>Method 1: Use an existing Skill</h6>
+<p>After entering the project directory, start Codex CLI:</p>
+<pre><code class="language-text">cd project-directory
+codex
+</code></pre>
+<p>After Codex CLI opens, you can type:</p>
+<pre><code class="language-text">/skills
+</code></pre>
+<p>Or enter:</p>
+<pre><code class="language-text">$
+</code></pre>
+<p>Codex shows the available Skill items.</p>
+<p>If you already know the Skill name, you can name it directly in the task:</p>
+<pre><code class="language-text">Please use $readme-skill to generate a README based on the current project.
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">$ui-review-skill Please check the visual issues on the current homepage and provide suggestions for changes.
+</code></pre>
+<hr>
+<h6>How to use existing Skill items</h6>
+<table>
+<thead>
+<tr>
+<th>Usage</th>
+<th>Example</th>
+<th>Suitable scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/skills</td>
+<td>Open the Skill list</td>
+<td>When you do not know which Skill items are available</td>
+</tr>
+<tr>
+<td>Enter $</td>
+<td>Quickly select a Skill</td>
+<td>When you want to call one fast</td>
+</tr>
+<tr>
+<td><code>$skill-name</code></td>
+<td><code>$readme-skill</code></td>
+<td>When you know the Skill name</td>
+</tr>
+<tr>
+<td>Natural-language description</td>
+<td>Please use the README Skill to write project instructions</td>
+<td>When you do not know the exact name</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>Method 2: Use <code>$skill-creator</code> to create a Skill</h6>
+<p>To save a repeated process as a Skill, use:</p>
+<pre><code class="language-text">$skill-creator
+</code></pre>
+<p>It works as a Skill creation assistant and asks:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What this Skill does</td>
+<td>Make its purpose clear</td>
+</tr>
+<tr>
+<td>When it should be triggered</td>
+<td>Make the applicable scenarios clear</td>
+</tr>
+<tr>
+<td>Whether scripts should be included</td>
+<td>Determine whether it is only an instruction-type Skill</td>
+</tr>
+<tr>
+<td>What the output format is</td>
+<td>Keep the result stable</td>
+</tr>
+<tr>
+<td>What restrictions it has</td>
+<td>Avoid random changes, invented content, or arbitrary execution</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6><code>$skill-creator</code> workflow</h6>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Enter the project directory</td>
+<td>Make sure the Skill is generated in the correct project</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Run <code>codex</code></td>
+<td>Open Codex CLI</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Enter <code>$skill-creator</code></td>
+<td>Start the Skill creation assistant</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Describe the Skill purpose</td>
+<td>Tell it what to do</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Add trigger scenarios</td>
+<td>Tell it when to use the Skill</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Add the workflow</td>
+<td>Set Codex’s execution steps</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Add the output format</td>
+<td>Keep the result stable</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Check the generated result</td>
+<td>Confirm whether <code>SKILL.md</code> is reasonable</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Reopen or continue using it</td>
+<td>Test whether the Skill works</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6><code>$skill-creator</code> example prompt</h6>
+<pre><code class="language-text">$skill-creator
+
+Please help me create a README Skill.
+
+Purpose of this Skill:
+Automatically generate a README suitable for beginners based on the current project.
+
+Trigger scenarios:
+Use it when I say “generate README,” “write project instructions,” “organize project documentation,” or “write an installation tutorial.”
+
+Workflow:
+1. First read the project structure
+2. Check package.json, README, and entry files
+3. Determine the project type
+4. Generate a project summary
+5. Write installation steps
+6. Write startup commands
+7. Explain the purpose of the main folders
+8. Add frequently asked questions
+9. Do not invent anything uncertain
+
+Output format:
+Use Markdown.
+
+Must include:
+- Project summary
+- Features
+- Installation steps
+- Startup commands
+- File structure
+- Frequently asked questions
+- Future optimization directions
+
+Notes:
+Do not invent features that do not exist.
+Do not read or output API Key, passwords, tokens, or private keys.
+</code></pre>
+<hr>
+<h6>Method 3: Manually create a Skill file</h6>
+<p>A Skill is a folder that must contain:</p>
+<pre><code class="language-text">SKILL.md
+</code></pre>
+<p>The simplest structure is:</p>
+<pre><code class="language-text">.agents
+└── skills
+    └── readme-skill
+        └── SKILL.md
+</code></pre>
+<p>You can also include scripts, reference materials, and resource files:</p>
+<pre><code class="language-text">.agents
+└── skills
+    └── readme-skill
+        ├── SKILL.md
+        ├── scripts
+        ├── references
+        └── assets
+</code></pre>
+<hr>
+<h6>Skill file structure description</h6>
+<table>
+<thead>
+<tr>
+<th>File / folder</th>
+<th>Required?</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SKILL.md</code></td>
+<td>Required</td>
+<td>Write the Skill name, description, and specific instructions</td>
+</tr>
+<tr>
+<td>scripts/</td>
+<td>Optional</td>
+<td>Store executable scripts</td>
+</tr>
+<tr>
+<td>references/</td>
+<td>Optional</td>
+<td>Store reference documents, standards, and instructions</td>
+</tr>
+<tr>
+<td>assets/</td>
+<td>Optional</td>
+<td>Store templates, images, and resource files</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>A minimal <code>SKILL.md</code> example</h6>
+<pre><code class="language-text">---
+name: readme-skill
+description: Use when the user needs to generate a README, project instructions, installation tutorial, or startup steps.
+---
+
+You are a README document generation assistant.
+
+Task:
+Generate a README suitable for beginners based on the current project.
+
+Workflow:
+1. Read the project structure
+2. Check package.json, README, and entry files
+3. Determine the project type
+4. Generate the project introduction
+5. Write installation steps
+6. Write startup commands
+7. Explain the file structure
+8. Add frequently asked questions
+9. Do not invent anything uncertain
+
+Output format:
+Use Markdown.
+
+Must include:
+- Project summary
+- Features
+- Installation steps
+- Startup commands
+- File structure
+- Frequently asked questions
+- Future optimization directions
+</code></pre>
+<h4>How to use a Skill after adding it</h4>
+<p>After adding a Skill, you usually use it in one of two ways:</p>
+<table>
+<thead>
+<tr>
+<th>Usage</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Explicitly specify the Skill</td>
+<td>Please use <code>$readme-skill</code> to generate a README</td>
+</tr>
+<tr>
+<td>Let Codex decide automatically</td>
+<td>Help me write a project README</td>
+</tr>
+</tbody>
+</table>
+<p>A clear Skill description helps Codex decide automatically when to use it.</p>
+<p>For example:</p>
+<pre><code class="language-text">description: Use when the user needs to generate a README, project instructions, installation tutorial, or startup steps.
+</code></pre>
+<p>This description is clear.</p>
+<p>Do not write it too vaguely:</p>
+<pre><code class="language-text">description: Help me write things.
+</code></pre>
+<p>Codex will not know when to invoke it.</p>
+<h4>Where should you put Skill items?</h4>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Suitable scenario</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.agents/skills in the project</td>
+<td>Only for the current project</td>
+<td>Project-specific Skill</td>
+</tr>
+<tr>
+<td>User-level Skill directory</td>
+<td>You want to use it across multiple projects of your own</td>
+<td>Personal general-purpose Skill</td>
+</tr>
+<tr>
+<td>Team / administrator configuration</td>
+<td>Team members use it uniformly</td>
+<td>Team-shared Skill</td>
+</tr>
+<tr>
+<td>Inside a plugin</td>
+<td>You want to package and distribute it for others to install</td>
+<td>Official capability package</td>
+</tr>
+</tbody>
+</table>

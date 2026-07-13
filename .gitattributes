@@ -1,0 +1,2 @@
+codex-vible/assets/images-en/*.png filter=lfs diff=lfs merge=lfs -text
+codex-vible/assets/images-ko/*.png filter=lfs diff=lfs merge=lfs -text

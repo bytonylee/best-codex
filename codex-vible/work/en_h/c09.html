@@ -1,0 +1,566 @@
+<h3>MCP</h3>
+<p><strong>Only users doing advanced AI programming need this; most people can skip it.</strong></p>
+<p>MCP is an interface that lets Codex connect to external tools.</p>
+<p>Codex can already read code, edit code, and run commands.</p>
+<p>MCP connects Codex to additional external tools, data sources, or services.</p>
+<h4>What is MCP?</h4>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP</td>
+<td>A standard interface for connecting external tools</td>
+</tr>
+<tr>
+<td>MCP Server</td>
+<td>A service that provides tool functions</td>
+</tr>
+<tr>
+<td>Tool</td>
+<td>A specific function that Codex can call</td>
+</tr>
+<tr>
+<td>Config</td>
+<td>The MCP configuration file</td>
+</tr>
+<tr>
+<td>STDIO Server</td>
+<td>An MCP service started through a local command</td>
+</tr>
+<tr>
+<td>HTTP Server</td>
+<td>An MCP service connected through a URL</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>Context information that external tools provide to Codex</td>
+</tr>
+</tbody>
+</table>
+<p>A simple analogy:</p>
+<pre><code class="language-text">Codex = A person who can do work
+MCP = Sockets that connect them to different tools
+MCP Server = A toolbox plugged into the socket
+Tool = A specific tool inside the toolbox
+</code></pre>
+<p>For example, a document MCP can let Codex read documents.</p>
+<p>A database MCP can let Codex query a database.</p>
+<p>A design-tool MCP can let Codex read design-file information.</p>
+<hr>
+<h4>What is MCP useful for?</h4>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>How to use MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Looking up development documentation</td>
+<td>Connect a documentation MCP so Codex can look up APIs for newer versions</td>
+</tr>
+<tr>
+<td>Connecting a database</td>
+<td>Let Codex query the database schema or test data</td>
+</tr>
+<tr>
+<td>Connecting design tools</td>
+<td>Let Codex read design files and component information</td>
+</tr>
+<tr>
+<td>Connecting project management tools</td>
+<td>Read issues, tasks, and requirement descriptions</td>
+</tr>
+<tr>
+<td>Connecting internal systems</td>
+<td>Call internal company tools or data sources</td>
+</tr>
+<tr>
+<td>Connecting a knowledge base</td>
+<td>Let Codex work from team documentation</td>
+</tr>
+<tr>
+<td>Connecting automation tools</td>
+<td>Let Codex call additional scripts or services</td>
+</tr>
+</tbody>
+</table>
+<p>For beginners, the rule is:</p>
+<pre><code class="language-text">For ordinary coding, you do not necessarily need MCP.
+Consider MCP only when Codex needs to access external tools or external data.
+</code></pre>
+<h4>What is an MCP Server?</h4>
+<p>Think of an MCP Server as this:</p>
+<p>A service that provides tool functions to Codex.</p>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>MCP Server type</th>
+<th>What it can provide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Documentation MCP</td>
+<td>Look up development and API documentation</td>
+</tr>
+<tr>
+<td>Database MCP</td>
+<td>Read table schemas and test data</td>
+</tr>
+<tr>
+<td>GitHub MCP</td>
+<td>Read issues, PRs, and repository information</td>
+</tr>
+<tr>
+<td>Figma MCP</td>
+<td>Read design file information</td>
+</tr>
+<tr>
+<td>Notion MCP</td>
+<td>Read knowledge base pages</td>
+</tr>
+<tr>
+<td>Browser MCP</td>
+<td>Visit web pages and read page information</td>
+</tr>
+<tr>
+<td>Internal tool MCP</td>
+<td>Connect to the company's own systems</td>
+</tr>
+</tbody>
+</table>
+<p>In simple terms:</p>
+<pre><code class="language-text">MCP Server = An external tool service that Codex can call.
+</code></pre>
+<h4>How to use MCP in the Codex App</h4>
+<h5>Basic flow in the Codex App</h5>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Open Codex App</td>
+<td>Open the desktop version of Codex</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Go to Settings</td>
+<td>Open settings</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Find MCP servers</td>
+<td>Open the MCP tool management area</td>
+</tr>
+<tr>
+<td>4</td>
+<td>View recommended servers</td>
+<td>Check official or system-recommended MCPs</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Add a custom server</td>
+<td>Add your own MCP server</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Complete authorization as prompted</td>
+<td>Some MCPs require logging in to an external account</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Return to the project thread</td>
+<td>Use MCP in the task</td>
+</tr>
+<tr>
+<td>8</td>
+<td>View results and permission requests</td>
+<td>Check which tools Codex called</td>
+</tr>
+</tbody>
+</table>
+<p align="center">
+  <img src="assets/images/image-047-afc2022a08.png" alt="MCP Server settings screen in Codex App" width="860">
+</p>
+
+<h5>Fields you usually fill in when adding an MCP</h5>
+<table>
+<thead>
+<tr>
+<th>Configuration item</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>MCP name</td>
+<td>Give this tool a name</td>
+</tr>
+<tr>
+<td>Command / URL</td>
+<td>Start command or service address</td>
+<td>Codex uses this to connect to the tool</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>MCP type</td>
+<td>Local-command type or remote HTTP type</td>
+</tr>
+<tr>
+<td>Env</td>
+<td>Environment variables</td>
+<td>Put tokens and related settings here</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>Authorization method</td>
+<td>Whether logging in to an external account is required</td>
+</tr>
+<tr>
+<td>Enabled tools</td>
+<td>Tools to enable</td>
+<td>Enable only the functions you need</td>
+</tr>
+</tbody>
+</table>
+<p align="center">
+  <img src="assets/images/image-048-d6664c35fe.png" alt="Settings screen when adding an MCP in Codex App" width="860">
+</p>
+
+<h5>Using an MCP after adding it</h5>
+<p>After you add it, return to the Codex App thread and describe the task directly.</p>
+<table>
+<thead>
+<tr>
+<th>Usage</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Describe the requirement</td>
+<td>Please look up the latest way to use Next.js App Router</td>
+</tr>
+<tr>
+<td>Explicitly ask to use MCP</td>
+<td>Please use the available MCP tools to look up this library's documentation</td>
+</tr>
+<tr>
+<td>Specify a particular MCP</td>
+<td>Please use context7 to look up the latest Next.js documentation</td>
+</tr>
+<tr>
+<td>View available tools first</td>
+<td>Which MCP tools are currently available?</td>
+</tr>
+</tbody>
+</table>
+<p>Example prompt:</p>
+<pre><code class="language-text">Please use the available MCP documentation tool
+to query the latest usage of Next.js App Router,
+and then tell me how the current project should be modified.
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">Please use Figma MCP to read this design file,
+analyze the page structure, and generate a frontend implementation plan for me.
+</code></pre>
+<h4>How to use MCP in Codex CLI</h4>
+<p>Using MCP in Codex CLI means this:</p>
+<p>You connect external tools to the terminal version of Codex.</p>
+<p>Examples:</p>
+<pre><code class="language-text">Documentation MCP: lets Codex query development documentation
+GitHub MCP: lets Codex read issues, PRs, and repository information
+Figma MCP: lets Codex read design files
+Database MCP: lets Codex query database schemas
+</code></pre>
+<p>Beginners can understand it this way:</p>
+<pre><code class="language-text">Codex CLI = An AI programming assistant in the terminal
+MCP = An interface for connecting external tools to Codex CLI
+</code></pre>
+<hr>
+<h5>Basic flow in the CLI</h5>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Open a terminal</td>
+<td>PowerShell / Terminal</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Go to the project directory</td>
+<td>Let Codex see the current project</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Add an MCP server</td>
+<td>Connect external tools to Codex</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Check whether the MCP was added</td>
+<td>Confirm that the tool is available</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Start Codex CLI</td>
+<td>Open the Codex conversation screen</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Run /mcp to view tools</td>
+<td>See which MCPs are available</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Use MCP in the task</td>
+<td>Let Codex use external tools</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Review results and permission prompts</td>
+<td>Check whether the action is safe</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>Common MCP terminal commands</h5>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex mcp --help</code></td>
+<td>Show MCP command help</td>
+<td>Check this first when you do not know how to use it</td>
+</tr>
+<tr>
+<td><code>codex mcp list</code></td>
+<td>Show configured MCP servers</td>
+<td>See which external tools are connected</td>
+</tr>
+<tr>
+<td><code>codex mcp add</code></td>
+<td>Add an MCP server</td>
+<td>Add an external tool to Codex</td>
+</tr>
+<tr>
+<td><code>codex mcp remove</code></td>
+<td>Delete an MCP server</td>
+<td>Remove it when you no longer need it</td>
+</tr>
+<tr>
+<td><code>codex mcp get</code></td>
+<td>Show details for a specific MCP server</td>
+<td>See its configuration</td>
+</tr>
+<tr>
+<td><code>codex mcp login</code></td>
+<td>Log in to an MCP that requires authorization</td>
+<td>Authorize some remote MCPs</td>
+</tr>
+<tr>
+<td><code>codex mcp logout</code></td>
+<td>Log out of an MCP authorization</td>
+<td>Clear the connection state</td>
+</tr>
+<tr>
+<td>/mcp</td>
+<td>Show MCPs in a Codex session</td>
+<td>See which tools this session can call</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>Basic format for adding an MCP</h5>
+<p>The basic command to add an MCP is usually:</p>
+<pre><code class="language-text">codex mcp add name -- start-command
+</code></pre>
+<p>In simple terms:</p>
+<pre><code class="language-text">name = the name you give this MCP
+startup-command = how this MCP starts
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-text">codex mcp add context7 -- npx -y @upstash/context7-mcp
+</code></pre>
+<p>This command means:</p>
+<pre><code class="language-text">Add an MCP called context7 to Codex.
+It starts the @upstash/context7-mcp tool through npx.
+</code></pre>
+<hr>
+<h5>Viewing MCPs already added</h5>
+<p>After adding one, you can run:</p>
+<pre><code class="language-text">codex mcp list
+</code></pre>
+<p>Purpose:</p>
+<pre><code class="language-text">View which MCP servers are currently configured in Codex CLI.
+</code></pre>
+<p>If the name you just added appears, the configuration was saved.</p>
+<hr>
+<h5>Viewing MCP after starting Codex</h5>
+<p>First go to the project directory:</p>
+<pre><code class="language-text">cd project-directory
+</code></pre>
+<p>Then start Codex:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>After Codex CLI starts, type:</p>
+<pre><code class="language-text">/mcp
+</code></pre>
+<p>Purpose:</p>
+<pre><code class="language-text">View the MCP tools available in the current session.
+</code></pre>
+<p>If the MCP does not appear, check these possible causes:</p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>It was not added</td>
+<td>The <code>codex mcp add</code> command failed</td>
+</tr>
+<tr>
+<td>MCP failed to start</td>
+<td>Dependencies are not installed or the command is wrong</td>
+</tr>
+<tr>
+<td>The name is wrong</td>
+<td>The server name was typed incorrectly when calling it</td>
+</tr>
+<tr>
+<td>Authorization is required</td>
+<td>You have not logged in to the external service yet</td>
+</tr>
+<tr>
+<td>The configuration was not refreshed</td>
+<td>You need to restart Codex CLI</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>Calling MCP from a task</h5>
+<p>After MCP is configured, you do not need to remember complex commands.</p>
+<p>In Codex CLI, you can say:</p>
+<pre><code class="language-text">Please use the available MCP tools to query the latest documentation for Next.js App Router.
+</code></pre>
+<p>You can also specify a particular MCP:</p>
+<pre><code class="language-text">Please use context7 to query the latest usage of Next.js App Router,
+and then tell me how the current project should be modified.
+</code></pre>
+<p>For a Figma MCP, you can say:</p>
+<pre><code class="language-text">Please use Figma MCP to read this design file,
+analyze the page structure, and generate a frontend implementation plan for me.
+</code></pre>
+<p>For a GitHub MCP, you can say:</p>
+<pre><code class="language-text">Please use GitHub MCP to view recent open issues in this repository,
+and help me organize the top 3 highest-priority problems.
+</code></pre>
+<hr>
+<h5>Where is the MCP configuration file?</h5>
+<p>Codex writes MCP configuration to a configuration file.</p>
+<p>The common location is:</p>
+<pre><code class="language-text">~/.codex/config.toml
+</code></pre>
+<p>In simple terms:</p>
+<pre><code class="language-text">config.toml = Codex's configuration file
+</code></pre>
+<p>It may contain settings like this:</p>
+<pre><code class="language-text">[mcp_servers.context7]
+command = &quot;npx&quot;
+args = [&quot;-y&quot;, &quot;@upstash/context7-mcp&quot;]
+</code></pre>
+<p>This means:</p>
+<pre><code class="language-text">There is an MCP server called context7.
+The startup command is npx -y @upstash/context7-mcp.
+</code></pre>
+<p>If you are not familiar with configuration files, do not edit them manually at first.</p>
+<p>Use these commands instead:</p>
+<pre><code class="language-text">codex mcp add
+codex mcp list
+codex mcp remove
+</code></pre>
+<hr>
+<h5>Adding a remote MCP</h5>
+<p>Some MCPs do not start from local commands. They connect through URLs.</p>
+<p>These are usually called remote MCPs or HTTP MCPs.</p>
+<p>They may need:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration item</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL</td>
+<td>Remote MCP service address</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>Whether login is required</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>Access credential</td>
+</tr>
+<tr>
+<td>OAuth</td>
+<td>Browser-based authorization</td>
+</tr>
+</tbody>
+</table>
+<p>If login is required, use:</p>
+<pre><code class="language-text">codex mcp login MCP-name
+</code></pre>
+<p>When you no longer need it, use:</p>
+<pre><code class="language-text">codex mcp logout MCP-name
+</code></pre>
+<p>For beginners:</p>
+<pre><code class="language-text">Start with documentation-type MCPs that do not require complex authorization.
+Try remote MCPs that require login later.
+</code></pre>
+<hr>
+<h5>Deleting unused MCPs</h5>
+<p>If you no longer use an MCP, delete it:</p>
+<pre><code class="language-text">codex mcp remove name
+</code></pre>
+<p>Examples:</p>
+<pre><code class="language-text">codex mcp remove context7
+</code></pre>
+<p>Check again after deleting it:</p>
+<pre><code class="language-text">codex mcp list
+</code></pre>
+<p>Confirm that it no longer appears in the list.</p>

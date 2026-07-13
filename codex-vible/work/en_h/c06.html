@@ -1,0 +1,929 @@
+<h3>Codex IDE Extension</h3>
+<p>Install Codex directly in your code editor.</p>
+<p>You do not need to open Codex App separately or keep switching to a terminal. Use Codex directly from the sidebar in editors such as VS Code, Cursor, and Windsurf.</p>
+<h4>Understanding Codex IDE Extension</h4>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDE</td>
+<td>Software you use to write code, such as VS Code, Cursor, or Windsurf</td>
+</tr>
+<tr>
+<td>Codex IDE Extension</td>
+<td>Codex installed inside your editor</td>
+</tr>
+<tr>
+<td>Sidebar</td>
+<td>Where Codex appears, similar to a chat panel</td>
+</tr>
+<tr>
+<td>Current file</td>
+<td>The file currently open in the editor</td>
+</tr>
+<tr>
+<td>Selected code</td>
+<td>The code section you selected with your mouse</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>The files, code, errors, and task instructions Codex can refer to</td>
+</tr>
+</tbody>
+</table>
+<p>In short:</p>
+<pre><code class="language-text">Codex IDE = Ask Codex to help you directly inside your coding software
+</code></pre>
+<h4>Who should use Codex IDE Extension</h4>
+<table>
+<thead>
+<tr>
+<th>Audience</th>
+<th>Good fit?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>People who use VS Code</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who use Cursor</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who use Windsurf</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who want to view and edit code side by side</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who want Codex to look only at the current file</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who do not want to touch an editor at all</td>
+<td>Not ideal</td>
+</tr>
+<tr>
+<td>People who prefer graphical task management</td>
+<td>Codex App is a better fit</td>
+</tr>
+<tr>
+<td>People who prefer the terminal</td>
+<td>Codex CLI is a better fit</td>
+</tr>
+</tbody>
+</table>
+<h4>Editors supported by Codex IDE Extension</h4>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VS Code</td>
+<td>The most common code editor for beginners</td>
+</tr>
+<tr>
+<td>VS Code Insiders</td>
+<td>The preview version of VS Code</td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td>An AI editor based on VS Code</td>
+</tr>
+<tr>
+<td>Windsurf</td>
+<td>An AI editor that is also compatible with the VS Code extension ecosystem</td>
+</tr>
+<tr>
+<td>JetBrains IDE</td>
+<td>For example: IntelliJ, PyCharm, WebStorm, and Rider</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended first for beginners:</p>
+<pre><code class="language-text">VS Code or Cursor
+</code></pre>
+<h4>Installing Codex IDE Extension</h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Open VS Code / Cursor / Windsurf</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Open the Extensions marketplace</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Search for Codex</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Install the Codex extension from OpenAI</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Restart the editor after installation</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Find the Codex icon in the sidebar</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Click Codex and sign in to your account</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Open your project folder and start using Codex</td>
+</tr>
+</tbody>
+</table>
+<p>If you cannot find the Codex icon in Cursor, the sidebar icon may be collapsed. Check the left or right activity bar first, then pin Codex so it stays visible.</p>
+<hr>
+<h4>First login</h4>
+<p>After installation, Codex IDE Extension asks you to sign in.</p>
+<p>There are two common sign-in methods:</p>
+<table>
+<thead>
+<tr>
+<th>Sign-in method</th>
+<th>Best for</th>
+<th>Beginner recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign in with a ChatGPT account</td>
+<td>General users and beginners</td>
+<td>Recommended</td>
+</tr>
+<tr>
+<td>Sign in with an API Key</td>
+<td>Developers, automation, and special cases</td>
+<td>Not recommended at the start</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners should choose this first:</p>
+<pre><code class="language-text">Sign in with ChatGPT
+</code></pre>
+<p>That means signing in with your ChatGPT account.</p>
+<p>API Key sign-in is better suited to developers who understand API billing and environment variables.</p>
+<hr>
+<h4>Where Codex IDE Extension opens</h4>
+<p>After installation succeeds, Codex usually appears in the editor sidebar.</p>
+<p>Common locations:</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Possible location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VS Code</td>
+<td>By default, in the right sidebar or the left activity bar</td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td>May be on the left or right, or may be collapsed</td>
+</tr>
+<tr>
+<td>Windsurf</td>
+<td>Usually in the extensions sidebar</td>
+</tr>
+<tr>
+<td>JetBrains</td>
+<td>In the plugin panel or tool window</td>
+</tr>
+</tbody>
+</table>
+<p>If you cannot find it, try:</p>
+<pre><code class="language-text">1. Restart the editor
+2. Open Extensions and confirm Codex is installed
+3. Check whether the left activity bar has a Codex icon
+4. Check whether the right sidebar has a Codex panel
+5. Search for Codex in the command palette
+</code></pre>
+<hr>
+<h4>What Codex IDE Extension can do</h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>In simple terms</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read the current file</td>
+<td>Look at the code you currently have open</td>
+<td>Explain this file</td>
+</tr>
+<tr>
+<td>Read selected code</td>
+<td>Look only at the part you selected</td>
+<td>Explain this function</td>
+</tr>
+<tr>
+<td>Modify code</td>
+<td>Edit files for you directly</td>
+<td>Change the button to blue</td>
+</tr>
+<tr>
+<td>Run commands</td>
+<td>Execute commands in the project</td>
+<td>npm run build</td>
+</tr>
+<tr>
+<td>Fix errors</td>
+<td>Modify code based on error messages</td>
+<td>Fix a build failure</td>
+</tr>
+<tr>
+<td>Generate documentation</td>
+<td>Write README files or comments</td>
+<td>Write a README based on the project</td>
+</tr>
+<tr>
+<td>Switch models</td>
+<td>Switch to a stronger or faster model</td>
+<td>GPT-5.5 / mini</td>
+</tr>
+<tr>
+<td>Adjust reasoning</td>
+<td>Set the depth of reasoning</td>
+<td>Low / medium / high</td>
+</tr>
+<tr>
+<td>Control permissions</td>
+<td>Set whether files can be changed or the network can be used</td>
+<td>Chat / Agent / Full Access</td>
+</tr>
+<tr>
+<td>Delegate to the cloud</td>
+<td>Send larger tasks to Cloud</td>
+<td>Run in the cloud</td>
+</tr>
+</tbody>
+</table>
+<h3>Codex Web</h3>
+<p>A cloud-based Codex interface used in a web browser.</p>
+<p>You do not need to keep your local computer on, and you do not have to work in the terminal. Codex Web can connect to a GitHub repository, let Codex read code, run tasks, modify files in a cloud environment, and produce results for review.</p>
+<h4>Understanding Codex Web</h4>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex Web</td>
+<td>The web version of Codex</td>
+</tr>
+<tr>
+<td>Cloud Task</td>
+<td>A cloud task that does not have to run on your computer</td>
+</tr>
+<tr>
+<td>Repository</td>
+<td>A code repository on GitHub</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>A code branch, like an independent version for changes</td>
+</tr>
+<tr>
+<td>Pull Request</td>
+<td>Submit the code Codex changed so you can review it</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>The environment Codex needs to run the project in the cloud</td>
+</tr>
+<tr>
+<td>Setup Script</td>
+<td>An installation command that runs before the cloud environment starts</td>
+</tr>
+<tr>
+<td>Maintenance Script</td>
+<td>An optional maintenance script, such as one for updating dependencies or preparing data</td>
+</tr>
+</tbody>
+</table>
+<p>In one sentence:</p>
+<pre><code class="language-text">Codex Web = Let Codex handle GitHub projects for you in the cloud.
+</code></pre>
+<hr>
+<h4>Who should use Codex Web</h4>
+<table>
+<thead>
+<tr>
+<th>Audience</th>
+<th>Good fit?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>People with GitHub repositories</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who want Codex to handle tasks in the cloud</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who want Codex to create PRs</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Developers on team projects</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>People who do not want to keep their local computer occupied</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Beginners with no GitHub at all</td>
+<td>Not ideal</td>
+</tr>
+<tr>
+<td>People only doing local HTML practice</td>
+<td>Codex App is a better fit</td>
+</tr>
+<tr>
+<td>People who do not know Git / GitHub</td>
+<td>Learn the basics first</td>
+</tr>
+</tbody>
+</table>
+<p>For beginners:</p>
+<pre><code class="language-text">Use Codex App for local practice at first.
+After your project is on GitHub, learn Codex Web.
+</code></pre>
+<hr>
+<h4>Where to access Codex Web</h4>
+<p>The entry point for Codex Web is:</p>
+<pre><code class="language-text">chatgpt.com/codex
+</code></pre>
+<p>After opening it:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Sign in to your ChatGPT account</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Go to the Codex page</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Connect your GitHub account</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Select the repository to work on</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Create a cloud task</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Wait for Codex to run in the cloud</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Review the result and diff</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Create a Pull Request when satisfied</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4>Differences between Codex Web and local Codex</h4>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Codex Web</th>
+<th>Codex App / CLI / IDE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where it runs</td>
+<td>Cloud</td>
+<td>Local computer</td>
+</tr>
+<tr>
+<td>Project source</td>
+<td>GitHub repository</td>
+<td>Local folder or Git repository</td>
+</tr>
+<tr>
+<td>Requires the computer to stay on</td>
+<td>Not necessarily</td>
+<td>Usually yes</td>
+</tr>
+<tr>
+<td>Good for a PR workflow</td>
+<td>Very good</td>
+<td>Possible, but more local-oriented</td>
+</tr>
+<tr>
+<td>Good for beginner practice</td>
+<td>Average</td>
+<td>App is better</td>
+</tr>
+<tr>
+<td>Depends on GitHub</td>
+<td>Usually yes</td>
+<td>Not necessarily</td>
+</tr>
+<tr>
+<td>Best tasks</td>
+<td>Repository tasks, PRs, team collaboration</td>
+<td>Local development, quick edits, debugging</td>
+</tr>
+</tbody>
+</table>
+<p>A simple way to think about it:</p>
+<pre><code class="language-text">Local Codex = Works on your computer
+Codex Web = Works on GitHub repositories for you in the cloud
+</code></pre>
+<hr>
+<h4>First-use workflow for Codex Web</h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Open Codex Web</td>
+<td>Open the web version of Codex</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sign in to ChatGPT</td>
+<td>Confirm your account</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Connect GitHub</td>
+<td>Give Codex access to your code repository</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Select a repository</td>
+<td>Choose a project to work on</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Select a branch</td>
+<td>Choose the version to start changing from</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Enter the task</td>
+<td>Tell Codex what to do</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Wait for Codex to run</td>
+<td>Codex processes it in the cloud</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Review the result</td>
+<td>See which files changed</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Review the diff</td>
+<td>Check added and deleted content</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Create a PR</td>
+<td>When satisfied, submit it for review by you or your team</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4>What connecting GitHub means</h4>
+<p>Connecting GitHub means:</p>
+<p>It gives Codex Web permission to access the GitHub repositories you specify.</p>
+<p>Codex Web needs to read the repository code before it can complete tasks.</p>
+<p>For example, if you ask Codex Web to do this:</p>
+<pre><code class="language-text">Please help me fix the issue where the homepage button does nothing when clicked.
+</code></pre>
+<p>Codex first reads your project code, determines where the button logic is, and then modifies the relevant files.</p>
+<p>In short:</p>
+<pre><code class="language-text">GitHub = A cloud drive for code
+Codex Web = Enters that code cloud drive to help you modify the project
+</code></pre>
+<p>Note:</p>
+<pre><code class="language-text">Do not casually authorize accounts or organizations you do not trust.
+Do not give Codex access to all repositories right away.
+If you can authorize only a few repositories, authorize only the ones needed.
+</code></pre>
+<hr>
+<h4>What a Repository is</h4>
+<p>Repository, often shortened to repo, means:</p>
+<p>A complete code project.</p>
+<p>For example:</p>
+<pre><code class="language-text">my-landing-page
+ai-tools-site
+social-cover-generator
+my-react-app
+</code></pre>
+<p>These can all be repositories on GitHub.</p>
+<p>Codex Web usually creates tasks for one repository.</p>
+<p>In short:</p>
+<pre><code class="language-text">Repository = A project folder stored on GitHub
+</code></pre>
+<hr>
+<h4>What a Branch is</h4>
+<p>Branch means:</p>
+<p>An independent version of the code.</p>
+<p>For example:</p>
+<pre><code class="language-text">main = Official version
+feature/homepage = Homepage change version
+fix/button-bug = Version that fixes the button bug
+</code></pre>
+<p>Codex Web usually does not modify the official branch directly. Instead, it works from a branch and produces changes you can inspect.</p>
+<p>In short:</p>
+<pre><code class="language-text">main = Original draft
+New branch = Copy one version out for editing
+PR = Submit the changed version for you to inspect
+</code></pre>
+<hr>
+<h4>What a Pull Request is</h4>
+<p>Pull Request is often shortened to PR.</p>
+<p>Beginners can understand it as:</p>
+<p>After Codex changes the code, it does not merge the code directly into the official project. Instead, it first submits a "change request."</p>
+<p>In a PR, you can see:</p>
+<pre><code class="language-text">Which files changed
+Which code was added
+Which code was deleted
+Whether tests passed
+Codex's summary
+Whether it can be merged
+</code></pre>
+<p>The main benefit of a PR is:</p>
+<pre><code class="language-text">Check first, then merge.
+</code></pre>
+<p>This makes Codex Web well suited to real projects and team projects.</p>
+<hr>
+<h4>How to create a task in Codex Web</h4>
+<p>When you create a task, state these clearly:</p>
+<pre><code class="language-text">Goal: What you want Codex to do
+Scope: Which areas it should change only
+Limits: Which areas it must not touch
+Verification: How to check the result after completion
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-text">Please fix the issue where the homepage button does nothing when clicked.
+
+Requirements:
+1. First analyze where the button click logic is
+2. Modify only files related to the button
+3. Do not refactor the whole project
+4. Do not delete existing features
+5. After fixing, run the build or test command to verify
+6. After completion, explain which files were changed
+</code></pre>
+<p>Do not write:</p>
+<pre><code class="language-text">Help me optimize the project.
+</code></pre>
+<p>This is too vague. Codex may not know where to start.</p>
+<hr>
+<h4>How Codex Web runs projects</h4>
+<p>Codex Web creates a runtime environment in the cloud.</p>
+<p>It usually does the following:</p>
+<pre><code class="language-text">1. Pulls the GitHub repository code
+2. Switches to the specified branch or commit
+3. Runs the setup script to install dependencies
+4. Reads files according to your task
+5. Modifies code
+6. Runs tests or build commands
+7. Generates a diff and summary
+</code></pre>
+<p>If the project needs dependencies, configure the setup script properly.</p>
+<p>For example, a frontend project may need:</p>
+<pre><code class="language-text">npm install
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">pnpm install
+</code></pre>
+<p>If the environment is not configured correctly, Codex may fail because dependencies are missing.</p>
+<hr>
+<h4>What an Environment is</h4>
+<p>Environment means:</p>
+<p>The computer configuration Codex Web uses to run the project in the cloud.</p>
+<p>Codex needs to know:</p>
+<pre><code class="language-text">Which language to use
+How to install dependencies
+How to start the project
+How to run tests
+Which environment variables are needed
+Whether special tools are needed
+</code></pre>
+<p>For example, a frontend project may need:</p>
+<pre><code class="language-text">Node.js
+npm / pnpm
+package.json
+npm run build
+</code></pre>
+<p>A Python project may need:</p>
+<pre><code class="language-text">Python
+pip
+requirements.txt
+pytest
+</code></pre>
+<p>In short:</p>
+<pre><code class="language-text">Environment = The toolbox Codex needs when running a project in the cloud.
+</code></pre>
+<hr>
+<h4>What a Setup Script is</h4>
+<p>Setup Script means:</p>
+<p>A set of installation commands that Codex Web runs first each time it prepares the cloud environment.</p>
+<p>For example:</p>
+<pre><code class="language-text">npm install
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">pip install -r requirements.txt
+</code></pre>
+<p>Its purpose:</p>
+<pre><code class="language-text">Install the dependencies the project needs first.
+</code></pre>
+<p>If the setup script is wrong, Codex may not be able to run the project.</p>
+<p>For beginners:</p>
+<pre><code class="language-text">Start with the simplest installation command.
+Do not write dangerous commands in the setup script.
+Do not put passwords or API Keys in it.
+</code></pre>
+<hr>
+<h4>Network access in Codex Web</h4>
+<p>The cloud environment in Codex Web does not always have unrestricted internet access.</p>
+<p>Usually:</p>
+<pre><code class="language-text">Network access may be allowed during dependency installation
+Network access may be restricted by default during the actual agent task
+</code></pre>
+<p>In short:</p>
+<pre><code class="language-text">Dependency installation can use the network, but the work phase may not have unrestricted network access.
+</code></pre>
+<p>This security measure prevents arbitrary access to external networks during tasks.</p>
+<p>If your task must use the network, check whether the workspace and environment settings allow it.</p>
+<hr>
+<h4>Permission checks for Codex Web</h4>
+<p>Codex Web mainly uses these permissions:</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>What to watch for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GitHub repository permissions</td>
+<td>Which repositories it can read</td>
+</tr>
+<tr>
+<td>Branch permissions</td>
+<td>Whether it can create branches</td>
+</tr>
+<tr>
+<td>PR permissions</td>
+<td>Whether it can create Pull Requests</td>
+</tr>
+<tr>
+<td>Cloud permissions</td>
+<td>Whether the workspace allows Codex Cloud</td>
+</tr>
+<tr>
+<td>Environment variables</td>
+<td>Do not leak API Keys, tokens, or passwords</td>
+</tr>
+<tr>
+<td>External network</td>
+<td>Whether cloud tasks are allowed to access the network</td>
+</tr>
+</tbody>
+</table>
+<p>Safety recommendations for beginners:</p>
+<pre><code class="language-text">Authorize only the repositories needed.
+Do not authorize all repositories.
+Do not put .env files, API Keys, passwords, or tokens into tasks.
+Do not let Codex merge PRs automatically.
+Review first, then merge.
+</code></pre>
+<hr>
+<h4>Tasks Codex Web is good for</h4>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fix bugs in a GitHub repository</td>
+<td>Fix buttons and build or test failures</td>
+</tr>
+<tr>
+<td>Build small features</td>
+<td>Add a page or a form</td>
+</tr>
+<tr>
+<td>Write documentation</td>
+<td>README, usage instructions, deployment instructions</td>
+</tr>
+<tr>
+<td>Code review</td>
+<td>Check the current PR or diff</td>
+</tr>
+<tr>
+<td>Fix CI errors</td>
+<td>Fix issues based on build logs</td>
+</tr>
+<tr>
+<td>Background processing for multiple tasks</td>
+<td>Let Codex run in the cloud without occupying your local computer</td>
+</tr>
+<tr>
+<td>Team collaboration</td>
+<td>Let the team review through a PR</td>
+</tr>
+</tbody>
+</table>
+<p>Especially useful for:</p>
+<pre><code class="language-text">GitHub projects
+Team projects
+Projects that need a PR workflow
+Tasks where you do not want to keep your local computer on all the time
+</code></pre>
+<hr>
+<h4>Tasks Codex Web is not good for</h4>
+<p>Beginners should not start by using Codex Web for:</p>
+<pre><code class="language-text">Small local exercises without GitHub
+Projects where you do not know Git at all
+Real production deployments
+Database migrations
+Payment system changes
+Automatically merging PRs
+Deleting many files
+Handling sensitive secrets
+</code></pre>
+<p>These tasks are possible, but they are higher risk.</p>
+<p>For beginners:</p>
+<pre><code class="language-text">Use Codex App for local practice first.
+After you understand GitHub, use Codex Web for repository tasks.
+</code></pre>
+<hr>
+<h4>Are Codex Web and Codex Cloud the same thing?</h4>
+<p>Use these meanings:</p>
+<pre><code class="language-text">Codex Web = The interface you operate in the browser
+Codex Cloud = The cloud capability that runs tasks behind the scenes
+</code></pre>
+<p>In other words:</p>
+<pre><code class="language-text">You enter a task in Codex Web,
+and Codex Cloud executes it for you in a cloud environment.
+</code></pre>
+<p>Beginners do not need to worry much about these two terms.</p>
+<p>For everyday use, think of them this way:</p>
+<pre><code class="language-text">Codex Web = Web entry point
+Cloud task = Cloud task
+</code></pre>
+<hr>
+<h4>Recommended first Codex Web task</h4>
+<p>Beginners should avoid choosing a complex project for the first time.</p>
+<p>Choose a simple GitHub repository, such as:</p>
+<pre><code class="language-text">A simple HTML page
+A small React project
+A personal homepage
+A README project
+A small tool page
+</code></pre>
+<p>You can write the task like this:</p>
+<pre><code class="language-text">Please help me check whether this project's README is clear.
+
+Requirements:
+1. Read the current project structure
+2. Explain what the README is missing
+3. Add installation steps, startup commands, and a project structure description
+4. Do not modify code logic
+5. Create a PR after completion
+</code></pre>
+<p>This task is low risk and helps you learn the Codex Web workflow.</p>
+<hr>
+<h4>FAQ</h4>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Possible cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cannot find the repository</td>
+<td>GitHub is not authorized, or repository permission was not granted</td>
+<td>Check GitHub authorization again</td>
+</tr>
+<tr>
+<td>Codex cannot create a PR</td>
+<td>No branch or PR permission</td>
+<td>Check GitHub permissions</td>
+</tr>
+<tr>
+<td>Task run failed</td>
+<td>Setup script error or dependency installation failure</td>
+<td>Check environment configuration</td>
+</tr>
+<tr>
+<td>Codex does not know how to start the project</td>
+<td>README or package.json is unclear</td>
+<td>Add project instructions</td>
+</tr>
+<tr>
+<td>Tests fail</td>
+<td>The project itself has bugs or incomplete dependencies</td>
+<td>Ask Codex to analyze the cause of failure first</td>
+</tr>
+<tr>
+<td>Quota is consumed quickly</td>
+<td>The task is large, the model is powerful, or it runs repeatedly</td>
+<td>Narrow the task scope and ask it to plan first</td>
+</tr>
+<tr>
+<td>Too many changes</td>
+<td>The task is too vague</td>
+<td>Clearly limit which files may be changed</td>
+</tr>
+<tr>
+<td>The result is unsatisfactory</td>
+<td>The requirement is unclear or the environment failed</td>
+<td>Add a comment and ask Codex to revise</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4>Beginner safety rules</h4>
+<pre><code class="language-text">1. Do not authorize all GitHub repositories right away.
+2. Do not let Codex merge PRs automatically.
+3. Do not put API Keys, passwords, or tokens into tasks.
+4. Do not commit .env files to the repository.
+5. Ask Codex for a plan first for complex tasks.
+6. Always review the diff in the PR.
+7. Do not merge changes you do not understand.
+8. Do not let Codex automatically deploy production projects directly.
+9. Practice with a simple repository first.
+10. Merge only after you are satisfied.
+</code></pre>
+<hr>
+<hr>

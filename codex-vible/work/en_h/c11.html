@@ -1,0 +1,1603 @@
+<h2>Part 4: The standard workflow</h2>
+<h3>From requirement to delivery, end to end</h3>
+<p>Many people start using Codex by giving it a single sentence:</p>
+<blockquote>
+<p>Help me build a website.
+Help me change this feature.
+Help me optimize this project.</p>
+</blockquote>
+<p>This can work, but it often leaves one problem:
+<strong>AI changes things quickly, but you may not know exactly what changed or whether it is safe to deliver.</strong></p>
+<p>A more reliable way is to avoid changing everything at once and move through a fixed workflow.</p>
+<p>The idea is:</p>
+<blockquote>
+<p>A requirement does not turn directly into a deliverable. It must go through these steps: understanding, planning, changing, verifying, checking, and accepting.</p>
+</blockquote>
+<h4>The standard six-step method</h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Name</th>
+<th>In simple terms</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Break down requirements</td>
+<td>First make sure Codex understands the kind of project it is working on</td>
+<td>Avoid changing code blindly without understanding the structure</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Make a plan</td>
+<td>List what needs to be done, then start after confirmation</td>
+<td>Avoid changing too much at once or moving in the wrong direction</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Implement in small steps</td>
+<td>Change only a small piece at a time</td>
+<td>Reduce the chance of errors and make rollback easier</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Test</td>
+<td>Run checks and verify manually after changes</td>
+<td>Confirm the code has no obvious errors</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Code review</td>
+<td>Review the diff and check whether the changes are correct and safe</td>
+<td>Prevent AI from changing places it should not touch</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Commit and review</td>
+<td>Commit the code and record what you learned</td>
+<td>AI executes; people make the final call</td>
+</tr>
+</tbody>
+</table>
+<h5>Step 1: Break down requirements</h5>
+<p>Before asking Codex to modify a project, start by breaking down the requirement instead of writing code.</p>
+<p>Many people run into trouble with Codex because the requirement was unclear at the start, not because Codex cannot write code.</p>
+<p>For example, if you only say:</p>
+<blockquote>
+<p>Help me optimize the homepage.</p>
+</blockquote>
+<p>Codex may understand it as:</p>
+<ul>
+<li>Change the UI</li>
+<li>Change the copy</li>
+<li>Change the layout</li>
+<li>Change the component structure</li>
+<li>Change routing</li>
+<li>It may even delete code that it considers "unused" along the way.</li>
+</ul>
+<p>Before formal work begins, break the requirement into several core questions.</p>
+<h6>What is the background?</h6>
+<p>First explain why this task needs to be done.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What stage is the project in now?</td>
+<td>This is an official website page that is already online</td>
+</tr>
+<tr>
+<td>What is happening now?</td>
+<td>The homepage conversion rate is low, and users do not understand the product's selling points</td>
+</tr>
+<tr>
+<td>Why change it now?</td>
+<td>A new version is about to be released, so the above-the-fold messaging needs improvement</td>
+</tr>
+<tr>
+<td>What type of requirement is this?</td>
+<td>UI optimization / Bug fix / New feature / Refactor</td>
+</tr>
+</tbody>
+</table>
+<h6>What problem needs to be solved?</h6>
+<p>The requirement should be as specific as possible. Do not just write "optimize," "make it prettier," or "make it better."</p>
+<table>
+<thead>
+<tr>
+<th>Vague wording</th>
+<th>Clearer wording</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimize the homepage</td>
+<td>Optimize the homepage hero title, subtitle, and CTA button</td>
+</tr>
+<tr>
+<td>The page does not look good</td>
+<td>Adjust card spacing, font hierarchy, and button styles</td>
+</tr>
+<tr>
+<td>Login has a problem</td>
+<td>Fix the issue where clicking the login button does not redirect</td>
+</tr>
+<tr>
+<td>Build an admin dashboard</td>
+<td>Add a user list page with search, filters, and pagination</td>
+</tr>
+</tbody>
+</table>
+<p>A good requirement should answer:</p>
+<blockquote>
+<p>What specific problem are we solving this time?</p>
+</blockquote>
+<p>Example:</p>
+<pre><code class="language-text">This time, mainly solve three problems:
+1. The hero title is not clear
+2. The CTA button is not obvious
+3. The mobile hero content is too crowded
+</code></pre>
+<h6>Which files may be related?</h6>
+<p>If you roughly know where the files are, it is best to tell Codex in advance.</p>
+<p>This reduces the chance that it searches and changes files randomly across the whole project.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Possibly related files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Change the homepage</td>
+<td>app/page.tsx, pages/index.tsx, components/Hero.tsx</td>
+</tr>
+<tr>
+<td>Change styles</td>
+<td>globals.css, tailwind.config.js, related component files</td>
+</tr>
+<tr>
+<td>Change login</td>
+<td>login/page.tsx, auth.ts, middleware.ts</td>
+</tr>
+<tr>
+<td>Change APIs</td>
+<td>api directory, server directory, lib directory</td>
+</tr>
+<tr>
+<td>Change copy</td>
+<td>Page components, config files, i18n files</td>
+</tr>
+</tbody>
+</table>
+<h6>Which features must not be touched?</h6>
+<p>This matters.</p>
+<p>Codex may change other areas while completing the current task.</p>
+<p>Tell it in advance:</p>
+<table>
+<thead>
+<tr>
+<th>Content that must not be touched</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login logic</td>
+<td>Only change the UI; do not change the authentication flow</td>
+</tr>
+<tr>
+<td>API addresses</td>
+<td>Do not change API request paths</td>
+</tr>
+<tr>
+<td>Data structure</td>
+<td>Do not change database fields</td>
+</tr>
+<tr>
+<td>Route structure</td>
+<td>Do not change existing page paths</td>
+</tr>
+<tr>
+<td>Existing components</td>
+<td>Do not perform large refactors unless necessary</td>
+</tr>
+<tr>
+<td>Dependency versions</td>
+<td>Do not upgrade or add dependencies casually</td>
+</tr>
+</tbody>
+</table>
+<p>This step draws boundaries for Codex.</p>
+<hr>
+<h6>What result counts as done?</h6>
+<p>Do not just say "finish it." Tell Codex what "done" means.</p>
+<table>
+<thead>
+<tr>
+<th>Requirement type</th>
+<th>Completion standard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI optimization</td>
+<td>The page looks noticeably better, and mobile is not broken</td>
+</tr>
+<tr>
+<td>Bug fix</td>
+<td>The original error disappears, and related features work normally</td>
+</tr>
+<tr>
+<td>New feature</td>
+<td>Users can complete the full operation flow</td>
+</tr>
+<tr>
+<td>Performance optimization</td>
+<td>The build succeeds, and page loading is not noticeably slower</td>
+</tr>
+<tr>
+<td>Copy optimization</td>
+<td>The title, subtitle, and button copy are clear</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<pre><code class="language-text">Completion criteria:
+1. The homepage hero clearly communicates what the product is for
+2. The CTA button is more obvious
+3. Mobile display is normal
+4. Other pages are not affected
+5. The project can run and build normally
+</code></pre>
+<h6>What tests are needed?</h6>
+<p>After changes, do not rely only on Codex saying "done." Explain in advance how to verify the result.</p>
+<table>
+<thead>
+<tr>
+<th>Test type</th>
+<th>Applicable scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Page preview</td>
+<td>UI changes, page layout adjustments</td>
+</tr>
+<tr>
+<td>Console check</td>
+<td>Frontend pages and interactive features</td>
+</tr>
+<tr>
+<td>Build test</td>
+<td>Next.js, React, and Vue projects</td>
+</tr>
+<tr>
+<td>Unit tests</td>
+<td>Projects with test files</td>
+</tr>
+<tr>
+<td>Manual flow testing</td>
+<td>Flows such as login, payment, forms, and upload</td>
+</tr>
+<tr>
+<td>Mobile testing</td>
+<td>Responsive pages, product cover images, and mobile web pages</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>What risks are there?</h6>
+<p>When breaking down requirements, ask Codex to assess risks in advance.</p>
+<p>This helps prevent random fixes while it changes code.</p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope is too large</td>
+<td>A small requirement turns into a large refactor</td>
+</tr>
+<tr>
+<td>Style pollution</td>
+<td>Global CSS is changed and affects other pages</td>
+</tr>
+<tr>
+<td>Dependency risk</td>
+<td>Unnecessary dependencies are added, making the project more complex</td>
+</tr>
+<tr>
+<td>Logic risk</td>
+<td>Fixing one issue breaks other flows</td>
+</tr>
+<tr>
+<td>Data risk</td>
+<td>Changes touch APIs, fields, or database-related content</td>
+</tr>
+<tr>
+<td>Compatibility risk</td>
+<td>Desktop works, but mobile breaks</td>
+</tr>
+</tbody>
+</table>
+<h6>Requirement breakdown prompt template</h6>
+<p>When using Codex, you can copy this directly:</p>
+<pre><code class="language-text">Please help me break down the requirement first. Do not modify code immediately.
+
+Requirement:
+[describe your requirement here]
+
+Please analyze it with the following structure:
+
+1. What is the background?
+- What is the current project roughly about?
+- Why does this requirement need to be done?
+- Is this requirement a new feature, bug fix, UI optimization, or refactor?
+
+2. What problem needs to be solved?
+- What is the specific current problem?
+- To what extent should this be solved this time?
+- What is outside the scope this time?
+
+3. Which files may be related?
+- Please judge which files may be involved based on the project structure
+- List them first; do not modify them directly
+
+4. Which features must not be touched?
+- Which logic should not be changed?
+- Which APIs should not be touched?
+- Which pages or components should not be affected?
+
+5. What result counts as done?
+- Feature completion criteria
+- Page completion criteria
+- Code completion criteria
+
+6. What tests are needed?
+- What commands need to be run?
+- Which pages need manual checking?
+- Which flows need focused verification?
+
+7. What risks are there?
+- Which features may be affected?
+- Is there a risk of style pollution?
+- Is there a risk of over-refactoring?
+- Is there a risk of adding dependencies?
+
+Finally, give me a short execution recommendation:
+- Which step do you recommend doing first?
+- Do you need my confirmation before modifying anything?
+</code></pre>
+<h5>Step 2: Let Codex make a plan</h5>
+<p>After the requirement breakdown is complete, do not ask Codex to start writing code right away.</p>
+<p>In this step, ask Codex to make a plan first.</p>
+<p>The idea is:</p>
+<blockquote>
+<p>First have AI explain how it plans to do the work. Then decide whether it should start.</p>
+</blockquote>
+<p>Many projects go wrong because Codex starts changing things immediately, not because it cannot make the change.</p>
+<p>By the time you notice the direction is wrong, it may already have changed many files, making review and rollback hard.</p>
+<p>The core of the second step is:</p>
+<blockquote>
+<p>Plan first, execute later.
+Confirm first, modify later.</p>
+</blockquote>
+<h6>Do not write code yet</h6>
+<p>Put this at the very beginning of the prompt.</p>
+<p>Codex's default tendency is to solve the problem immediately after seeing the requirement.</p>
+<p>In real projects, changing code directly is risky.</p>
+<table>
+<thead>
+<tr>
+<th>Problem with writing code directly</th>
+<th>Possible consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The project structure is not understood</td>
+<td>The wrong file is changed</td>
+</tr>
+<tr>
+<td>The requirement boundaries are not confirmed</td>
+<td>Features outside the requirement are built</td>
+</tr>
+<tr>
+<td>The impact scope is not assessed</td>
+<td>Existing features are damaged</td>
+</tr>
+<tr>
+<td>The test method is not listed</td>
+<td>You do not know how to verify the changes after they are made</td>
+</tr>
+<tr>
+<td>Too much is changed at once</td>
+<td>Rollback is hard after an error</td>
+</tr>
+</tbody>
+</table>
+<p>Example prompt:</p>
+<pre><code class="language-text">Do not write code yet, and do not modify any files.
+Please make a modification plan first based on the current requirement and project structure.
+Wait for my confirmation before starting implementation.
+</code></pre>
+<h6>Turn on Plan mode</h6>
+<p>You can refer to the "Plan mode" section in the earlier basic Codex App usage chapter. In actual use, you can also type <code>/plan</code> directly in Codex CLI or App, let Codex output a plan first, and then decide whether to execute it.</p>
+<h5>Step 3: Implement in small steps</h5>
+<p>Enter the code modification phase only after the plan is confirmed.</p>
+<p>One principle matters here:</p>
+<blockquote>
+<p>Do not let Codex change everything at once.</p>
+</blockquote>
+<p>Many people run into trouble with Codex because they ask it to "implement everything" at the start.</p>
+<p>It may then change pages, components, styles, APIs, and configuration at the same time. The project may look different, but it becomes hard to tell where a problem came from.</p>
+<p>A more reliable way is:</p>
+<blockquote>
+<p>Change only one feature point at a time.
+After each small step, check that step.</p>
+</blockquote>
+<h6>Change one feature point at a time</h6>
+<p>Small-step implementation depends on controlling the change scope.</p>
+<p>For example, if you want to optimize the homepage, do not ask for everything at once:</p>
+<pre><code class="language-text">Please help me optimize the entire homepage.
+</code></pre>
+<p>Split it like this instead:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Step 1</td>
+<td>Only optimize the hero title and subtitle</td>
+</tr>
+<tr>
+<td>Step 2</td>
+<td>Only adjust the CTA button</td>
+</tr>
+<tr>
+<td>Step 3</td>
+<td>Only optimize the mobile layout</td>
+</tr>
+<tr>
+<td>Step 4</td>
+<td>Only add product selling-point cards</td>
+</tr>
+<tr>
+<td>Step 5</td>
+<td>Only handle final style details</td>
+</tr>
+</tbody>
+</table>
+<p>This keeps each step clear and makes problems easier to locate.</p>
+<h6>Do not let Codex refactor unrelated code</h6>
+<p>Codex sometimes decides that code is "not clean enough" and tries to refactor it while doing the task.</p>
+<p>In real projects, extra refactoring is dangerous.</p>
+<table>
+<thead>
+<tr>
+<th>What Codex may try to do</th>
+<th>Possible problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rename components</td>
+<td>Causes import paths to break</td>
+</tr>
+<tr>
+<td>Split files</td>
+<td>Increases maintenance cost</td>
+</tr>
+<tr>
+<td>Change global styles</td>
+<td>Affects other pages</td>
+</tr>
+<tr>
+<td>Optimize old logic</td>
+<td>Breaks features that were originally working</td>
+</tr>
+<tr>
+<td>Upgrade dependencies</td>
+<td>Creates compatibility problems</td>
+</tr>
+<tr>
+<td>Delete code it thinks is unused</td>
+<td>The code may actually be business logic</td>
+</tr>
+</tbody>
+</table>
+<p>During small-step implementation, set clear limits:</p>
+<pre><code class="language-text">This time, implement only the current feature point.
+Do not refactor unrelated code along the way.
+Do not change names, directory structure, dependency versions, or global configuration.
+If you find code that could be improved, record it as a suggestion first. Do not modify it directly.
+</code></pre>
+<p>This sentence is very important.</p>
+<p>Codex can make suggestions, but it must not expand the change scope on its own.</p>
+<hr>
+<h6>Do not accept large unexplained changes</h6>
+<p>If Codex changes many files at once without a clear explanation, pause.</p>
+<p>Be especially careful in these situations:</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>How to handle it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The number of changed files suddenly becomes large</td>
+<td>Ask it to explain why each file was changed</td>
+</tr>
+<tr>
+<td>A large amount of code was deleted</td>
+<td>Ask it to explain why it was deleted</td>
+</tr>
+<tr>
+<td>An unfamiliar dependency was added</td>
+<td>Ask it to explain why it is necessary</td>
+</tr>
+<tr>
+<td>A configuration file was modified</td>
+<td>Ask it to explain the scope of impact</td>
+</tr>
+<tr>
+<td>A page unrelated to the requirement was changed</td>
+<td>Ask it to revert the unrelated change</td>
+</tr>
+<tr>
+<td>The code style changed a lot</td>
+<td>Ask it to keep the original project style</td>
+</tr>
+</tbody>
+</table>
+<h6>When uncertain, stop and ask first</h6>
+<p>Small-step implementation does not mean Codex should ask about everything. It means Codex must stop when there is critical uncertainty.</p>
+<p>For example:</p>
+<table>
+<thead>
+<tr>
+<th>Uncertain situation</th>
+<th>Why stop?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Not sure which file to change</td>
+<td>Prevents changing the wrong place</td>
+</tr>
+<tr>
+<td>Not sure about business rules</td>
+<td>Prevents implementing the wrong logic</td>
+</tr>
+<tr>
+<td>Not sure whether old code can be deleted</td>
+<td>Prevents deleting features by mistake</td>
+</tr>
+<tr>
+<td>Not sure whether to add a dependency</td>
+<td>Prevents making the project more complex</td>
+</tr>
+<tr>
+<td>Not sure what an API means</td>
+<td>Prevents affecting data</td>
+</tr>
+<tr>
+<td>Not sure why a test failed</td>
+<td>Prevents fixes from creating more confusion</td>
+</tr>
+</tbody>
+</table>
+<p>You can add this rule to Codex in advance:</p>
+<pre><code class="language-text">If you encounter any of the following situations, stop and ask me first. Do not decide on your own:
+
+1. You are not sure which file to change
+2. You are not sure whether to delete old code
+3. You are not sure whether to add a dependency
+4. You are not sure how to handle the business logic
+5. You are not sure why a test failed
+6. You find that changes beyond the original plan are needed
+</code></pre>
+<h6>Small-step implementation prompt template</h6>
+<p>In practice, you can copy the following directly:</p>
+<pre><code class="language-text">Please start small-step implementation.
+
+For now, execute only step [1]:
+[describe the single feature to build this time]
+
+Requirements:
+1. Change only this feature point at a time
+2. Modify only files directly related to the current feature
+3. Do not refactor unrelated code along the way
+4. Do not change the directory structure
+5. Do not add unnecessary dependencies
+6. Do not delete existing features
+7. Do not change files outside the plan
+
+After finishing the change, please stop and output:
+
+1. Which files were changed this time
+2. What changed in each file
+3. Why these changes are necessary
+4. Whether anything outside the plan was changed
+5. Whether there are potential risks
+6. What you recommend doing next
+
+Note:
+If you encounter anything uncertain, stop and ask me first. Do not decide on your own.
+</code></pre>
+<h5>Step 4: Test</h5>
+<p>After Codex completes a small-step change, do not move to the next step immediately. Test first.</p>
+<p>The biggest problem many people have with Codex is this:</p>
+<blockquote>
+<p>AI says it is done, but the project does not actually run.
+The page looks normal, but some features are already broken.
+The current feature is fixed, but old features are affected.</p>
+</blockquote>
+<p>The core of testing is: <strong>do not trust Codex when it says "done"; use results to prove that the work is actually done.</strong></p>
+<p>The following table covers a complete test pass. Run checks from fastest to slowest:</p>
+<table>
+<thead>
+<tr>
+<th>Test type</th>
+<th>Purpose</th>
+<th>Common commands</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit tests</td>
+<td>Check whether functions, components, and modules work correctly</td>
+<td><code>npm test</code> / <code>pnpm test</code> / <code>yarn test</code></td>
+<td>If they fail, explain the reason first; do not directly change code</td>
+</tr>
+<tr>
+<td>Type check</td>
+<td>Find type errors early in TypeScript projects</td>
+<td><code>npm run typecheck</code> / <code>tsc --noEmit</code></td>
+<td>If there is no such command, say so clearly</td>
+</tr>
+<tr>
+<td>lint</td>
+<td>Check code quality issues (unused variables, import order, Hook usage, etc.)</td>
+<td><code>npm run lint</code></td>
+<td>Separate newly introduced issues from existing project issues</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>Opening locally does not mean the project can ship; the build proves it can be packaged</td>
+<td><code>npm run build</code> / <code>pnpm build</code></td>
+<td>If it fails, first summarize the error and impact scope</td>
+</tr>
+<tr>
+<td>Manual testing</td>
+<td>UI, forms, login, payment, and upload require manual clicking through</td>
+<td>None</td>
+<td>Verify each step along the user operation path</td>
+</tr>
+<tr>
+<td>Browser testing</td>
+<td>Page, console, and API problems that cannot be seen in the terminal</td>
+<td>None</td>
+<td>Check page display, Console errors, Network, and mobile layout</td>
+</tr>
+<tr>
+<td>Regression testing</td>
+<td>Test the new feature and check whether old features were broken</td>
+<td>None</td>
+<td>List old pages and components that may be affected by this change</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Two reminders: many old projects already have lint or type issues, so do not let Codex refactor all historical issues while it works. Beginners often miss regression testing; even changing a homepage button may affect other pages that reuse the same component.</p>
+</blockquote>
+<p>During manual testing, you can ask Codex to list the verification steps as an "action and expected result" table, for example:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Open the homepage</td>
+<td>The page loads normally</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Click the CTA button</td>
+<td>It redirects to the registration page</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Shrink to mobile width</td>
+<td>The page does not deform</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Open the console</td>
+<td>There are no obvious red errors in the console</td>
+</tr>
+</tbody>
+</table>
+<h6>Testing-stage prompt template</h6>
+<p>In practice, you can copy this directly:</p>
+<pre><code class="language-text">Please test this change. Do not continue adding features.
+
+Please execute or explain in the following order:
+
+1. Unit tests
+- Does the project have unit tests?
+- If yes, run the test command
+- If they fail, explain why
+
+2. Type check
+- Does the project have a typecheck command?
+- If yes, run it
+- If not, say so
+
+3. lint
+- Run lint checks
+- Separate newly introduced issues from existing project issues
+
+4. Build
+- Run the build command
+- If it fails, explain the error reason and impact scope
+
+5. Manual testing
+- List pages that need manual testing
+- List user operation steps
+- List the expected result for each step
+
+6. Browser testing
+- Check page display
+- Check console errors
+- Check mobile layout
+- Check key buttons and interactions
+
+7. Regression testing
+- Check whether this change affects old features
+- List pages, components, and flows that may be affected
+
+Finally, output a test summary:
+- Which tests passed
+- Which tests failed
+- What caused the failures
+- Whether we can move to the next step
+- Whether issues need to be fixed first
+</code></pre>
+<h5>Step 5: Code review</h5>
+<p>Passing tests does not mean the change is ready to deliver.</p>
+<p>You still need a code review.</p>
+<p>Use code review to check this:</p>
+<blockquote>
+<p>Do not just check whether the code runs. Check whether the changes are correct, stable, and safe.</p>
+</blockquote>
+<p>Codex writes code quickly, but these problems can still appear:</p>
+<table>
+<thead>
+<tr>
+<th>Common problem</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The feature runs, but the logic is wrong</td>
+<td>It looks normal on the surface, but the real business flow has problems</td>
+</tr>
+<tr>
+<td>The change is too large</td>
+<td>Many unrelated pieces of code are changed for a small requirement</td>
+</tr>
+<tr>
+<td>Old logic is deleted by mistake</td>
+<td>Code that looks unused but is actually useful is deleted</td>
+</tr>
+<tr>
+<td>Edge cases are ignored</td>
+<td>Normal input works, but abnormal input crashes</td>
+</tr>
+<tr>
+<td>Security issues</td>
+<td>Secrets are exposed, permission checks are wrong, or input is not validated</td>
+</tr>
+<tr>
+<td>Style is inconsistent</td>
+<td>New code does not match the existing project style</td>
+</tr>
+<tr>
+<td>Maintainability is poor</td>
+<td>Temporary hard-coding makes later changes harder</td>
+</tr>
+</tbody>
+</table>
+<p>Code review is not optional. It is a core step in the Codex workflow.</p>
+<hr>
+<h6>Two review rounds: Codex self-review + human review</h6>
+<p>For the first round, ask Codex to self-check the changes it just made. The goal is not to trust it completely, but to make obvious problems visible first. Ask it to output a table:</p>
+<table>
+<thead>
+<tr>
+<th>Check item</th>
+<th>Result</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Were files outside the plan changed?</td>
+<td>No</td>
+<td>Only homepage-related components were modified</td>
+</tr>
+<tr>
+<td>Were dependencies added?</td>
+<td>No</td>
+<td>package.json was not modified</td>
+</tr>
+<tr>
+<td>Was old logic deleted?</td>
+<td>No</td>
+<td>The original button redirect logic was kept</td>
+</tr>
+<tr>
+<td>Are there risks?</td>
+<td>Yes</td>
+<td>Mobile button spacing still needs human confirmation</td>
+</tr>
+</tbody>
+</table>
+<p>The second round is human review. You, not Codex, are responsible for delivery. You do not need to understand every line, but focus on these parts of the diff:</p>
+<table>
+<thead>
+<tr>
+<th>Review focus</th>
+<th>What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File scope</td>
+<td>Whether only the files that should be changed were changed</td>
+</tr>
+<tr>
+<td>Changed / deleted content</td>
+<td>Whether it matches the plan and whether old features were deleted</td>
+</tr>
+<tr>
+<td>Names and structure</td>
+<td>Whether they match the original project style</td>
+</tr>
+<tr>
+<td>Business logic</td>
+<td>Whether it matches the real requirement (runs ≠ correct logic)</td>
+</tr>
+<tr>
+<td>Test results</td>
+<td>Whether tests were actually run</td>
+</tr>
+</tbody>
+</table>
+<p>For important code involving login, payment, permissions, databases, authentication, and similar areas, consider using a second model for cross-review. One model writes, and another model focuses on finding problems. This is usually unnecessary for copy-only changes or minor styles. Do not accept the second model's suggestions wholesale either. It helps find problems; it does not make the final decision for you.</p>
+<h6>Focus on four high-risk problem types</h6>
+<p>Codex is most likely to go wrong in these four areas, so review them closely:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Common problem</th>
+<th>Review focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Edge cases</td>
+<td>Normal input works, abnormal input crashes</td>
+<td>Empty data, API failure, not logged in, insufficient permissions, mobile sizes, repeated clicks</td>
+</tr>
+<tr>
+<td>Security issues</td>
+<td>When users / APIs / permissions / payments / uploads / databases are involved</td>
+<td>Whether secret tokens are exposed, whether permission checks are missing, whether input is validated, whether sensitive information is leaked, whether APIs have authentication</td>
+</tr>
+<tr>
+<td>Accidental deletion</td>
+<td>Code that seems useless but is actually useful is deleted</td>
+<td>Focus on deleted content in the diff; old components, comments, compatibility code, fallbacks, and config items may still be in use</td>
+</tr>
+<tr>
+<td>Business logic</td>
+<td>The code runs but the logic is wrong (wrong page redirect, wrong price calculation, privilege escalation)</td>
+<td>Normal paths, abnormal paths, permission checks, and whether old business rules were overwritten</td>
+</tr>
+</tbody>
+</table>
+<p>If you see a large deletion without a clear explanation from Codex, do not accept it directly.</p>
+<h6>Code review prompt template</h6>
+<p>In practice, you can copy this directly:</p>
+<pre><code class="language-text">Please do a code review for this change. Do not continue writing code.
+
+Please review using the following structure:
+
+1. Codex self-review
+- Did this change only modify files inside the plan?
+- Is there unrelated refactoring?
+- Were dependencies added?
+- Is there hard-coding?
+- Was old logic deleted by mistake?
+
+2. Change scope review
+- Which files were changed?
+- Why was each file changed?
+- Are there changes outside the plan?
+- Are there large unexplained changes?
+
+3. Edge case review
+- How is empty data handled?
+- How are API failures handled?
+- How are unauthenticated users handled?
+- How are insufficient permissions handled?
+- How are repeated clicks handled?
+- Could mobile behave abnormally?
+
+4. Security issue review
+- Are secrets, tokens, account names, or passwords exposed?
+- Are permission checks affected?
+- Is input validation missing?
+- Could sensitive information be leaked?
+- Was API authentication logic modified?
+
+5. Deleted content review
+- Which code was deleted?
+- What is the reason for deletion?
+- Is it confirmed that nothing else depends on it?
+- Could it affect old features?
+
+6. Business logic review
+- Does it meet the requirement?
+- Is the normal flow correct?
+- Is the abnormal flow correct?
+- Does it affect old business rules?
+- Are there uncertain business assumptions?
+
+7. Review conclusion
+Finally, give a conclusion:
+- Can continue
+- Needs small fixes
+- Needs partial rollback
+- Needs a new plan
+
+Note:
+Only review. Do not continue modifying code.
+If you find problems, explain the problems and suggestions first, then wait for my confirmation before changing anything.
+</code></pre>
+<h5>Step 6: Commit and review</h5>
+<p>After the code passes testing and review, the final step is not simply saying "done."</p>
+<p>A complete Codex workflow also needs two things:</p>
+<blockquote>
+<p>First, formally commit this change.
+Second, capture what was learned from this change.</p>
+</blockquote>
+<p>Many people use Codex only until "the code runs," then skip commit notes, PR descriptions, problem records, and documentation updates.</p>
+<p>That may look fine in the short term, but over time it creates a problem:</p>
+<blockquote>
+<p>Every time feels like the first time.
+Every time needs to be explained again.
+Every time repeats the same mistakes.</p>
+</blockquote>
+<p>So the core of the sixth step is:</p>
+<blockquote>
+<p>Delivery does not end the workflow. Review makes the next change easier.</p>
+</blockquote>
+<h6>Generate a commit</h6>
+<p>After this change has passed testing and review, you can ask Codex to generate a commit.</p>
+<p>A commit should not be a vague "update." It should explain what changed this time.</p>
+<p>A good commit should answer:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What changed?</td>
+<td>The main content of this commit</td>
+</tr>
+<tr>
+<td>Why was it changed?</td>
+<td>Which requirement or problem it corresponds to</td>
+</tr>
+<tr>
+<td>What is affected?</td>
+<td>Which modules, pages, or features are involved</td>
+</tr>
+<tr>
+<td>Did tests pass?</td>
+<td>Whether build, lint, and tests passed</td>
+</tr>
+</tbody>
+</table>
+<p>Common commit message formats:</p>
+<pre><code class="language-text">feat: add user profile page
+fix: resolve login redirect issue
+style: improve homepage responsive layout
+refactor: simplify product card component
+docs: update setup guide
+</code></pre>
+<p>For a localized project, you can also write the description in the team's working language:</p>
+<pre><code class="language-text">feat: add user profile page
+fix: fix abnormal redirect after login
+style: optimize the homepage mobile layout
+docs: update project usage instructions
+</code></pre>
+<h6>Write a PR</h6>
+<p>If the project uses GitHub, GitLab, or a team collaboration flow, write a PR after committing.</p>
+<p>A PR is not a formality. It lets others quickly understand:</p>
+<table>
+<thead>
+<tr>
+<th>What the PR should explain</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What was done this time</td>
+<td>Helps the reviewer understand quickly</td>
+</tr>
+<tr>
+<td>Why it was done</td>
+<td>Explains the requirement background</td>
+</tr>
+<tr>
+<td>Which areas changed</td>
+<td>Reduces review cost</td>
+</tr>
+<tr>
+<td>How it was tested</td>
+<td>Shows the change was deliberate</td>
+</tr>
+<tr>
+<td>What risks there are</td>
+<td>Exposes uncertainties in advance</td>
+</tr>
+<tr>
+<td>What needs focused review</td>
+<td>Guides the reviewer's focus</td>
+</tr>
+</tbody>
+</table>
+<p>A good PR description can look like this:</p>
+<pre><code class="language-text">## Changes in this PR
+
+- Optimize the homepage hero title, subtitle, and CTA button
+- Adjust the mobile hero layout
+- Keep the original redirect logic; APIs and routes were not modified
+
+## Test results
+
+- npm run lint passed
+- npm run build passed
+- Manually checked homepage display on desktop and mobile
+- CTA button redirect works normally
+
+## Risk notes
+
+- This change involves homepage style adjustments, so mobile display needs focused confirmation
+- No dependencies were added
+- Login, API, and database logic were not modified
+</code></pre>
+<h6>Record problems</h6>
+<p>During review, record problems encountered in this process.</p>
+<p>This step is very important.</p>
+<p>In the Codex workflow, the main value is not "this time is done," but this:</p>
+<blockquote>
+<p>The next time you encounter a similar problem, you can avoid the same detours.</p>
+</blockquote>
+<p>Problems that need to be recorded include:</p>
+<table>
+<thead>
+<tr>
+<th>Problem type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requirement problem</td>
+<td>The initial requirement description was not clear enough</td>
+</tr>
+<tr>
+<td>Planning problem</td>
+<td>Codex missed mobile in the plan</td>
+</tr>
+<tr>
+<td>Change problem</td>
+<td>Codex changed an unrelated component along the way</td>
+</tr>
+<tr>
+<td>Testing problem</td>
+<td>The project does not have a typecheck command</td>
+</tr>
+<tr>
+<td>Review problem</td>
+<td>It was found to have deleted fallback logic by mistake</td>
+</tr>
+<tr>
+<td>Communication problem</td>
+<td>The prompt did not clearly say "do not add dependencies"</td>
+</tr>
+</tbody>
+</table>
+<p>The record format can be simple:</p>
+<pre><code class="language-text">Problem record for this change:
+
+1. Problem: Codex initially wanted to modify global styles
+   Reason: The requirement did not clearly limit the scope to “only change the homepage”
+   Solution: Add to the prompt that only homepage-related files should be modified
+
+2. Problem: Mobile testing was missed
+   Reason: The planning stage did not list mobile acceptance criteria
+   Solution: Always add mobile checks to the test checklist in the future
+
+3. Problem: The PR description was not clear enough
+   Reason: Test results were not recorded in advance
+   Solution: Generate a test summary immediately after each test run
+</code></pre>
+<h6>Summarize prompts</h6>
+<p>If the prompts used this time worked well, save them.</p>
+<p>The purpose of this step is simple:</p>
+<blockquote>
+<p>Do not rewrite useful prompts every time.</p>
+</blockquote>
+<p>For example, suppose you found this sentence useful:</p>
+<pre><code class="language-text">Do not refactor unrelated code along the way.
+If you find that changes beyond the plan are needed, stop and ask me first.
+</code></pre>
+<p>Record it and use it as a fixed rule in the future.</p>
+<p>You can organize it as a table:</p>
+<table>
+<thead>
+<tr>
+<th>Effective Prompt</th>
+<th>Applicable scenario</th>
+<th>Why it works</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Do not write code yet; make a plan first</td>
+<td>All complex requirements</td>
+<td>Prevents Codex from making random changes directly</td>
+</tr>
+<tr>
+<td>Change only one feature point at a time</td>
+<td>Multi-step tasks</td>
+<td>Reduces error and rollback cost</td>
+</tr>
+<tr>
+<td>Do not refactor unrelated code along the way</td>
+<td>Maintaining old projects</td>
+<td>Prevents the change scope from expanding</td>
+</tr>
+<tr>
+<td>Summarize the diff after changes are done</td>
+<td>After every change</td>
+<td>Makes human review easier</td>
+</tr>
+<tr>
+<td>When uncertain, stop and ask first</td>
+<td>When business logic is unclear</td>
+<td>Prevents AI from making decisions on its own</td>
+</tr>
+</tbody>
+</table>
+<h6>Update AGENTS.md</h6>
+<p>If certain rules need to be followed every time in the future, do not keep them only in chat. It is better to update the project-level <code>AGENTS.md</code>.</p>
+<p><code>AGENTS.md</code> can be understood as:</p>
+<blockquote>
+<p>A project rulebook written for Codex.</p>
+</blockquote>
+<p>It can tell Codex:</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How the project runs</td>
+<td>Tells Codex the start, test, and build commands</td>
+</tr>
+<tr>
+<td>What the code style is</td>
+<td>Prevents code that does not match the project style</td>
+</tr>
+<tr>
+<td>Which directories must not be touched</td>
+<td>Prevents accidental changes to core files</td>
+</tr>
+<tr>
+<td>What to do before changing code</td>
+<td>Sets "plan first, execute later" as a rule</td>
+</tr>
+<tr>
+<td>What the testing requirements are</td>
+<td>Defines which checks must be run after changes</td>
+</tr>
+<tr>
+<td>What the commit requirements are</td>
+<td>Defines how commits and PRs should be written</td>
+</tr>
+</tbody>
+</table>
+<p>Example content:</p>
+<pre><code class="language-text"># AGENTS.md
+
+## Working rules
+
+- Before changing anything, read the project structure first.
+- Before changing anything, make a plan first. Do not write code directly.
+- Implement only one feature point at a time.
+- Do not refactor unrelated code along the way.
+- Do not add unnecessary dependencies.
+- When business logic is uncertain, ask first. Do not decide on your own.
+
+## Testing requirements
+
+After each change, check at least:
+
+- npm run lint
+- npm run build
+- Manual testing for related pages
+- Whether the browser console has errors
+- Whether the mobile layout is normal
+
+## Commit requirements
+
+Before committing, explain:
+
+- Which files were changed
+- What changed in each file
+- Whether tests passed
+- Whether there are risks or unfinished items
+</code></pre>
+<h6>Update project documentation</h6>
+<p>Besides <code>AGENTS.md</code>, if this change affects how the project is used, update the project documentation too.</p>
+<p>For example:</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Documentation to update</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New feature</td>
+<td>README, feature guide</td>
+</tr>
+<tr>
+<td>New environment variable</td>
+<td>.env.example, deployment docs</td>
+</tr>
+<tr>
+<td>New command</td>
+<td>README, development guide</td>
+</tr>
+<tr>
+<td>API changed</td>
+<td>API docs</td>
+</tr>
+<tr>
+<td>Deployment flow changed</td>
+<td>Deployment guide</td>
+</tr>
+<tr>
+<td>Configuration changed</td>
+<td>Configuration guide</td>
+</tr>
+<tr>
+<td>New component</td>
+<td>Component usage guide</td>
+</tr>
+</tbody>
+</table>
+<p>Documentation is updated to avoid forgetting details later, not to make the project look better.</p>
+<p>Common documentation includes:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>README.md</td>
+<td>Project introduction, startup method, common commands</td>
+</tr>
+<tr>
+<td>.env.example</td>
+<td>Environment variable examples</td>
+</tr>
+<tr>
+<td>docs/</td>
+<td>Detailed project documentation</td>
+</tr>
+<tr>
+<td>CHANGELOG.md</td>
+<td>Version update record</td>
+</tr>
+<tr>
+<td>AGENTS.md</td>
+<td>Codex working rules</td>
+</tr>
+<tr>
+<td>CONTRIBUTING.md</td>
+<td>Team collaboration guidelines</td>
+</tr>
+</tbody>
+</table>
+<h6>Commit and review prompt template</h6>
+<p>In practice, you can copy this directly:</p>
+<pre><code class="language-text">Please enter the commit and review stage. Do not continue adding features.
+
+Please output using the following structure:
+
+1. Commit recommendation
+- Generate a suitable commit message
+- Use the conventional commit format
+- Do not exaggerate the scope of this change
+
+2. PR description
+Please generate PR content, including:
+- Changes in this PR
+- Reason for the change
+- Files involved
+- Test results
+- Risk notes
+- Areas the reviewer should focus on
+
+3. Problem record
+Please review this process:
+- What problems were encountered
+- What caused them
+- How they were solved
+- How to avoid them next time
+
+4. Prompt summary
+Please summarize:
+- Which prompts were effective
+- Why they were effective
+- What scenarios they are suitable for reuse in
+- Whether you recommend adding them to AGENTS.md
+
+5. AGENTS.md update suggestions
+Please output long-term rules suitable for AGENTS.md:
+- Rules before changing code
+- Rules during changes
+- Testing rules
+- Commit rules
+
+6. Project documentation update suggestions
+Please judge whether these need updates:
+- README.md
+- .env.example
+- docs/
+- CHANGELOG.md
+- Other project documentation
+
+Finally, give a delivery conclusion:
+- Whether it can be committed
+- Whether a PR can be opened
+- Whether there are unfinished items
+- Whether there are risks that need human confirmation
+</code></pre>
+<h3>Codex task template library</h3>
+<p>The previous section covered the standard Codex workflow.</p>
+<p>This section provides common templates you can copy later.</p>
+<p>These templates are meant to do this:</p>
+<blockquote>
+<p>You do not need to rewrite the prompt every time. Copy the template for the scenario, then fill in your own requirement.</p>
+</blockquote>
+<h4>Project-reading template</h4>
+<p>Use this template when you have just opened a new project.</p>
+<p>When Codex touches a project for the first time, do not ask it to change code immediately.</p>
+<p>A more reliable approach is to let it read the project first and output a project understanding report.</p>
+<p>This lets you check:</p>
+<table>
+<thead>
+<tr>
+<th>Checkpoint</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Whether Codex understood the project</td>
+<td>Prevents it from changing the wrong file immediately</td>
+</tr>
+<tr>
+<td>Whether the tech stack was judged correctly</td>
+<td>Confirms it knows what framework the project uses</td>
+</tr>
+<tr>
+<td>Whether the startup method is clear</td>
+<td>Makes later testing and running smoother</td>
+</tr>
+<tr>
+<td>Whether core modules were found correctly</td>
+<td>Prevents later changes from going in the wrong direction</td>
+</tr>
+<tr>
+<td>Whether risks are exposed in advance</td>
+<td>Prevents accidental changes to core logic</td>
+</tr>
+</tbody>
+</table>
+<h5>Project-reading template (copy directly)</h5>
+<pre><code class="language-text">Please do not modify any code yet.
+
+Please read the current project and output a project understanding report, including:
+
+1. Tech stack
+- What main technologies does the project use?
+- What are the frontend / backend / database / build tools?
+- Does it use TypeScript, Tailwind, a framework, or a component library?
+
+2. Directory structure
+- What is each main directory responsible for?
+- Where are pages, components, utility functions, APIs, and config files?
+- Which directories are core directories, and which directories should not be changed casually?
+
+3. Startup method
+- How does the project install dependencies?
+- How does the project start locally?
+- Are environment variables needed?
+- If README has instructions, prioritize README
+
+4. Test commands
+- Does the project have a test command?
+- Does it have a lint command?
+- Does it have a typecheck command?
+- Does it have a build command?
+- If related commands do not exist, say so clearly
+
+5. Core modules
+- What are the core feature modules of the project?
+- What is each module roughly responsible for?
+- If features need to be modified later, which files should be checked first?
+
+6. Risks for future changes
+- Which files or directories are high-risk to modify?
+- Which logic must not be changed casually?
+- Are there high-risk areas such as global styles, global configuration, authentication, APIs, or databases?
+- What needs special attention in later changes?
+
+Please output only the project understanding report. Do not modify code.
+After outputting it, wait for my confirmation.
+</code></pre>
+<h4>Bug-fix template</h4>
+<p>I encountered a bug:</p>
+<ul>
+<li>[Phenomenon]</li>
+<li>[Steps to reproduce]</li>
+<li>[Expected result]</li>
+<li>[Actual result]</li>
+<li>[Related files/pages]</li>
+</ul>
+<p>Please locate the cause first. Do not modify code directly.</p>
+<p>First provide:</p>
+<ol>
+<li>Possible causes</li>
+<li>Files that need to be checked</li>
+<li>Fix plan</li>
+<li>Risk points
+Wait for my confirmation before changing code.</li>
+</ol>
+<h4>Feature-addition template</h4>
+<p>I want to add a new feature:</p>
+<ul>
+<li>[Feature description]</li>
+<li>[Entry location]</li>
+<li>[Interaction flow]</li>
+<li>[Visual requirements]</li>
+<li>[Data source]</li>
+<li>[Acceptance criteria]</li>
+</ul>
+<p>Please read the related code first and provide an implementation plan.</p>
+<p>Do not change unrelated files.</p>
+<p>After implementation, run tests and summarize the diff.</p>
+<h4>Frontend page template</h4>
+<p>Please implement a page based on the requirements below:</p>
+<ul>
+<li>[Page purpose]</li>
+<li>[Target users]</li>
+<li>[Visual style]</li>
+<li>[Module structure]</li>
+<li>[Interface copy]</li>
+<li>[Responsive requirements]</li>
+<li>[Problems to avoid]</li>
+</ul>
+<p>Please provide a component-splitting plan first, then start implementation.</p>
+<h4>Code review template</h4>
+<p>Please review the diff of the current branch relative to main.</p>
+<p>Focus on checking:</p>
+<ol>
+<li>Potential bugs</li>
+<li>Edge cases</li>
+<li>Security risks</li>
+<li>Type issues</li>
+<li>Performance issues</li>
+<li>Whether there are unrelated changes</li>
+<li>Whether testing is sufficient
+Please do not modify code directly. Output a review report first.</li>
+</ol>
+<h4>Refactor template</h4>
+<p>Please refactor the following module:</p>
+<p>[Module path]</p>
+<p>The goals are:</p>
+<ol>
+<li>Improve readability</li>
+<li>Reduce duplicate code</li>
+<li>Keep existing behavior unchanged</li>
+<li>Do not change the public API</li>
+<li>Do not introduce new dependencies
+Please write a refactor plan first and explain how to verify behavior consistency.</li>
+</ol>
+<h4>Test-writing template</h4>
+<p>Please add tests for the following feature:</p>
+<ul>
+<li>[Feature description]</li>
+<li>[Related files]</li>
+<li>[Edge cases]</li>
+</ul>
+<p>Requirements:</p>
+<ol>
+<li>Do not change business logic</li>
+<li>Cover the normal path</li>
+<li>Cover abnormal paths</li>
+<li>Cover edge cases</li>
+<li>Run tests and report the results.</li>
+</ol>
+<h4>Documentation-writing template</h4>
+<p>Please generate documentation based on the current project:</p>
+<ol>
+<li>Project introduction</li>
+<li>Installation method</li>
+<li>Startup method</li>
+<li>Environment variable description</li>
+<li>Common commands</li>
+<li>Directory structure</li>
+<li>Development notes</li>
+<li>FAQ
+Please do not invent commands that do not exist. You must judge based on project files.</li>
+</ol>
+<hr>

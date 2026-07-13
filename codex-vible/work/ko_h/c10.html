@@ -1,0 +1,822 @@
+<h3>코드 관리(Git 및 GitHub 워크플로)</h3>
+<p>Codex로 실제 프로젝트를 진행할 때는 Git과 GitHub의 기본 개념을 이해해야 합니다.</p>
+<p>초보자는 먼저 이렇게 생각하면 됩니다.</p>
+<pre><code class="language-text">Git = 로컬 코드 버전 관리 도구
+GitHub = 코드를 온라인에 올려 협업하는 플랫폼
+Codex = 코드를 읽고, 수정하고, 명령을 실행하도록 도와주는 AI 프로그래밍 도우미
+</code></pre>
+<p>한 문장으로 정리하면 다음과 같습니다.</p>
+<pre><code class="language-text">Git은 코드 변경 사항을 기록합니다.
+GitHub는 원격 저장과 협업을 담당합니다.
+Codex는 구체적인 프로그래밍 작업을 완료하도록 도와줍니다.
+</code></pre>
+<h4>Git과 GitHub의 차이</h4>
+<table>
+<thead>
+<tr>
+<th>비교</th>
+<th>Git</th>
+<th>GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>쉽게 말해</td>
+<td>로컬 버전 관리 도구</td>
+<td>코드 클라우드 드라이브 + 협업 플랫폼</td>
+</tr>
+<tr>
+<td>주요 역할</td>
+<td>코드가 매번 어떻게 바뀌었는지 기록합니다</td>
+<td>코드를 원격으로 저장하고 팀 협업을 지원합니다</td>
+</tr>
+<tr>
+<td>사용 위치</td>
+<td>내 컴퓨터 안</td>
+<td>브라우저 / 클라우드</td>
+</tr>
+<tr>
+<td>주요 기능</td>
+<td>commit, branch, diff, merge</td>
+<td>repository, issue, pull request</td>
+</tr>
+<tr>
+<td>인터넷이 필요한가</td>
+<td>필요하지 않습니다</td>
+<td>필요합니다</td>
+</tr>
+<tr>
+<td>Codex와의 관계</td>
+<td>Codex가 코드를 수정한 뒤 Git으로 확인하고 저장합니다</td>
+<td>Codex Web / Cloud는 GitHub와 함께 쓰는 경우가 많습니다</td>
+</tr>
+</tbody>
+</table>
+<h5>초보자가 먼저 알아야 할 Git 기본 개념</h5>
+<table>
+<thead>
+<tr>
+<th>개념</th>
+<th>쉽게 말해</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repository</td>
+<td>하나의 코드 리포지토리</td>
+<td>전체 프로젝트를 저장합니다</td>
+</tr>
+<tr>
+<td>Commit</td>
+<td>코드 저장 기록 한 번</td>
+<td>이번에 무엇이 바뀌었는지 기록합니다</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>브랜치</td>
+<td>메인 흐름에 영향을 주지 않고 코드를 수정합니다</td>
+</tr>
+<tr>
+<td>Diff</td>
+<td>변경 비교</td>
+<td>무엇이 추가, 삭제, 수정되었는지 봅니다</td>
+</tr>
+<tr>
+<td>Stage</td>
+<td>스테이징 영역</td>
+<td>어떤 변경 사항을 commit에 저장할지 준비합니다</td>
+</tr>
+<tr>
+<td>Merge</td>
+<td>병합</td>
+<td>한 브랜치의 변경 사항을 다른 브랜치에 합칩니다</td>
+</tr>
+<tr>
+<td>Conflict</td>
+<td>충돌</td>
+<td>양쪽에서 같은 코드 위치를 바꾼 경우 수동으로 선택해야 합니다</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>푸시</td>
+<td>로컬 코드를 GitHub에 업로드합니다</td>
+</tr>
+<tr>
+<td>Pull</td>
+<td>풀</td>
+<td>GitHub의 새 코드를 로컬로 동기화합니다</td>
+</tr>
+<tr>
+<td>Clone</td>
+<td>클론</td>
+<td>GitHub에서 프로젝트를 로컬로 다운로드합니다</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5>초보자가 먼저 알아야 할 GitHub 기본 개념</h5>
+<table>
+<thead>
+<tr>
+<th>개념</th>
+<th>쉽게 말해</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repository</td>
+<td>GitHub에 있는 프로젝트 리포지토리</td>
+<td>코드를 저장합니다</td>
+</tr>
+<tr>
+<td>Issue</td>
+<td>문제 / 요구사항 기록</td>
+<td>bug, 요구사항, 작업을 기록합니다</td>
+</tr>
+<tr>
+<td>Pull Request / PR</td>
+<td>코드 병합 요청</td>
+<td>코드 수정 후 병합을 요청합니다</td>
+</tr>
+<tr>
+<td>Main Branch</td>
+<td>메인 브랜치</td>
+<td>프로젝트의 안정 버전입니다</td>
+</tr>
+<tr>
+<td>Feature Branch</td>
+<td>기능 브랜치</td>
+<td>새 기능을 개발하는 데 사용합니다</td>
+</tr>
+<tr>
+<td>Review</td>
+<td>코드 검토</td>
+<td>병합 전에 코드를 확인합니다</td>
+</tr>
+<tr>
+<td>Actions</td>
+<td>자동화 워크플로</td>
+<td>테스트, 빌드, 배포를 자동화합니다</td>
+</tr>
+<tr>
+<td>README</td>
+<td>프로젝트 설명서</td>
+<td>다른 사람에게 프로젝트 사용 방법을 알려줍니다</td>
+</tr>
+<tr>
+<td>.gitignore</td>
+<td>무시할 파일 목록</td>
+<td>관련 없는 파일이나 민감한 파일이 업로드되지 않도록 합니다</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4>Codex를 사용할수록 Git이 중요한 이유</h4>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>Git이 필요한 이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex가 많은 코드를 수정했습니다</td>
+<td>어디가 어떻게 바뀌었는지 구체적으로 확인합니다</td>
+</tr>
+<tr>
+<td>Codex가 잘못 수정했습니다</td>
+<td>이전 버전으로 되돌립니다</td>
+</tr>
+<tr>
+<td>Codex가 삭제하면 안 되는 내용을 삭제했습니다</td>
+<td>Git으로 복구합니다</td>
+</tr>
+<tr>
+<td>Codex에게 여러 차례 수정을 맡깁니다</td>
+<td>commit마다 한 단계를 저장합니다</td>
+</tr>
+<tr>
+<td>Codex가 큰 변경을 시도하게 하고 싶습니다</td>
+<td>branch 또는 worktree로 위험을 분리합니다</td>
+</tr>
+<tr>
+<td>프로젝트를 GitHub에 올리고 싶습니다</td>
+<td>원격 리포지토리에 push해야 합니다</td>
+</tr>
+<tr>
+<td>팀 협업</td>
+<td>PR, review, merge가 필요합니다</td>
+</tr>
+</tbody>
+</table>
+<p>한 문장으로 정리하면 다음과 같습니다.</p>
+<pre><code class="language-text">Git이 없으면 Codex가 잘못 수정했을 때 되돌리기 어렵습니다.
+Git이 있으면 Codex가 안심하고 시도할 수 있고, 사용자는 언제든 확인하고 복원할 수 있습니다.
+</code></pre>
+<hr>
+<h4>Codex에서 Git을 사용하는 방법</h4>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>작업</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Git 초기화</td>
+<td>프로젝트를 Git으로 추적하기 시작합니다</td>
+</tr>
+<tr>
+<td>2</td>
+<td>.gitignore 작성</td>
+<td>불필요한 파일과 비밀 정보 업로드를 막습니다</td>
+</tr>
+<tr>
+<td>3</td>
+<td>먼저 한 번 commit</td>
+<td>깨끗한 버전을 저장합니다</td>
+</tr>
+<tr>
+<td>4</td>
+<td>새 브랜치 만들기</td>
+<td>Codex에게 안전한 실험 공간을 제공합니다</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Codex가 코드를 수정하게 하기</td>
+<td>구체적인 작업을 완료합니다</td>
+</tr>
+<tr>
+<td>6</td>
+<td>diff 확인</td>
+<td>Codex가 바꾼 내용을 확인합니다</td>
+</tr>
+<tr>
+<td>7</td>
+<td>프로젝트 실행 / 빌드</td>
+<td>오류가 없는지 확인합니다</td>
+</tr>
+<tr>
+<td>8</td>
+<td>만족하면 commit</td>
+<td>이번 수정 내용을 저장합니다</td>
+</tr>
+<tr>
+<td>9</td>
+<td>GitHub에 push</td>
+<td>원격 리포지토리에 업로드합니다</td>
+</tr>
+<tr>
+<td>10</td>
+<td>PR 만들기</td>
+<td>병합 전에 한 번 더 확인합니다</td>
+</tr>
+</tbody>
+</table>
+<h5>Codex 대화창에 입력합니다: 프로젝트를 Git 프로젝트로 초기화하고 필요 없는 파일은 제외해 줘</h5>
+<p align="center">
+  <img src="assets/images/image-049-1201459d2a.png" alt="Codex에서 Git을 사용하는 인터페이스" width="860">
+</p>
+
+<hr>
+<h5>Codex가 .gitignore 파일을 직접 작성해 줍니다</h5>
+<p align="center">
+  <img src="assets/images/image-050-c05fba79fd.png" alt="Codex에서 Git을 사용하는 인터페이스" width="860">
+</p>
+
+<h4>Codex에서 GitHub를 사용하는 방법</h4>
+<h5>사용 전에 준비해야 할 것</h5>
+<table>
+<thead>
+<tr>
+<th>준비 항목</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GitHub 계정</td>
+<td>원격 코드 저장</td>
+<td>코드 클라우드 드라이브 계정</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>로컬 버전 관리</td>
+<td>코드 변경 사항을 기록합니다</td>
+</tr>
+<tr>
+<td>GitHub 리포지토리</td>
+<td>프로젝트 코드 저장</td>
+<td>원격 프로젝트 폴더 하나</td>
+</tr>
+<tr>
+<td>로컬 프로젝트</td>
+<td>Codex가 수정할 코드</td>
+<td>컴퓨터 안의 프로젝트 폴더</td>
+</tr>
+<tr>
+<td>GitHub 로그인 권한</td>
+<td>push / PR 허용</td>
+<td>내 리포지토리임을 증명합니다</td>
+</tr>
+<tr>
+<td>.gitignore</td>
+<td>관련 없는 파일 업로드 방지</td>
+<td>불필요한 파일과 비밀 정보를 업로드하지 않습니다</td>
+</tr>
+</tbody>
+</table>
+<h5>표준 업로드 워크플로</h5>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>작업</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>GitHub에서 새 리포지토리 만들기</td>
+<td>원격 프로젝트 공간을 만듭니다</td>
+</tr>
+<tr>
+<td>2</td>
+<td>리포지토리 주소 복사</td>
+<td>이후 로컬 프로젝트와 연결해야 합니다</td>
+</tr>
+<tr>
+<td>3</td>
+<td>주소를 Codex에 복사해 주기</td>
+<td>Codex에 업로드할 리포지토리를 알려줍니다</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GitHub에 push</td>
+<td>코드를 정식으로 업로드합니다</td>
+</tr>
+</tbody>
+</table>
+<h6>GitHub 리포지토리 만들기</h6>
+<p align="center">
+  <img src="assets/images/image-051-7fe82d6fc2.png" alt="GitHub 리포지토리 생성 페이지" width="860">
+</p>
+
+<h6>리포지토리 주소 복사</h6>
+<p align="center">
+  <img src="assets/images/image-052-d903af3360.png" alt="GitHub에서 리포지토리를 만들 때 리포지토리 주소를 복사하는 작업 인터페이스" width="860">
+</p>
+
+<h6>주소를 Codex에 복사해 주기</h6>
+<p align="center">
+  <img src="assets/images/image-053-1cdc6096db.png" alt="Codex 플랫폼의 “홈페이지 만들기” 프로젝트 페이지" width="860">
+</p>
+
+<h6>GitHub에 push</h6>
+<h4>코드 롤백</h4>
+<h5>코드 수정</h5>
+<p>먼저 AI가 코드를 수정하게 합니다.</p>
+<p align="center">
+  <img src="assets/images/image-054-220c086985.png" alt="Codex 플랫폼의 “홈페이지 만들기” 프로젝트 인터페이스" width="860">
+</p>
+
+<h5>Git에 커밋하여 현재 버전 저장하기</h5>
+<p align="center">
+  <img src="assets/images/image-055-05e59b1fdc.png" alt="Codex 플랫폼에서 Git으로 코드 관리를 하는 작업 인터페이스" width="860">
+</p>
+
+<h5>계속 코드 수정하기</h5>
+<p align="center">
+  <img src="assets/images/image-056-ea768961ca.png" alt="Codex에서 Git을 사용하는 코드 롤백 작업 인터페이스" width="860">
+</p>
+
+<h5>IDE를 열어 코드를 확인하고 롤백하기</h5>
+<p>먼저 IDE를 열어 코드를 확인합니다</p>
+<p align="center">
+  <img src="assets/images/image-057-f9516b1833.png" alt="Codex에서 Git을 사용하는 인터페이스" width="860">
+</p>
+
+<h5>버전 번호 복사</h5>
+<p align="center">
+  <img src="assets/images/image-058-72172c5bd0.png" alt="VS Code에서 Codex를 사용해 코드 롤백을 하는 작업 인터페이스" width="860">
+</p>
+
+<h5>Codex에 붙여 넣고, 코드를 지정한 버전으로 되돌리게 하기</h5>
+<p align="center">
+  <img src="assets/images/image-059-9cdba830ef.png" alt="Codex에서 Git으로 코드 롤백을 하는 작업 인터페이스" width="860">
+</p>
+
+<h4>Git Worktree</h4>
+<p>같은 Git 프로젝트에 독립적인 작업 복사본을 하나 더 엽니다.</p>
+<p>스크래치패드처럼 쓰고, 결과가 만족스러우면 공식 프로젝트로 다시 병합합니다.</p>
+<h5>Worktree가 필요한 이유</h5>
+<p>일반 Git 브랜치는 전환할 수 있지만, 한 폴더에서는 한 번에 하나의 브랜치만 작업합니다.</p>
+<p>Worktree는 이런 경우에 유용합니다.</p>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>Worktree의 역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex가 큰 폭으로 코드를 수정하게 하고 싶습니다</td>
+<td>Codex에게 별도 복사본을 줍니다</td>
+</tr>
+<tr>
+<td>현재 프로젝트에 영향을 주고 싶지 않습니다</td>
+<td>메인 프로젝트는 그대로 유지합니다</td>
+</tr>
+<tr>
+<td>여러 작업을 동시에 하고 싶습니다</td>
+<td>작업마다 worktree 하나를 사용합니다</td>
+</tr>
+<tr>
+<td>여러 방안을 비교하고 싶습니다</td>
+<td>방안 A / B / C를 따로 둡니다</td>
+</tr>
+<tr>
+<td>잘못 수정되어 필요 없습니다</td>
+<td>worktree를 삭제합니다</td>
+</tr>
+<tr>
+<td>큰 수정 / 리팩터링을 합니다</td>
+<td>메인 프로젝트에 영향을 줄 위험을 줄입니다</td>
+</tr>
+</tbody>
+</table>
+<h5>Worktree 만들기</h5>
+<p align="center">
+  <img src="assets/images/image-060-1e3fd3edad.png" alt="Codex 모바일 인터페이스에서 “hello - Codex” 프로젝트의 작업 메뉴" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-061-1e67e75a88.png" alt="Codex 플랫폼 인터페이스. 왼쪽은 프로젝트 목록이며 “hello - codex_2” 프로젝트가 빨간 박스로 강조되어 있음" width="860">
+</p>
+
+<h5>브랜치로 작업하기</h5>
+<p align="center">
+  <img src="assets/images/image-062-677190e8ff.png" alt="Gitpod 인터페이스에서 “hello - codex_2” 브랜치의 코드 편집 영역" width="860">
+</p>
+
+<h5>메인으로 다시 병합하기</h5>
+<p>결과를 확인하고 만족하면 메인으로 다시 병합한 뒤, 더 필요 없는 브랜치를 삭제합니다.</p>
+<p align="center">
+  <img src="assets/images/image-063-8c0f374e82.png" alt="GitHub에서 Worktree를 사용해 코드 관리를 하는 작업 인터페이스" width="860">
+</p>
+
+<h3>클라우드 실행</h3>
+<p>Codex의 클라우드 작업은 로컬 컴퓨터를 계속 켜 두기 어려울 때 작업을 이어 가기에 적합합니다. 계정과 클라이언트가 모바일 진입점을 지원한다면 외출 중에도 일부 작업을 확인하거나 진행할 수 있습니다.</p>
+<pre><code class="language-text">코드 작업을 Codex에 맡기고, 클라우드 환경에서 스스로 실행하게 합니다.
+</code></pre>
+<p>초보자는 이렇게 이해하면 됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>모드</th>
+<th>실행 위치</th>
+<th>쉽게 말해</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local</td>
+<td>내 컴퓨터의 로컬 프로젝트</td>
+<td>Codex가 내 컴퓨터 안의 코드를 직접 수정합니다</td>
+</tr>
+<tr>
+<td>Worktree</td>
+<td>내 컴퓨터의 로컬 복사본</td>
+<td>Codex가 안전한 복사본 안에서 코드를 수정합니다</td>
+</tr>
+<tr>
+<td>Cloud</td>
+<td>OpenAI 클라우드 환경</td>
+<td>Codex가 클라우드에서 GitHub 리포지토리를 가져와 작업을 처리합니다</td>
+</tr>
+</tbody>
+</table>
+<h4>Codex 클라우드 실행이란 무엇인가</h4>
+<p>Codex 클라우드 실행은 다음과 같습니다.</p>
+<table>
+<thead>
+<tr>
+<th>내용</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>실행 환경</td>
+<td>클라우드 컨테이너</td>
+</tr>
+<tr>
+<td>코드 출처</td>
+<td>GitHub 리포지토리</td>
+</tr>
+<tr>
+<td>작업 방식</td>
+<td>Codex가 클라우드에서 코드를 읽고, 수정하고, 실행하고, 검증합니다</td>
+</tr>
+<tr>
+<td>최종 결과</td>
+<td>수정 결과와 diff를 생성하고, 필요하면 PR을 만듭니다</td>
+</tr>
+<tr>
+<td>적합한 작업</td>
+<td>bug 수정, 기능 변경, 문서 작성, 코드 review, issue 처리</td>
+</tr>
+<tr>
+<td>적합하지 않은 작업</td>
+<td>로컬 개인 파일, GitHub에 업로드하지 않은 프로젝트, 고위험 운영 작업</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4>클라우드 실행과 로컬 실행의 차이</h4>
+<table>
+<thead>
+<tr>
+<th>비교</th>
+<th>로컬 실행 Local / Worktree</th>
+<th>클라우드 실행 Cloud</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>코드 위치</td>
+<td>내 컴퓨터 안</td>
+<td>GitHub 리포지토리</td>
+</tr>
+<tr>
+<td>실행 위치</td>
+<td>내 컴퓨터</td>
+<td>클라우드 컨테이너</td>
+</tr>
+<tr>
+<td>컴퓨터를 점유하는가</td>
+<td>점유합니다</td>
+<td>거의 점유하지 않음</td>
+</tr>
+<tr>
+<td>GitHub가 필요한가</td>
+<td>꼭 그렇지는 않습니다</td>
+<td>보통 필요합니다</td>
+</tr>
+<tr>
+<td>백그라운드 작업에 적합한가</td>
+<td>보통입니다</td>
+<td>적합합니다</td>
+</tr>
+<tr>
+<td>병렬 작업에 적합한가</td>
+<td>보통입니다</td>
+<td>적합합니다</td>
+</tr>
+<tr>
+<td>권한 위험</td>
+<td>주로 로컬 파일 권한입니다</td>
+<td>주로 리포지토리, 환경 변수, 네트워크 권한입니다</td>
+</tr>
+<tr>
+<td>초보자에게 적합한가</td>
+<td>먼저 배우기에 더 적합합니다</td>
+<td>GitHub를 배운 뒤 사용하는 것이 좋습니다</td>
+</tr>
+</tbody>
+</table>
+<h4>클라우드 실행 작업 단계</h4>
+<h5>코드를 GitHub에 push하기</h5>
+<p align="center">
+  <img src="assets/images/image-064-c6cc5dc4d9.png" alt="GitHub에서 코드를 리포지토리에 push하는 작업 인터페이스" width="860">
+</p>
+
+<h5>Codex Web 열기</h5>
+<p align="center">
+  <img src="assets/images/image-065-7be7472fae.png" alt="Codex 작업 인터페이스에서 드롭다운 메뉴의 “Codex web 열기” 옵션이 빨간 박스로 강조되어 있음" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-066-e3aead10bc.png" alt="Codex 클라우드 인터페이스" width="860">
+</p>
+
+<h5>수정할 리포지토리 선택</h5>
+<p>선택한 뒤에는 Codex가 바로 작업하게 하면 됩니다.</p>
+<p align="center">
+  <img src="assets/images/image-067-e4aba35bff.png" alt="Codex 클라우드 실행 작업 단계에서 수정할 리포지토리를 선택하는 인터페이스" width="860">
+</p>
+
+<h5>수정이 완료된 뒤 GitHub 리포지토리에 업로드하기</h5>
+<p align="center">
+  <img src="assets/images/image-068-81826d70e0.png" alt="Codex 클라우드 실행 작업 단계에서 수정 완료 후 GitHub 리포지토리에 업로드하는 인터페이스" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-069-cfd1040092.png" alt="사용자 Vink567의 “Polish landing page design #2” 리포지토리 코드 커밋 기록이 표시된 GitHub 리포지토리 페이지" width="860">
+</p>
+
+<h5>로컬에서 수정하기 전에 GitHub 리포지토리의 최신 코드를 먼저 동기화하기</h5>
+<p>클라우드 작업이 이미 수정 사항을 GitHub로 다시 push했다면, 로컬 개발을 계속하기 전에 최신 코드를 먼저 동기화해야 합니다. 이렇게 해야 이전 버전에서 계속 수정하다가 충돌이 생기는 일을 피합니다. Codex가 자동으로 변경 사항을 적용해 주는지, 아니면 사용자가 직접 <code>git pull</code> / <code>codex apply</code>를 실행하는지는 현재 진입점과 작업 유형에 따라 달라집니다.</p>
+<p align="center">
+  <img src="assets/images/image-070-548c4bfced.png" alt="Codex 클라우드 실행 작업 인터페이스" width="860">
+</p>
+
+<h3>메모리 시스템</h3>
+<p>Codex가 장기적으로 유용한 정보를 기억하면 이후 작업을 더 쉽게 이어 갑니다.</p>
+<h4>프로젝트 수준 AGENTS.md</h4>
+<pre><code class="language-text">Codex가 읽는 프로젝트 규칙 설명서입니다.
+</code></pre>
+<p>초보자는 이렇게 이해하면 됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>주요 독자</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>README.md</td>
+<td>사람</td>
+<td>이 프로젝트가 무엇인지, 어떻게 설치하고 사용하는지 사람에게 알려줍니다</td>
+</tr>
+<tr>
+<td>AGENTS.md</td>
+<td>Codex / AI Agent</td>
+<td>AI가 이 프로젝트에서 어떻게 작업해야 하는지 알려줍니다</td>
+</tr>
+<tr>
+<td>.gitignore</td>
+<td>Git</td>
+<td>Git에게 어떤 파일을 업로드하지 말아야 하는지 알려줍니다</td>
+</tr>
+</tbody>
+</table>
+<h5>AGENTS.md를 어디에 둘까</h5>
+<table>
+<thead>
+<tr>
+<th>위치</th>
+<th>적용 범위</th>
+<th>쉽게 말해</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>프로젝트 루트 디렉터리 AGENTS.md</td>
+<td>전체 프로젝트</td>
+<td>현재 프로젝트의 전체 규칙</td>
+</tr>
+<tr>
+<td>하위 디렉터리의 AGENTS.md</td>
+<td>현재 하위 디렉터리 및 관련 작업</td>
+<td>특정 모듈 전용 규칙</td>
+</tr>
+<tr>
+<td>사용자 수준 <code>~/.codex/AGENTS.md</code></td>
+<td>내 모든 프로젝트</td>
+<td>개인 공통 규칙</td>
+</tr>
+<tr>
+<td>프로젝트 수준 AGENTS.md + 사용자 수준 AGENTS.md</td>
+<td>함께 적용됨</td>
+<td>개인 습관 + 현재 프로젝트 규칙</td>
+</tr>
+</tbody>
+</table>
+<h5>AGENTS.md 작성 방법</h5>
+<p>AI에게 프로젝트를 맡기고, 핵심 내용을 요약한 AGENTS.md를 만들게 할 수 있습니다.</p>
+<h6>프런트엔드 프로젝트 AGENTS.md 템플릿</h6>
+<pre><code class="language-text"># AGENTS.md
+
+## 프로젝트 설명
+
+이 프로젝트는 제품 페이지, 도구 페이지 또는 개인 포트폴리오 페이지를 만들기 위한 프런트엔드 웹 프로젝트입니다.
+
+## 기술 스택
+
+- React
+- Vite
+- Tailwind CSS
+- JavaScript / TypeScript
+
+## 자주 쓰는 명령
+
+- 의존성 설치: `npm install`
+- 프로젝트 시작: `npm run dev`
+- 프로젝트 빌드: `npm run build`
+
+## 프로젝트 구조
+
+- `src/`: 주요 소스 코드
+- `src/components/`: 공통 컴포넌트
+- `src/pages/`: 페이지 파일
+- `src/assets/`: 이미지, 아이콘 등 정적 리소스
+- `public/`: 공개 정적 파일
+
+## 코드 규칙
+
+- React 함수 컴포넌트를 우선 사용합니다
+- 스타일은 Tailwind CSS 사용을 우선합니다
+- Bootstrap을 도입하지 마세요
+- 관련 없는 코드를 대규모로 리팩터링하지 마세요
+- 수정할 때 파일 구조를 명확하게 유지하세요
+- 인터페이스 문구는 자연스럽고 간결하며 일반 사용자가 읽기 좋게 작성하세요
+
+## UI 규칙
+
+- 페이지에는 명확한 정보 계층이 있어야 합니다
+- 버튼, 카드, 제목, 여백은 일관되어야 합니다
+- 모바일에서도 기본적으로 사용할 수 있어야 합니다
+- 그라데이션, 그림자, AI 템플릿 느낌을 과하게 사용하지 마세요
+- Demo 느낌보다 실제 제품 느낌을 우선하세요
+
+## 금지 사항
+
+- `.env`, `.env.local`을 수정하지 마세요
+- API Key, token, password를 출력하지 마세요
+- 기존 핵심 기능을 삭제하지 마세요
+- 대형 의존성을 함부로 추가하지 마세요
+- 현재 작업과 관련 없는 파일을 직접 수정하지 마세요
+
+## 작업 완료 후
+
+수정이 완료될 때마다 다음을 출력하세요.
+
+1. 어떤 파일을 수정했는지
+2. 각 파일에서 무엇을 바꾸었는지
+3. 왜 이렇게 바꾸었는지
+4. `npm run build` 실행이 필요한지
+5. diff 확인을 나에게 상기시킬 것
+</code></pre>
+<h6>좋은 AGENTS.md의 특징</h6>
+<table>
+<thead>
+<tr>
+<th>특징</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>구체적입니다</td>
+<td>기술 스택, 명령, 디렉터리를 명확히 씁니다</td>
+</tr>
+<tr>
+<td>간결합니다</td>
+<td>긴 장황한 말로 쓰지 않습니다</td>
+</tr>
+<tr>
+<td>실행 가능합니다</td>
+<td>Codex가 읽고 해야 할 일을 파악합니다</td>
+</tr>
+<tr>
+<td>제한이 있습니다</td>
+<td>어떤 파일을 건드리면 안 되는지 명확히 합니다</td>
+</tr>
+<tr>
+<td>검증이 있습니다</td>
+<td>어떤 명령으로 확인할지 명확히 씁니다</td>
+</tr>
+<tr>
+<td>완료 기준이 있습니다</td>
+<td>Codex가 전달해야 할 내용을 알게 합니다</td>
+</tr>
+<tr>
+<td>유지보수 가능합니다</td>
+<td>프로젝트가 바뀌면 제때 업데이트합니다</td>
+</tr>
+</tbody>
+</table>
+<h4>전역 수준 AGENTS.md</h4>
+<h5>Codex 설정을 열고 개인화를 찾기</h5>
+<p align="center">
+  <img src="assets/images/image-071-c36b13b759.png" alt="Codex 개인화 설정 인터페이스" width="860">
+</p>
+
+<h5>지침을 입력합니다. 이 지침은 개인 공통 선호로 작동하며 이후 Codex 세션에 영향을 줍니다</h5>
+<p>AI로 프로그래밍할 때 흔한 걱정은 AI가 무작정 무언가를 삭제하는 일입니다. 다음 지침을 사용하세요.</p>
+<p>파일이나 디렉터리를 일괄 삭제하지 마세요.</p>
+<p>다음을 사용하지 마세요.</p>
+<ul>
+<li><code>del /s</code></li>
+<li><code>rd /s</code></li>
+<li><code>rmdir /s</code></li>
+<li><code>Remove-Item -Recurse</code></li>
+<li><code>rm -rf</code></li>
+</ul>
+<p>파일을 삭제할 때는 한 번에 명확한 경로의 파일 하나만 삭제하세요.</p>
+<p>올바른 예:</p>
+<pre><code class="language-powershell">Remove-Item &quot;C:\path\to\file.txt&quot;
+</code></pre>
+<p>파일을 일괄 삭제해야 한다면 작업을 중지하고 사용자에게 직접 삭제해 달라고 요청하세요.</p>

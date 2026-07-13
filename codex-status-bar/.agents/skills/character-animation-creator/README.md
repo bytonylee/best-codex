@@ -2,12 +2,12 @@
 
 ## Showcase
 
-Watch the skill in action — generating a complete 64×64 character spritesheet from a single prompt:  
+Watch the skill in action — generating a complete 64×64 character spritesheet from a single prompt:
 **[View on X (Twitter)](https://x.com/smolekoma/status/2051075092847919276?s=20)**
 
 ---
 
-**For:** Codex (OpenAI) and GPT Web Agent  
+**For:** Codex (OpenAI) and GPT Web Agent
 **Purpose:** Generate game-ready 64×64 pixel-art character spritesheets with 8-direction animations from a text prompt or reference image.
 
 ## What It Does

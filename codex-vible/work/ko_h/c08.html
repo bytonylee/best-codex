@@ -1,0 +1,753 @@
+<h3>Skill</h3>
+<p>Codex용으로 마련한 “고정 작업 방식”입니다.</p>
+<p>Codex는 코드를 읽고 수정하며 명령을 실행할 수 있습니다.</p>
+<p>README 작성, 코드 Review, 웹페이지 생성, 문서 정리처럼 같은 유형의 작업을 자주 맡긴다면 그 과정을 Skill로 만들 수 있습니다.</p>
+<h4>Skill이란 무엇인가</h4>
+<table>
+<thead>
+<tr>
+<th>개념</th>
+<th>간단히 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill</td>
+<td>고정된 작업 방법</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td>현재 작업의 프롬프트</td>
+</tr>
+<tr>
+<td>Workflow</td>
+<td>작업을 진행하는 절차</td>
+</tr>
+<tr>
+<td>Template</td>
+<td>고정 템플릿</td>
+</tr>
+<tr>
+<td>Instruction</td>
+<td>Codex에 적용할 장기 규칙</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>Skill에 함께 들어 있는 참고 자료</td>
+</tr>
+<tr>
+<td>Script</td>
+<td>Skill에 선택적으로 포함하는 자동화 스크립트</td>
+</tr>
+</tbody>
+</table>
+<p>예를 들어 Codex가 매번 README를 작성하고, README에 다음 내용을 반드시 포함해야 한다고 가정해 보겠습니다.</p>
+<pre><code class="language-text">프로젝트 소개
+설치 단계
+시작 명령
+파일 구조
+자주 묻는 질문
+</code></pre>
+<p>그러면 README Skill을 만들 수 있습니다.</p>
+<p>이후에는 규칙을 매번 다시 설명할 필요가 없습니다. 이 Skill만 호출하면 Codex가 해당 절차에 따라 작성합니다.</p>
+<hr>
+<h4>Skill인가 MCP인가? 무엇을 언제 써야 하나</h4>
+<p>플러그인, Skill, MCP의 전체 차이는 앞의 “플러그인, Skill, MCP 세 가지의 관계” 요약표를 참고하세요. 여기서는 가장 흔한 고민인 어떤 요구사항에 Skill을 쓰고 어떤 요구사항에 MCP를 써야 하는지만 다룹니다.</p>
+<p>기준은 간단합니다. <strong>“어떻게 할 것인가”의 문제에는 Skill을 쓰고, “어떤 도구에 연결할 것인가”의 문제에는 MCP를 씁니다.</strong></p>
+<table>
+<thead>
+<tr>
+<th>요구사항</th>
+<th>Skill 또는 MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>README 작성, 문서 출력 형식 고정</td>
+<td>Skill</td>
+</tr>
+<tr>
+<td>코드 Review, UI Review</td>
+<td>Skill</td>
+</tr>
+<tr>
+<td>랜딩 페이지 생성, 버그 수정 절차 표준화</td>
+<td>Skill</td>
+</tr>
+<tr>
+<td>최신 개발 문서, 새 버전 API 조회</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>데이터베이스 연결</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>Figma 디자인 시안 읽기</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>GitHub issue / PR 읽기</td>
+<td>MCP</td>
+</tr>
+<tr>
+<td>Notion, 내부 지식 베이스, 회사 내부 도구 연결</td>
+<td>MCP</td>
+</tr>
+</tbody>
+</table>
+<h4>Skill과 일반 프롬프트는 무엇이 다른가</h4>
+<p>한 번만 하는 작업은 프롬프트를 직접 작성합니다. 자주 반복하는 작업은 Skill로 만들기에 적합합니다.</p>
+<table>
+<thead>
+<tr>
+<th>비교 기준</th>
+<th>일반 프롬프트</th>
+<th>Skill</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>사용 방식</td>
+<td>매번 수동으로 입력</td>
+<td>고정 기능으로 저장</td>
+</tr>
+<tr>
+<td>안정성</td>
+<td>요구사항을 빠뜨리기 쉬움</td>
+<td>더 안정적</td>
+</tr>
+<tr>
+<td>적합한 상황</td>
+<td>임시 작업</td>
+<td>반복 작업</td>
+</tr>
+<tr>
+<td>재사용성</td>
+<td>낮음</td>
+<td>높음</td>
+</tr>
+<tr>
+<td>내용 구조</td>
+<td>프롬프트 하나</td>
+<td>지침, 템플릿, 자료, 스크립트</td>
+</tr>
+<tr>
+<td>적합한 사람</td>
+<td>모든 사람</td>
+<td>같은 유형의 작업을 자주 반복하는 사람</td>
+</tr>
+</tbody>
+</table>
+<h4>Skill은 언제 적합한가</h4>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>Skill로 만들기 적합한가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>같은 유형의 작업을 자주 반복함</td>
+<td>적합</td>
+</tr>
+<tr>
+<td>매번 많은 규칙을 써야 함</td>
+<td>적합</td>
+</tr>
+<tr>
+<td>Codex의 출력을 더 안정적으로 만들고 싶음</td>
+<td>적합</td>
+</tr>
+<tr>
+<td>팀의 여러 사람이 같은 절차를 사용해야 함</td>
+<td>적합</td>
+</tr>
+<tr>
+<td>작은 일회성 작업</td>
+<td>반드시 필요하지는 않음</td>
+</tr>
+<tr>
+<td>임시로 문구 한 줄 수정</td>
+<td>필요 없음</td>
+</tr>
+<tr>
+<td>개념 하나만 질문</td>
+<td>필요 없음</td>
+</tr>
+</tbody>
+</table>
+<h4>Skill에는 보통 무엇이 포함되는가</h4>
+<table>
+<thead>
+<tr>
+<th>내용</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>instructions</td>
+<td>Codex에 작업 방식을 알려줌</td>
+</tr>
+<tr>
+<td>resources</td>
+<td>참고 자료, 템플릿, 기준 보관</td>
+</tr>
+<tr>
+<td>scripts</td>
+<td>작업 자동 처리용 선택 스크립트</td>
+</tr>
+<tr>
+<td>examples</td>
+<td>예시 입력과 예시 출력</td>
+</tr>
+<tr>
+<td>checklist</td>
+<td>단계 누락을 막는 체크리스트</td>
+</tr>
+</tbody>
+</table>
+<h4>Skill의 기본 구조</h4>
+<p>간단한 Skill은 다음처럼 작성합니다.</p>
+<pre><code class="language-text"># Skill 이름
+
+## 적용 상황
+이 Skill이 어떤 작업에 적합한지 설명합니다.
+
+## 작업 목표
+Codex가 최종적으로 어떤 결과를 전달해야 하는지 설명합니다.
+
+## 작업 흐름
+1. 먼저 입력 내용을 분석합니다
+2. 그런 다음 작업 유형을 확인합니다
+3. 이후 고정된 단계에 따라 처리합니다
+4. 마지막으로 결과와 체크리스트를 출력합니다
+
+## 출력 형식
+Codex가 마지막에 어떻게 출력해야 하는지 규정합니다.
+
+## 주의사항
+무엇을 하면 안 되는지, 어떤 위험을 알려야 하는지 적습니다.
+</code></pre>
+<p>README Skill 예시는 다음과 같습니다.</p>
+<pre><code class="language-text"># README 생성 Skill
+
+## 적용 상황
+현재 프로젝트를 기반으로 README 문서를 생성할 때 사용합니다.
+
+## 작업 목표
+구조가 명확하고 초보자가 읽기 좋은 README를 출력합니다.
+
+## 작업 흐름
+1. 프로젝트 구조를 읽습니다
+2. package.json 또는 주요 진입 파일을 확인합니다
+3. 프로젝트 유형을 판단합니다
+4. 프로젝트 소개를 생성합니다
+5. 설치 단계와 시작 명령을 보완합니다
+6. 파일 구조를 설명합니다
+7. 자주 묻는 질문을 출력합니다
+
+## 출력 형식
+Markdown 형식을 사용합니다.
+
+## 주의사항
+존재하지 않는 기능을 지어내지 않습니다.
+불확실한 부분은 명확히 표시합니다.
+</code></pre>
+<h4>Codex App에서 Skill을 추가하는 방법</h4>
+<p>Codex App에서 Skill을 추가하는 방법은 두 가지입니다.</p>
+<pre><code class="language-text">1. 기존 Skill 사용
+2. 직접 Skill 만들기
+</code></pre>
+<h5>기존 Skill 사용</h5>
+<p>플러그인의 Skill 영역에서 시스템이 추천하는 Skill 몇 가지를 볼 수 있습니다.</p>
+<p align="center">
+  <img src="assets/images/image-046-d0b772835b.png" alt="Codex App의 Skill 관련 화면" width="860">
+</p>
+
+<h5>직접 Skill 만들기</h5>
+<p>Skill을 직접 만들려면 Codex App의 thread에서 다음을 사용합니다.</p>
+<pre><code class="language-text">$skill-creator
+</code></pre>
+<p>Skill 생성 도우미처럼 동작하며, 반복 절차를 Skill로 정리해 줍니다.</p>
+<p>작업 단계:</p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>작업</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Codex App을 엽니다</td>
+</tr>
+<tr>
+<td>2</td>
+<td>프로젝트를 선택합니다</td>
+</tr>
+<tr>
+<td>3</td>
+<td>새 thread를 만듭니다</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>$skill-creator</code>를 입력합니다</td>
+</tr>
+<tr>
+<td>5</td>
+<td>만들고 싶은 Skill을 알려줍니다</td>
+</tr>
+<tr>
+<td>6</td>
+<td>사용 상황, 규칙, 예시 출력을 제공합니다</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Codex에 Skill 파일 생성을 맡깁니다</td>
+</tr>
+<tr>
+<td>8</td>
+<td>생성 결과를 확인합니다</td>
+</tr>
+<tr>
+<td>9</td>
+<td>이후 새 thread에서 이 Skill을 사용합니다</td>
+</tr>
+</tbody>
+</table>
+<p>예시 프롬프트:</p>
+<pre><code class="language-text">$skill-creator
+
+README Skill을 만들어 주세요.
+
+이 Skill의 역할:
+현재 프로젝트를 기반으로 초보자가 읽기 좋은 README를 자동 생성합니다.
+
+트리거 상황:
+제가 “README 생성”, “프로젝트 설명 작성”, “프로젝트 문서 정리”라고 말할 때 사용합니다.
+
+작업 흐름:
+1. 먼저 프로젝트 구조를 읽습니다
+2. package.json, README, 진입 파일을 확인합니다
+3. 프로젝트 유형을 판단합니다
+4. 프로젝트 개요를 생성합니다
+5. 설치 단계를 작성합니다
+6. 시작 명령을 작성합니다
+7. 주요 폴더의 역할을 설명합니다
+8. 자주 묻는 질문을 보완합니다
+9. 불확실한 부분은 지어내지 않습니다
+
+출력 형식:
+Markdown을 사용합니다.
+
+반드시 포함:
+- 프로젝트 개요
+- 기능 특징
+- 설치 단계
+- 시작 명령
+- 파일 구조
+- 자주 묻는 질문
+- 향후 최적화 방향
+</code></pre>
+<h5>추천 설치 Skill</h5>
+<table>
+<thead>
+<tr>
+<th>Skill / 프로젝트</th>
+<th>주요 역할</th>
+<th>GitHub 주소</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Superpowers</td>
+<td>Coding Agent에 완전한 “소프트웨어 개발 방법론”을 추가합니다. 먼저 요구사항을 명확히 하고 명세와 구현 계획을 작성한 뒤, TDD / 작업 분해 방식으로 개발을 진행합니다. Codex, Claude Code, Cursor, Gemini CLI 같은 엔지니어링형 Agent에 적합합니다.</td>
+<td>https://github.com/obra/superpowers</td>
+</tr>
+<tr>
+<td>skill-creator</td>
+<td>Skill 생성을 돕는 보조 Skill입니다. Codex에 내장되어 있거나 사용할 수 있는 Skill은 현재 환경에 표시되는 목록을 기준으로 판단합니다. 출처가 다른 같은 이름의 Skill은 구현 방식이 다를 수 있습니다.</td>
+<td>현재 Codex Skill 목록을 기준으로 합니다</td>
+</tr>
+<tr>
+<td>find-skills</td>
+<td>“Skill을 찾는 Skill”입니다. “어떤 기능의 Skill이 있나요?”라고 물으면 Agent Skill을 검색하고 설치하는 일을 도와줍니다. 내부적으로는 npx skills find / add / check / update와 함께 동작합니다.</td>
+<td>https://github.com/vercel-labs/skills/tree/main/skills/find-skills</td>
+</tr>
+</tbody>
+</table>
+<h4>Codex CLI에서 Skill을 추가하는 방법</h4>
+<p>Codex CLI에서 Skill을 추가하는 방법은 세 가지입니다.</p>
+<pre><code class="language-text">1. 기존 Skill 사용
+2. $skill-creator로 Skill 만들기
+3. SKILL.md 파일을 수동으로 만들기
+</code></pre>
+<h5>Skill을 추가하는 세 가지 방법</h5>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>적합한 사람</th>
+<th>간단히 말하면</th>
+<th>추천 정도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기존 Skill 사용</td>
+<td>처음 사용하는 사람</td>
+<td>기존 Skill을 바로 호출</td>
+<td>추천</td>
+</tr>
+<tr>
+<td><code>$skill-creator</code>로 생성</td>
+<td>프롬프트를 Skill로 바꾸고 싶은 사람</td>
+<td>Codex에 Skill 정리를 맡김</td>
+<td>가장 권장</td>
+</tr>
+<tr>
+<td><code>SKILL.md</code> 수동 생성</td>
+<td>파일 구조에 익숙한 사람</td>
+<td>Skill 파일을 직접 작성</td>
+<td>심화</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>방법 1: 기존 Skill 사용</h6>
+<p>프로젝트 디렉터리로 이동한 뒤 Codex CLI를 실행합니다.</p>
+<pre><code class="language-text">cd 프로젝트-디렉터리
+codex
+</code></pre>
+<p>Codex CLI가 열리면 다음을 입력할 수 있습니다.</p>
+<pre><code class="language-text">/skills
+</code></pre>
+<p>또는 다음을 바로 입력합니다.</p>
+<pre><code class="language-text">$
+</code></pre>
+<p>Codex가 현재 사용할 수 있는 Skill을 보여 줍니다.</p>
+<p>이미 Skill 이름을 알고 있다면 작업에서 직접 이름을 지정할 수 있습니다.</p>
+<pre><code class="language-text">현재 프로젝트를 기반으로 README를 생성하려면 $readme-skill을 사용해 주세요.
+</code></pre>
+<p>또는:</p>
+<pre><code class="language-text">$ui-review-skill 현재 홈페이지의 시각적 문제를 확인하고 수정 제안을 해 주세요.
+</code></pre>
+<hr>
+<h6>기존 Skill 사용 방식</h6>
+<table>
+<thead>
+<tr>
+<th>사용법</th>
+<th>예시</th>
+<th>적합한 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/skills</td>
+<td>Skill 목록 열기</td>
+<td>사용 가능한 Skill을 모를 때</td>
+</tr>
+<tr>
+<td>$ 입력</td>
+<td>Skill 빠르게 선택</td>
+<td>빠르게 호출할 때</td>
+</tr>
+<tr>
+<td><code>$skill-name</code></td>
+<td><code>$readme-skill</code></td>
+<td>Skill 이름을 명확히 알고 있을 때</td>
+</tr>
+<tr>
+<td>자연어 설명</td>
+<td>README Skill로 프로젝트 설명을 작성해 주세요</td>
+<td>정확한 이름을 모를 때</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>방법 2: <code>$skill-creator</code>로 Skill 만들기</h6>
+<p>반복 절차를 Skill로 저장하려면 다음을 사용합니다.</p>
+<pre><code class="language-text">$skill-creator
+</code></pre>
+<p>Skill 생성 도우미처럼 동작하며 다음을 묻습니다.</p>
+<table>
+<thead>
+<tr>
+<th>질문</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>이 Skill은 무엇을 하는가</td>
+<td>용도를 명확히 함</td>
+</tr>
+<tr>
+<td>언제 트리거되는가</td>
+<td>적용 상황을 분명히 함</td>
+</tr>
+<tr>
+<td>스크립트를 포함할 것인가</td>
+<td>지시형 Skill인지 판단</td>
+</tr>
+<tr>
+<td>출력 형식은 무엇인가</td>
+<td>결과를 안정적으로 유지</td>
+</tr>
+<tr>
+<td>어떤 제한이 있는가</td>
+<td>임의 수정, 지어낸 내용, 임의 실행을 피함</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6><code>$skill-creator</code> 사용 흐름</h6>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>작업</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>프로젝트 디렉터리로 이동합니다</td>
+<td>Skill을 올바른 프로젝트 안에 생성</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>codex</code>를 실행합니다</td>
+<td>Codex CLI 열기</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>$skill-creator</code>를 입력합니다</td>
+<td>Skill 생성 도우미 시작</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Skill의 용도를 설명합니다</td>
+<td>해야 할 일을 알려줌</td>
+</tr>
+<tr>
+<td>5</td>
+<td>트리거 상황을 추가합니다</td>
+<td>사용 시점을 알려줌</td>
+</tr>
+<tr>
+<td>6</td>
+<td>작업 흐름을 작성합니다</td>
+<td>Codex 실행 단계를 고정</td>
+</tr>
+<tr>
+<td>7</td>
+<td>출력 형식을 작성합니다</td>
+<td>결과를 안정적으로 유지</td>
+</tr>
+<tr>
+<td>8</td>
+<td>생성 결과를 확인합니다</td>
+<td><code>SKILL.md</code>가 합리적인지 확인</td>
+</tr>
+<tr>
+<td>9</td>
+<td>다시 열거나 계속 사용합니다</td>
+<td>Skill 적용 여부를 테스트</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6><code>$skill-creator</code> 예시 프롬프트</h6>
+<pre><code class="language-text">$skill-creator
+
+README Skill을 만들어 주세요.
+
+이 Skill의 역할:
+현재 프로젝트를 기반으로 초보자가 읽기 좋은 README를 자동 생성합니다.
+
+트리거 상황:
+제가 “README 생성”, “프로젝트 설명 작성”, “프로젝트 문서 정리”, “설치 튜토리얼 작성”이라고 말할 때 사용합니다.
+
+작업 흐름:
+1. 먼저 프로젝트 구조를 읽습니다
+2. package.json, README, 진입 파일을 확인합니다
+3. 프로젝트 유형을 판단합니다
+4. 프로젝트 개요를 생성합니다
+5. 설치 단계를 작성합니다
+6. 시작 명령을 작성합니다
+7. 주요 폴더의 역할을 설명합니다
+8. 자주 묻는 질문을 보완합니다
+9. 불확실한 부분은 지어내지 않습니다
+
+출력 형식:
+Markdown을 사용합니다.
+
+반드시 포함:
+- 프로젝트 개요
+- 기능 특징
+- 설치 단계
+- 시작 명령
+- 파일 구조
+- 자주 묻는 질문
+- 향후 최적화 방향
+
+주의사항:
+존재하지 않는 기능을 지어내지 않습니다.
+API Key, 비밀번호, token, 개인 키를 읽거나 출력하지 않습니다.
+</code></pre>
+<hr>
+<h6>방법 3: Skill 파일을 수동으로 만들기</h6>
+<p>Skill은 폴더이며, 그 안에 반드시 다음 파일이 있어야 합니다.</p>
+<pre><code class="language-text">SKILL.md
+</code></pre>
+<p>가장 간단한 구조는 다음과 같습니다.</p>
+<pre><code class="language-text">.agents
+└── skills
+    └── readme-skill
+        └── SKILL.md
+</code></pre>
+<p>스크립트, 참고 자료, 리소스 파일도 포함할 수 있습니다.</p>
+<pre><code class="language-text">.agents
+└── skills
+    └── readme-skill
+        ├── SKILL.md
+        ├── scripts
+        ├── references
+        └── assets
+</code></pre>
+<hr>
+<h6>Skill 파일 구조 설명</h6>
+<table>
+<thead>
+<tr>
+<th>파일 / 폴더</th>
+<th>필수 여부</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SKILL.md</code></td>
+<td>필수</td>
+<td>Skill 이름, 설명, 구체적인 지침 작성</td>
+</tr>
+<tr>
+<td>scripts/</td>
+<td>선택</td>
+<td>실행 가능한 스크립트 보관</td>
+</tr>
+<tr>
+<td>references/</td>
+<td>선택</td>
+<td>참고 문서, 기준, 설명 보관</td>
+</tr>
+<tr>
+<td>assets/</td>
+<td>선택</td>
+<td>템플릿, 이미지, 리소스 파일 보관</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>가장 간단한 <code>SKILL.md</code> 예시</h6>
+<pre><code class="language-text">---
+name: readme-skill
+description: 사용자가 README, 프로젝트 설명, 설치 튜토리얼, 시작 단계를 생성해야 할 때 사용합니다.
+---
+
+당신은 README 문서 생성 도우미입니다.
+
+작업:
+현재 프로젝트를 기반으로 초보자가 읽기 좋은 README를 생성합니다.
+
+작업 흐름:
+1. 프로젝트 구조를 읽습니다
+2. package.json, README, 진입 파일을 확인합니다
+3. 프로젝트 유형을 판단합니다
+4. 프로젝트 소개를 생성합니다
+5. 설치 단계를 작성합니다
+6. 시작 명령을 작성합니다
+7. 파일 구조를 설명합니다
+8. 자주 묻는 질문을 보완합니다
+9. 불확실한 부분은 지어내지 않습니다
+
+출력 형식:
+Markdown을 사용합니다.
+
+반드시 포함:
+- 프로젝트 개요
+- 기능 특징
+- 설치 단계
+- 시작 명령
+- 파일 구조
+- 자주 묻는 질문
+- 향후 최적화 방향
+</code></pre>
+<h4>Skill을 추가한 뒤 사용하는 방법</h4>
+<p>Skill을 추가한 뒤에는 보통 두 가지 방식으로 사용합니다.</p>
+<table>
+<thead>
+<tr>
+<th>사용법</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill을 직접 지정</td>
+<td><code>$readme-skill</code>을 사용해 README를 생성해 주세요</td>
+</tr>
+<tr>
+<td>Codex가 자동 판단</td>
+<td>프로젝트 README를 작성해 주세요</td>
+</tr>
+</tbody>
+</table>
+<p>Skill의 description이 명확하면 Codex가 언제 사용할지 자동으로 판단하기 쉽습니다.</p>
+<p>예를 들어:</p>
+<pre><code class="language-text">description: 사용자가 README, 프로젝트 설명, 설치 튜토리얼, 시작 단계를 생성해야 할 때 사용합니다.
+</code></pre>
+<p>이 설명은 명확합니다.</p>
+<p>너무 모호하게 쓰지 않는 것이 좋습니다.</p>
+<pre><code class="language-text">description: 글을 써 주세요.
+</code></pre>
+<p>이렇게 쓰면 Codex는 언제 호출해야 하는지 알 수 없습니다.</p>
+<h4>Skill은 어디에 두는가</h4>
+<table>
+<thead>
+<tr>
+<th>위치</th>
+<th>적합한 상황</th>
+<th>간단히 말하면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>프로젝트의 .agents/skills</td>
+<td>현재 프로젝트에서만 사용</td>
+<td>프로젝트 전용 Skill</td>
+</tr>
+<tr>
+<td>사용자 수준 Skill 디렉터리</td>
+<td>내 여러 프로젝트에서 사용</td>
+<td>개인 공통 Skill</td>
+</tr>
+<tr>
+<td>팀 / 관리자 설정</td>
+<td>팀원이 통일해서 사용</td>
+<td>팀 공유 Skill</td>
+</tr>
+<tr>
+<td>플러그인 안</td>
+<td>다른 사람이 설치하도록 패키징해 배포</td>
+<td>공식 기능 패키지</td>
+</tr>
+</tbody>
+</table>

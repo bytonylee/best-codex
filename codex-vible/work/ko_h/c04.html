@@ -1,0 +1,1512 @@
+<h3>Codex CLI 설치와 시작하기</h3>
+<p>Codex CLI는 명령줄에서 쓰는 Codex입니다.</p>
+<p>PowerShell, Terminal, iTerm, Windows Terminal 같은 터미널 사용에 익숙한 사람에게 적합합니다.</p>
+<h4>macOS / Linux 설치</h4>
+<p>macOS에서는 보통 두 가지 방법으로 설치합니다.</p>
+<h5>방법 1: npm으로 설치하기</h5>
+<p>먼저 컴퓨터에 Node.js가 설치되어 있는지 확인하세요.</p>
+<p>Terminal을 열고 다음을 실행합니다.</p>
+<pre><code class="language-text">node -v
+npm -v
+</code></pre>
+<p>버전 번호가 보이면 Node.js와 npm을 사용할 수 있습니다.</p>
+<p>그다음 Codex CLI를 설치합니다.</p>
+<pre><code class="language-text">npm install -g @openai/codex
+</code></pre>
+<p>설치가 끝나면 정상적으로 설치됐는지 확인합니다.</p>
+<pre><code class="language-text">codex --version
+</code></pre>
+<p>또는 바로 실행합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<hr>
+<h5>방법 2: Homebrew로 설치하기</h5>
+<p>Mac 사용자는 Homebrew를 사용할 수도 있습니다.</p>
+<pre><code class="language-text">brew install --cask codex
+</code></pre>
+<p>설치 후 실행합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>초보자에게는 다음 방식을 권장합니다.</p>
+<ul>
+<li>이미 Node.js를 설치했다면 npm을 사용합니다.</li>
+<li>이미 Homebrew에 익숙하다면 brew를 사용합니다.</li>
+</ul>
+<h4>Windows 설치</h4>
+<p>Windows에서는 PowerShell 또는 Windows Terminal을 사용하세요.</p>
+<p>첫 번째 단계는 Node.js 설치입니다.</p>
+<p>설치가 끝나면 PowerShell을 열고 다음을 실행합니다.</p>
+<pre><code class="language-text">node -v
+npm -v
+</code></pre>
+<p>버전 번호가 보이면 설치가 성공한 상태입니다.</p>
+<p>두 번째 단계에서는 Codex CLI를 설치합니다.</p>
+<pre><code class="language-text">npm install -g @openai/codex
+</code></pre>
+<p>세 번째 단계에서는 정상적으로 설치됐는지 확인합니다.</p>
+<pre><code class="language-text">codex --version
+</code></pre>
+<p>또는 바로 실행합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>Windows에서 처음 사용할 때는 시스템 디렉터리에서 Codex를 실행하지 마세요.</p>
+<p>다음 위치에서 바로 작업하지 마세요.</p>
+<pre><code class="language-text">C:\
+시스템 디렉터리
+바탕 화면
+다운로드 폴더
+중요 자료 폴더
+</code></pre>
+<p>대신 새 연습용 디렉터리를 만드세요.</p>
+<pre><code class="language-text">D:\AI-Codex-Projects\hello-codex
+</code></pre>
+<h4>처음 실행하기</h4>
+<p>설치가 끝나면 터미널에서 다음을 실행합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>처음 실행하면 Codex가 로그인을 안내합니다.</p>
+<p>Codex CLI는 보통 두 가지 로그인 방식을 지원합니다.</p>
+<pre><code class="language-text">1. ChatGPT 계정으로 로그인
+2. OpenAI API Key로 로그인
+</code></pre>
+<p>초보자에게는 첫 번째 방식인 ChatGPT 계정 로그인을 먼저 권장합니다.</p>
+<h5>방법 1: ChatGPT 계정으로 로그인하기</h5>
+<p>일반 사용자와 초보자에게 가장 단순한 방식입니다.</p>
+<p>터미널에서 다음을 실행합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>또는 다음을 실행합니다.</p>
+<pre><code class="language-text">codex login
+</code></pre>
+<p>그다음 이 항목을 선택합니다.</p>
+<pre><code class="language-text">Sign in with ChatGPT
+</code></pre>
+<p>로그인 흐름은 보통 다음과 같습니다.</p>
+<pre><code class="language-text">1. 터미널에 codex 또는 codex login 입력
+2. Sign in with ChatGPT 선택
+3. 브라우저가 자동으로 로그인 페이지 열기
+4. ChatGPT 계정 입력
+5. 로그인에 성공하면 브라우저가 로그인 결과를 터미널로 전달
+6. 터미널로 돌아오면 Codex CLI를 사용할 수 있음
+</code></pre>
+<h5>방법 2: API Key로 로그인하기</h5>
+<p>Codex CLI는 OpenAI API Key 로그인도 지원합니다.</p>
+<p>API Key 로그인은 개발자, 자동화 스크립트, CI/CD, 서버 작업에 더 적합합니다.</p>
+<p>초보자는 이렇게 이해하면 됩니다.</p>
+<pre><code class="language-text">ChatGPT 로그인 = ChatGPT 계정과 요금제 한도를 사용
+API Key 로그인 = OpenAI Platform API 과금 사용
+</code></pre>
+<p>API Key로 로그인하려면 먼저 OpenAI Platform에서 API Key를 만듭니다.</p>
+<p>그다음 터미널에서 환경 변수를 설정합니다.</p>
+<p>macOS / Linux에서는 이렇게 작성합니다.</p>
+<pre><code class="language-text">export OPENAI_API_KEY=&quot;your_API_Key&quot;
+printenv OPENAI_API_KEY | codex login --with-api-key
+</code></pre>
+<p>Windows PowerShell에서는 이렇게 작성합니다.</p>
+<pre><code class="language-text">$env:OPENAI_API_KEY=&quot;your_API_Key&quot;
+$env:OPENAI_API_KEY | codex login --with-api-key
+</code></pre>
+<p>로그인에 성공하면 Codex CLI가 로그인 정보를 저장합니다. 이후에는 다음을 다시 실행합니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>계속 사용할 수 있습니다.</p>
+<hr>
+<h5>ChatGPT 로그인과 API Key 로그인은 무엇이 다른가요?</h5>
+<table>
+<thead>
+<tr>
+<th>비교</th>
+<th>ChatGPT 계정 로그인</th>
+<th>API Key 로그인</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>적합한 사용자</td>
+<td>일반 사용자, 초보자</td>
+<td>개발자, 자동화, CI/CD</td>
+</tr>
+<tr>
+<td>사용 한도</td>
+<td>ChatGPT 요금제와 관련</td>
+<td>OpenAI Platform API 기준 과금</td>
+</tr>
+<tr>
+<td>시작 난이도</td>
+<td>더 간단함</td>
+<td>조금 더 복잡함</td>
+</tr>
+<tr>
+<td>초보자에게 권장 여부</td>
+<td>권장</td>
+<td>처음부터 사용은 권장하지 않음</td>
+</tr>
+<tr>
+<td>로컬 연습에 적합</td>
+<td>적합</td>
+<td>가능하지만 꼭 필요하지 않음</td>
+</tr>
+<tr>
+<td>자동화 스크립트에 적합</td>
+<td>보통</td>
+<td>더 적합</td>
+</tr>
+</tbody>
+</table>
+<h5>API Key 로그인 주의사항</h5>
+<p>API Key는 민감한 정보이므로 노출하지 마세요.</p>
+<p>API Key를 다음 위치에 두지 마세요.</p>
+<pre><code class="language-text">코드에 작성하기
+다른 사람에게 보내기
+스크린샷으로 공개하기
+GitHub에 업로드하기
+README에 넣기
+프런트엔드 웹 페이지에 넣기
+Git 리포지토리에 커밋하기
+</code></pre>
+<p>실수로 API Key가 노출되었다면 즉시 OpenAI Platform에서 삭제하거나 다시 생성하세요.</p>
+<p>API Key 로그인은 자동화에 편리하지만 API 사용량에 따라 과금됩니다. 초보자는 요금 규칙을 모른 채 장시간 작업을 실행하지 마세요.</p>
+<hr>
+<h5>현재 로그인 상태 확인하기</h5>
+<p>아래 명령으로 현재 로그인 상태를 확인합니다.</p>
+<pre><code class="language-text">codex login status
+</code></pre>
+<p>로그아웃해야 한다면 다음을 실행합니다.</p>
+<pre><code class="language-text">codex logout
+</code></pre>
+<p>로그아웃한 뒤 Codex CLI를 다시 실행하려면 다시 로그인해야 합니다.</p>
+<h4>CLI 기본 명령</h4>
+<p>Codex CLI 명령은 두 가지로 나뉩니다.</p>
+<table>
+<thead>
+<tr>
+<th>유형</th>
+<th>사용 위치</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>터미널 명령</td>
+<td>PowerShell / Terminal에서 입력</td>
+<td>Codex 시작, 로그인, 업데이트, 진단, 관리</td>
+</tr>
+<tr>
+<td>슬래시 명령</td>
+<td>Codex에 들어간 뒤 입력</td>
+<td>모델 전환, 권한 조정, diff 확인, 규칙 생성, 세션 종료</td>
+</tr>
+</tbody>
+</table>
+<h5>CLI 터미널 명령</h5>
+<p>CLI 터미널 명령은 PowerShell / Terminal / Windows Terminal에서 입력합니다.</p>
+<h6>초보자가 자주 쓰는 터미널 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex</code></td>
+<td>Codex CLI 시작</td>
+<td>터미널에서 Codex 열기</td>
+<td>프로젝트에 들어간 뒤 사용</td>
+</tr>
+<tr>
+<td><code>codex --version</code></td>
+<td>버전 확인</td>
+<td>설치 성공 여부 확인</td>
+<td>설치 후 첫 단계</td>
+</tr>
+<tr>
+<td><code>codex --help</code></td>
+<td>도움말 보기</td>
+<td>지원되는 명령 확인</td>
+<td>명령 사용법을 모를 때</td>
+</tr>
+<tr>
+<td><code>codex login</code></td>
+<td>Codex 로그인</td>
+<td>ChatGPT 계정 또는 API Key로 로그인</td>
+<td>처음 사용할 때</td>
+</tr>
+<tr>
+<td><code>codex login status</code></td>
+<td>로그인 상태 확인</td>
+<td>현재 로그인 여부 확인</td>
+<td>로그인이 잘 안 될 때</td>
+</tr>
+<tr>
+<td><code>codex logout</code></td>
+<td>로그아웃</td>
+<td>이 컴퓨터에 저장된 로그인 정보 삭제</td>
+<td>계정 변경, 공용 컴퓨터</td>
+</tr>
+<tr>
+<td><code>codex doctor</code></td>
+<td>환경 문제 확인</td>
+<td>진단 보고서 자동 생성</td>
+<td>시작, 로그인, 환경 문제</td>
+</tr>
+<tr>
+<td><code>codex update</code></td>
+<td>Codex 업데이트</td>
+<td>CLI 버전 업데이트</td>
+<td>업그레이드가 필요할 때</td>
+</tr>
+<tr>
+<td><code>codex app</code></td>
+<td>Codex App 열기</td>
+<td>터미널에서 데스크톱 앱 열기</td>
+<td>그래픽 인터페이스를 쓰고 싶을 때</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>프로젝트 진입 관련 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>예시</th>
+<th>쉽게 말해</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cd 프로젝트_디렉터리</code></td>
+<td>프로젝트 폴더로 이동</td>
+<td><code>cd D:\\AI-Codex-Projects\\hello-Codex</code></td>
+<td>먼저 프로젝트 안으로 이동</td>
+</tr>
+<tr>
+<td><code>codex</code></td>
+<td>현재 디렉터리에서 Codex 시작</td>
+<td><code>codex</code></td>
+<td>Codex를 현재 프로젝트에서 실행</td>
+</tr>
+<tr>
+<td><code>codex --cd 프로젝트_경로</code></td>
+<td>지정한 디렉터리에서 시작</td>
+<td><code>codex --cd D:\\AI-Codex-Projects\\hello-Codex</code></td>
+<td>cd 없이 프로젝트를 바로 지정</td>
+</tr>
+<tr>
+<td><code>codex -C 프로젝트_경로</code></td>
+<td>--cd의 축약형</td>
+<td><code>codex -C ./hello-Codex</code></td>
+<td>더 짧은 작성법</td>
+</tr>
+</tbody>
+</table>
+<p>초보자에게는 다음 방식이 가장 간단합니다.</p>
+<pre><code class="language-text">cd project-directory
+codex
+</code></pre>
+<p>다음 위치에서는 Codex를 바로 실행하지 마세요.</p>
+<pre><code class="language-text">C:\
+바탕 화면
+다운로드 폴더
+시스템 디렉터리
+중요 자료 폴더
+</code></pre>
+<hr>
+<h6>로그인 관련 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>적합한 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex login</code></td>
+<td>기본적으로 브라우저를 열어 ChatGPT 계정으로 로그인</td>
+<td>초보자 첫 선택</td>
+</tr>
+<tr>
+<td><code>codex login --device-auth</code></td>
+<td>디바이스 코드로 로그인</td>
+<td>원격 서버 또는 브라우저를 열 수 없을 때</td>
+</tr>
+<tr>
+<td><code>printenv OPENAI_API_KEY \| codex login --with-api-key</code></td>
+<td>API Key로 로그인</td>
+<td>개발자, 자동화, CI/CD</td>
+</tr>
+<tr>
+<td><code>codex login status</code></td>
+<td>현재 로그인 방식과 상태 확인</td>
+<td>로그인 여부를 확실히 모를 때</td>
+</tr>
+<tr>
+<td><code>codex logout</code></td>
+<td>이 컴퓨터에 저장된 로그인 자격 증명 삭제</td>
+<td>계정 변경, 공용 컴퓨터</td>
+</tr>
+</tbody>
+</table>
+<p>Windows PowerShell에서 API Key로 로그인하기:</p>
+<pre><code class="language-text">$env:OPENAI_API_KEY | codex login --with-api-key
+</code></pre>
+<hr>
+<h6>시작하면서 바로 작업 보내기</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex "작업 내용"</code></td>
+<td>Codex를 시작하면서 첫 작업을 바로 전송</td>
+<td><code>codex "이 프로젝트 구조를 설명해 주세요"</code></td>
+</tr>
+<tr>
+<td><code>codex -i 이미지_경로 "작업"</code></td>
+<td>이미지를 첨부해 분석</td>
+<td><code>codex -i ./error.png "이 오류를 분석해 주세요"</code></td>
+</tr>
+<tr>
+<td><code>codex --image 이미지_경로 "작업"</code></td>
+<td><code>-i</code>의 전체 작성법</td>
+<td><code>codex --image ./ui.png "스크린샷을 바탕으로 페이지를 최적화해 주세요"</code></td>
+</tr>
+<tr>
+<td><code>codex --search "작업"</code></td>
+<td>검색 사용 허용</td>
+<td><code>codex --search "이 라이브러리의 새 사용법을 찾아 주세요"</code></td>
+</tr>
+</tbody>
+</table>
+<p>다음 작업에 적합합니다.</p>
+<pre><code class="language-text">간단한 프로젝트 설명
+오류 스크린샷 분석
+UI 스크린샷을 바탕으로 수정 제안
+새 버전 문서 확인
+</code></pre>
+<p>초보자는 먼저 다음을 실행하는 것이 좋습니다.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>시작한 뒤 작업을 입력하면 실행 과정을 따라가기 더 쉽습니다.</p>
+<hr>
+<h6>모델, 권한, 샌드박스 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>초보자 권장 사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex --model 모델명</code></td>
+<td>모델 지정</td>
+<td>모델 선택</td>
+<td>기본값으로 충분하며, 복잡한 작업에서만 변경</td>
+</tr>
+<tr>
+<td><code>codex -m 모델명</code></td>
+<td><code>--model</code> 축약형</td>
+<td>더 짧은 작성법</td>
+<td>억지로 외울 필요 없음</td>
+</tr>
+<tr>
+<td><code>codex --sandbox read-only</code></td>
+<td>읽기 전용 모드</td>
+<td>읽기만 하고 보통 수정하지 않음</td>
+<td>프로젝트 분석만 할 때 사용</td>
+</tr>
+<tr>
+<td><code>codex --sandbox workspace-write</code></td>
+<td>현재 프로젝트 읽기/쓰기 가능</td>
+<td>프로젝트 안에서 작업 가능</td>
+<td>일상적으로 권장</td>
+</tr>
+<tr>
+<td><code>codex --sandbox danger-full-access</code></td>
+<td>제한을 완전히 해제</td>
+<td>권한이 매우 큼</td>
+<td>초보자는 사용하지 마세요</td>
+</tr>
+<tr>
+<td><code>codex --ask-for-approval on-request</code></td>
+<td>민감한 작업 전에 먼저 물어봄</td>
+<td>승인 요청</td>
+<td>초보자에게 권장</td>
+</tr>
+<tr>
+<td><code>codex -a on-request</code></td>
+<td>승인 모드 축약형</td>
+<td>더 짧은 작성법</td>
+<td>권장</td>
+</tr>
+</tbody>
+</table>
+<p>초보자에게 권장하는 조합:</p>
+<pre><code class="language-text">codex --sandbox workspace-write --ask-for-approval on-request
+</code></pre>
+<p>의미는 다음과 같습니다.</p>
+<pre><code class="language-text">Codex는 현재 프로젝트에서 작업할 수 있지만, 민감한 작업은 먼저 나에게 물어봐야 합니다.
+</code></pre>
+<p>다음을 편의 설정처럼 여기지 마세요.</p>
+<pre><code class="language-text">codex --sandbox danger-full-access
+</code></pre>
+<hr>
+<h6>비대화형 작업 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>적합한 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex exec "작업"</code></td>
+<td>일회성 작업 실행</td>
+<td>긴 대화를 열지 않고 실행 후 종료</td>
+<td>자동화, 검사, 보고서 생성</td>
+</tr>
+<tr>
+<td><code>codex e "작업"</code></td>
+<td><code>exec</code>의 축약형</td>
+<td>위와 같음</td>
+<td>빠른 실행</td>
+</tr>
+<tr>
+<td><code>codex exec --cd 프로젝트_경로 "작업"</code></td>
+<td>지정한 디렉터리에서 작업 실행</td>
+<td>특정 프로젝트 안에서 일회성으로 실행</td>
+<td>자동화 스크립트</td>
+</tr>
+<tr>
+<td><code>codex exec resume</code></td>
+<td>exec 세션 복구</td>
+<td>이전 비대화형 작업 이어서 계속</td>
+<td>자동화 작업이 중단된 경우</td>
+</tr>
+<tr>
+<td><code>codex exec resume --last</code></td>
+<td>가장 최근 exec 세션 복구</td>
+<td>가장 최근 작업 이어서 계속</td>
+<td>가장 자주 쓰는 복구 방법</td>
+</tr>
+</tbody>
+</table>
+<p>예시:</p>
+<pre><code class="language-text">codex exec &quot;현재 프로젝트에 뚜렷한 문제가 있는지 확인해 주세요&quot;
+</code></pre>
+<p>초보 단계에서는 먼저 다음을 사용하세요.</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>익숙해진 뒤 <code>codex exec</code>를 사용합니다.</p>
+<hr>
+<h6>세션 관리 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex resume</code></td>
+<td>이전 세션 복구</td>
+<td>이전 스레드를 이어서 계속</td>
+<td>이전 작업을 끝내지 못했을 때</td>
+</tr>
+<tr>
+<td><code>codex resume --last</code></td>
+<td>가장 최근 세션 복구</td>
+<td>가장 최근 작업 이어서 계속</td>
+<td>가장 자주 사용</td>
+</tr>
+<tr>
+<td><code>codex archive</code></td>
+<td>세션 아카이브</td>
+<td>사용하지 않는 작업을 보관</td>
+<td>작업이 끝났거나 더 이상 필요 없을 때</td>
+</tr>
+<tr>
+<td><code>codex unarchive</code></td>
+<td>아카이브된 세션 복구</td>
+<td>아카이브한 작업을 복구</td>
+<td>아카이브 후 계속하고 싶을 때</td>
+</tr>
+<tr>
+<td><code>codex fork</code></td>
+<td>이전 세션을 새 스레드로 복사</td>
+<td>원래 작업을 보존하고 다른 방향을 시도</td>
+<td>여러 방안 시도</td>
+</tr>
+</tbody>
+</table>
+<p>간단히 말하면 다음과 같습니다.</p>
+<pre><code class="language-text">resume = 이어서 하기
+archive = 치워 두기
+unarchive = 다시 가져오기
+fork = 하나 복사해서 새 방안 시도하기
+</code></pre>
+<hr>
+<h6>진단, 업데이트, 유지 관리 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>언제 사용하나요?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex doctor</code></td>
+<td>진단 보고서 생성</td>
+<td>Codex 시작, 로그인, 환경 문제</td>
+</tr>
+<tr>
+<td><code>codex update</code></td>
+<td>Codex CLI 확인 및 업데이트</td>
+<td>버전을 업그레이드할 때</td>
+</tr>
+<tr>
+<td><code>codex completion</code></td>
+<td>명령 자동 완성 스크립트 생성</td>
+<td>터미널을 자주 쓰는 사용자</td>
+</tr>
+<tr>
+<td><code>codex features list</code></td>
+<td>기능 스위치 확인</td>
+<td>기능이 켜져 있는지 확인</td>
+</tr>
+<tr>
+<td><code>codex features enable 기능명</code></td>
+<td>특정 기능 켜기</td>
+<td>고급 설정</td>
+</tr>
+<tr>
+<td><code>codex features disable 기능명</code></td>
+<td>특정 기능 끄기</td>
+<td>고급 설정</td>
+</tr>
+</tbody>
+</table>
+<p>초보자가 자주 쓰는 명령:</p>
+<pre><code class="language-text">codex doctor
+codex update
+</code></pre>
+<p>나머지는 아직 외울 필요 없습니다.</p>
+<hr>
+<h6>Cloud, MCP, 플러그인 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>초보자에게 필요한가요?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex cloud</code></td>
+<td>터미널에서 Codex Cloud 작업을 탐색하거나 실행</td>
+<td>당장은 필요 없음</td>
+</tr>
+<tr>
+<td><code>codex apply</code></td>
+<td>Codex Cloud가 생성한 diff를 로컬에 적용</td>
+<td>Cloud를 사용한 뒤 학습</td>
+</tr>
+<tr>
+<td><code>codex mcp list</code></td>
+<td>MCP 도구 확인</td>
+<td>당장은 필요 없음</td>
+</tr>
+<tr>
+<td><code>codex mcp add</code></td>
+<td>MCP 서버 추가</td>
+<td>고급</td>
+</tr>
+<tr>
+<td><code>codex mcp remove</code></td>
+<td>MCP 서버 삭제</td>
+<td>고급</td>
+</tr>
+<tr>
+<td><code>codex plugin list</code></td>
+<td>플러그인 확인</td>
+<td>당장은 필요 없음</td>
+</tr>
+<tr>
+<td><code>codex plugin add</code></td>
+<td>플러그인 설치</td>
+<td>고급</td>
+</tr>
+<tr>
+<td><code>codex plugin remove</code></td>
+<td>플러그인 삭제</td>
+<td>고급</td>
+</tr>
+</tbody>
+</table>
+<p>초보 단계에서는 아직 신경 쓰지 않아도 됩니다.</p>
+<p>다음을 사용하기 시작하면:</p>
+<pre><code class="language-text">Codex Cloud
+외부 도구
+데이터베이스
+Figma
+프로젝트 관리 도구
+MCP
+플러그인
+</code></pre>
+<p>그때 이 종류의 명령을 학습하면 됩니다.</p>
+<hr>
+<h6>샌드박스 테스트 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>적합한 사용자</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex sandbox</code></td>
+<td>Codex 샌드박스 규칙으로 명령 실행</td>
+<td>고급 사용자</td>
+</tr>
+<tr>
+<td><code>codex sandbox --cd 프로젝트_디렉터리 -- 명령</code></td>
+<td>지정한 디렉터리에서 샌드박스 명령 실행</td>
+<td>권한 문제 디버깅</td>
+</tr>
+<tr>
+<td><code>codex execpolicy</code></td>
+<td>특정 명령이 허용, 확인 요청, 차단 중 어디에 해당하는지 확인</td>
+<td>고급 보안 설정</td>
+</tr>
+</tbody>
+</table>
+<p>초보 단계에서는 배울 필요 없습니다.</p>
+<p>다음만 기억하세요.</p>
+<pre><code class="language-text">기본적으로 workspace-write + on-request를 사용합니다.
+full access를 함부로 사용하지 마세요.
+</code></pre>
+<hr>
+<h6>위험한 명령과 매개변수</h6>
+<table>
+<thead>
+<tr>
+<th>명령 / 매개변수</th>
+<th>왜 위험한가요?</th>
+<th>초보자 권장 사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--sandbox danger-full-access</td>
+<td>파일 및 네트워크 제한 해제</td>
+<td>사용하지 마세요</td>
+</tr>
+<tr>
+<td>--dangerously-bypass-approvals-and-sandbox</td>
+<td>승인과 샌드박스 우회</td>
+<td>사용하지 마세요</td>
+</tr>
+<tr>
+<td>--yolo</td>
+<td>위 위험 매개변수의 별칭</td>
+<td>사용하지 마세요</td>
+</tr>
+<tr>
+<td>--ask-for-approval never</td>
+<td>작업 중 Codex가 더 이상 묻지 않음</td>
+<td>초보자는 사용하지 마세요</td>
+</tr>
+<tr>
+<td>sudo</td>
+<td>시스템 수준 파일을 수정할 수 있음</td>
+<td>이해하지 못하면 허용하지 마세요</td>
+</tr>
+<tr>
+<td>rm -rf</td>
+<td>많은 파일을 삭제할 수 있음</td>
+<td>고위험</td>
+</tr>
+<tr>
+<td>git reset --hard</td>
+<td>저장하지 않은 변경사항이 사라질 수 있음</td>
+<td>먼저 확인</td>
+</tr>
+<tr>
+<td>git clean -fd</td>
+<td>추적되지 않은 파일을 삭제할 수 있음</td>
+<td>먼저 확인</td>
+</tr>
+<tr>
+<td>curl xxx | sh</td>
+<td>스크립트를 다운로드한 뒤 바로 실행</td>
+<td>고위험</td>
+</tr>
+</tbody>
+</table>
+<p>이런 명령을 보면 먼저 Codex에게 물어보세요.</p>
+<pre><code class="language-text">이 명령의 역할과 위험, 더 안전한 대안이 있는지 설명해 주세요.
+</code></pre>
+<hr>
+<h6>초보자가 먼저 기억할 명령</h6>
+<table>
+<thead>
+<tr>
+<th>순위</th>
+<th>명령</th>
+<th>왜 중요한가요?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Codex</td>
+<td>Codex CLI 시작</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>codex login</code></td>
+<td>계정 로그인</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>codex login status</code></td>
+<td>로그인 상태 확인</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>codex doctor</code></td>
+<td>환경 문제 점검</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>codex --version</code></td>
+<td>버전 확인</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>codex resume --last</code></td>
+<td>이전 작업 이어서 계속</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>codex archive</code></td>
+<td>사용하지 않는 작업 아카이브</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>codex update</code></td>
+<td>Codex 업데이트</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>codex exec "작업"</code></td>
+<td>일회성 작업 실행</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>codex logout</code></td>
+<td>로그아웃</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>초보자에게 권장하는 워크플로</h6>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>명령</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>cd 프로젝트_디렉터리</td>
+<td>프로젝트 폴더로 이동</td>
+</tr>
+<tr>
+<td>2</td>
+<td>git status</td>
+<td>현재 프로젝트 상태 확인</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Codex</td>
+<td>Codex CLI 시작</td>
+</tr>
+<tr>
+<td>4</td>
+<td>작업 입력</td>
+<td>Codex가 작업을 시작하게 함</td>
+</tr>
+<tr>
+<td>5</td>
+<td>/diff</td>
+<td>Codex 안에서 변경사항 확인</td>
+</tr>
+<tr>
+<td>6</td>
+<td>git diff</td>
+<td>Git에서 한 번 더 확인</td>
+</tr>
+<tr>
+<td>7</td>
+<td>git add .</td>
+<td>만족한 수정사항 스테이징</td>
+</tr>
+<tr>
+<td>8</td>
+<td>git commit -m "설명"</td>
+<td>버전 하나 저장</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>codex archive</code> 또는 <code>/quit</code></td>
+<td>작업을 아카이브하거나 종료</td>
+</tr>
+</tbody>
+</table>
+<h5>CLI 슬래시 명령</h5>
+<p>이 명령은 바깥의 PowerShell / Terminal에서 입력하지 않습니다. Codex에 들어간 뒤 Codex 입력창에 <code>/</code>를 입력해 사용합니다.</p>
+<h6>초보자가 자주 쓰는 명령</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/model</td>
+<td>모델과 추론 강도 전환</td>
+<td>모델과 추론 깊이 변경</td>
+<td>작업이 너무 어렵거나 느리거나 사용량을 아끼고 싶을 때</td>
+</tr>
+<tr>
+<td>/permissions</td>
+<td>권한 조정</td>
+<td>Codex가 파일을 수정하고, 네트워크를 사용하고, 명령을 실행할 수 있는지 제어</td>
+<td>권한을 더 엄격하게 또는 더 넓게 조정하고 싶을 때</td>
+</tr>
+<tr>
+<td>/diff</td>
+<td>코드 변경사항 확인</td>
+<td>Codex가 무엇을 바꿨는지 확인</td>
+<td>Codex가 파일을 수정한 뒤 반드시 확인</td>
+</tr>
+<tr>
+<td>/plan</td>
+<td>계획 모드 진입</td>
+<td>코드를 바로 바꾸기 전에 Codex에게 계획을 요청</td>
+<td>복잡한 작업, bug 수정, 리팩터링 전</td>
+</tr>
+<tr>
+<td>/init</td>
+<td>AGENTS.md 생성</td>
+<td>프로젝트 규칙 파일 생성</td>
+<td>새 프로젝트에서 Codex를 처음 사용할 때</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>현재 상태 확인</td>
+<td>모델, 권한, 컨텍스트, token 등 현재 정보 확인</td>
+<td>현재 설정이 확실하지 않을 때</td>
+</tr>
+<tr>
+<td>/quit</td>
+<td>Codex CLI 종료</td>
+<td>현재 세션 종료</td>
+<td>작업 완료 후 종료</td>
+</tr>
+<tr>
+<td>/exit</td>
+<td>Codex CLI 종료</td>
+<td>/quit와 비슷함</td>
+<td>작업 완료 후 종료</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>모델과 속도</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>언제 사용하나요?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/model</td>
+<td>모델과 추론 강도 선택</td>
+<td>GPT-5.5, mini, 낮음/중간/높음 추론으로 전환할 때</td>
+</tr>
+<tr>
+<td>/fast</td>
+<td>Fast 모드 켜기 또는 끄기</td>
+<td>지원되는 모델을 더 빠르게 응답하게 할 때</td>
+</tr>
+<tr>
+<td>/personality</td>
+<td>응답 스타일 조정</td>
+<td>Codex 응답을 더 간결하게, 더 설명적으로, 더 협업적으로 조정할 때</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>현재 모델과 컨텍스트 상태 확인</td>
+<td>현재 어떤 모델을 쓰는지 확인할 때</td>
+</tr>
+</tbody>
+</table>
+<p>초보자 권장 사항:</p>
+<pre><code class="language-text">일반 작업: 기본 모델 + 중간 추론
+복잡한 bug: 높은 추론
+간단한 문구 수정: 낮은 추론
+모든 작업에 최고 추론을 켜지 마세요
+</code></pre>
+<hr>
+<h6>권한과 보안</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>권장</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/permissions</td>
+<td>권한 정책 수정</td>
+<td>Codex가 무엇을 할 수 있는지 제어</td>
+<td>초보자는 "승인 요청" 유지</td>
+</tr>
+<tr>
+<td>/approve</td>
+<td>자동 거부된 작업을 한 번 승인</td>
+<td>차단된 작업을 한 번 다시 시도</td>
+<td>위험을 이해한 뒤 사용</td>
+</tr>
+<tr>
+<td>/sandbox-add-read-dir</td>
+<td>특정 디렉터리 추가 읽기 허용</td>
+<td>Codex가 프로젝트 밖의 지정 디렉터리를 읽게 함</td>
+<td>Windows의 특정 상황에서만 최소한으로 사용</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>권한과 쓰기 가능 디렉터리 확인</td>
+<td>Codex의 현재 권한 범위 확인</td>
+<td>권한 변경 후 확인</td>
+</tr>
+</tbody>
+</table>
+<p>초보자 권장 사항:</p>
+<pre><code class="language-text">기본적으로 /permissions로 승인 요청 상태를 유지합니다.
+완전 접근 권한을 함부로 열지 마세요.
+이해하지 못하는 작업에는 /approve를 사용하지 마세요.
+</code></pre>
+<hr>
+<h6>코드 검사와 review</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/diff</td>
+<td>현재 Git diff 확인</td>
+<td>무엇이 추가되고 삭제되었는지 확인</td>
+<td>수정 후 반드시 확인</td>
+</tr>
+<tr>
+<td>/review</td>
+<td>Codex에게 현재 변경사항 review 요청</td>
+<td>코드 문제를 검사</td>
+<td>커밋 전 검사</td>
+</tr>
+<tr>
+<td>/copy</td>
+<td>가장 최근 Codex 출력 복사</td>
+<td>결과를 빠르게 복사</td>
+<td>계획, 요약, 명령 설명 복사</td>
+</tr>
+<tr>
+<td>/raw</td>
+<td>원시 출력 모드 전환</td>
+<td>긴 로그나 터미널 출력을 복사하기 쉽게 함</td>
+<td>로그가 길 때</td>
+</tr>
+</tbody>
+</table>
+<p>권장 흐름:</p>
+<pre><code class="language-text">Codex 수정 완료
+→ /diff로 변경사항 확인
+→ /review로 문제 검사
+→ 문제가 없으면 git commit
+</code></pre>
+<hr>
+<h6>세션 관리</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/new</td>
+<td>새 대화 시작</td>
+<td>현재 CLI 안에서 새 작업으로 전환</td>
+<td>현재 작업을 마치고 새 작업을 시작하고 싶을 때</td>
+</tr>
+<tr>
+<td>/clear</td>
+<td>터미널을 비우고 새 채팅 시작</td>
+<td>현재 표시와 컨텍스트 정리</td>
+<td>화면이 너무 복잡하거나 다시 시작하고 싶을 때</td>
+</tr>
+<tr>
+<td>/resume</td>
+<td>이전 세션 복구</td>
+<td>이전 작업 이어서 계속</td>
+<td>지난 작업을 끝내지 못했을 때</td>
+</tr>
+<tr>
+<td>/archive</td>
+<td>현재 세션을 아카이브하고 종료</td>
+<td>사용하지 않는 작업을 보관</td>
+<td>작업이 끝났거나 방안을 더 쓰지 않을 때</td>
+</tr>
+<tr>
+<td>/fork</td>
+<td>현재 세션을 새 스레드로 복사</td>
+<td>원래 생각을 보존하고 다른 브랜치로 시도</td>
+<td>다른 방안을 시도하고 싶을 때</td>
+</tr>
+<tr>
+<td>/side</td>
+<td>임시 사이드 대화 열기</td>
+<td>주 작업에 영향을 주지 않고 작은 질문하기</td>
+<td>한 가지를 잠시 확인할 때</td>
+</tr>
+<tr>
+<td>/quit</td>
+<td>CLI 종료</td>
+<td>현재 세션 종료</td>
+<td>작업 완료</td>
+</tr>
+<tr>
+<td>/exit</td>
+<td>CLI 종료</td>
+<td>/quit와 같음</td>
+<td>작업 완료</td>
+</tr>
+</tbody>
+</table>
+<p>초보자가 구분할 점:</p>
+<pre><code class="language-text">/new = 새 작업 시작
+/clear = 정리하고 다시 시작
+/archive = 현재 작업 치워 두기
+/fork = 현재 작업을 복사해서 새 방안 시도
+/side = 임시로 작은 질문하기
+</code></pre>
+<hr>
+<h6>컨텍스트와 긴 대화</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/compact</td>
+<td>현재 대화 압축</td>
+<td>긴 대화를 핵심 내용으로 요약</td>
+<td>대화가 길고 컨텍스트가 거의 찼을 때</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>컨텍스트 사용량 확인</td>
+<td>컨텍스트 공간이 얼마나 남았는지 확인</td>
+<td>작업을 여러 라운드 진행한 뒤</td>
+</tr>
+<tr>
+<td>/mention</td>
+<td>파일 또는 폴더 첨부</td>
+<td>Codex가 특정 파일을 중점적으로 보게 지정</td>
+<td>몇 개 파일만 보게 하고 싶을 때</td>
+</tr>
+<tr>
+<td>/ide</td>
+<td>IDE의 현재 컨텍스트 가져오기</td>
+<td>편집기에서 열린 파일을 가져옴</td>
+<td>VS Code / Cursor와 함께 사용</td>
+</tr>
+</tbody>
+</table>
+<p>초보자 권장 사항:</p>
+<pre><code class="language-text">대화가 길어지면 /compact를 사용합니다.
+Codex가 특정 파일을 보게 하려면 /mention을 사용합니다.
+전체 프로젝트를 마구 훑게 하고 싶지 않다면 파일을 명확히 지정하세요.
+</code></pre>
+<hr>
+<h6>프로젝트 규칙과 기능</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/init</td>
+<td>AGENTS.md 생성</td>
+<td>프로젝트 규칙 파일 생성</td>
+<td>새 프로젝트에서 Codex를 처음 사용할 때</td>
+</tr>
+<tr>
+<td>/skills</td>
+<td>Skills 탐색 및 사용</td>
+<td>전문 Skill 선택</td>
+<td>UI, 문서 작성, review 같은 전문 작업</td>
+</tr>
+<tr>
+<td>/memories</td>
+<td>메모리 설정</td>
+<td>Codex가 메모리를 사용하거나 만들지 제어</td>
+<td>장기 선호 사항을 관리할 때</td>
+</tr>
+<tr>
+<td>/goal</td>
+<td>작업 목표 설정</td>
+<td>Codex에 지속적인 목표 제공</td>
+<td>큰 작업, 긴 작업</td>
+</tr>
+<tr>
+<td>/apps</td>
+<td>연결 가능한 앱 탐색</td>
+<td>Codex가 외부 App을 사용하게 함</td>
+<td>외부 도구를 연결할 때</td>
+</tr>
+<tr>
+<td>/plugins</td>
+<td>플러그인 관리</td>
+<td>플러그인 기능 보기 또는 활성화</td>
+<td>플러그인 도구가 필요할 때</td>
+</tr>
+<tr>
+<td>/mcp</td>
+<td>MCP 도구 확인</td>
+<td>Codex가 호출할 수 있는 외부 도구 확인</td>
+<td>MCP 설정 후 확인</td>
+</tr>
+</tbody>
+</table>
+<p>초보자가 먼저 익힐 명령:</p>
+<pre><code class="language-text">/init
+/skills
+</code></pre>
+<p>다른 명령은 나중에 배워도 됩니다.</p>
+<hr>
+<h6>터미널과 백그라운드 작업</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>사용 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/ps</td>
+<td>백그라운드 터미널 작업 확인</td>
+<td>어떤 명령이 아직 실행 중인지 확인</td>
+<td>npm dev, 테스트, 빌드가 아직 실행 중일 때</td>
+</tr>
+<tr>
+<td>/stop</td>
+<td>백그라운드 터미널 작업 중지</td>
+<td>백그라운드에서 실행 중인 명령 종료</td>
+<td>명령이 멈췄거나 계속 실행하면 안 될 때</td>
+</tr>
+<tr>
+<td>/raw</td>
+<td>원시 출력 모드</td>
+<td>터미널 로그를 복사하기 쉽게 함</td>
+<td>로그가 길 때</td>
+</tr>
+</tbody>
+</table>
+<p>자주 있는 상황:</p>
+<pre><code class="language-text">Codex가 npm run dev를 실행함
+아직 실행 중인지 보고 싶음
+→ /ps 사용
+
+명령이 멈춤
+→ /stop 사용
+</code></pre>
+<hr>
+<h6>인터페이스와 단축키</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>쉽게 말해</th>
+<th>자주 쓰나요?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/theme</td>
+<td>코드 하이라이트 테마 전환</td>
+<td>터미널 표시 스타일 변경</td>
+<td>보통</td>
+</tr>
+<tr>
+<td>/statusline</td>
+<td>하단 상태 표시줄 설정</td>
+<td>모델, token, Git 브랜치 등 표시</td>
+<td>고급</td>
+</tr>
+<tr>
+<td>/title</td>
+<td>터미널 제목 설정</td>
+<td>창 제목에 프로젝트 정보 표시</td>
+<td>고급</td>
+</tr>
+<tr>
+<td>/keymap</td>
+<td>단축키 수정</td>
+<td>조작 키 사용자 지정</td>
+<td>고급</td>
+</tr>
+<tr>
+<td>/vim</td>
+<td>Vim 편집 모드 켜기/끄기</td>
+<td>Vim 방식으로 입력창 편집</td>
+<td>Vim을 아는 사람용</td>
+</tr>
+<tr>
+<td>/debug-config</td>
+<td>설정 계층 확인</td>
+<td>설정이 적용되지 않는 이유 점검</td>
+<td>고급 문제 해결</td>
+</tr>
+</tbody>
+</table>
+<p>초보 단계에서는 사용하지 않아도 됩니다.</p>
+<hr>
+<h6>개발자와 고급 기능</h6>
+<table>
+<thead>
+<tr>
+<th>명령</th>
+<th>역할</th>
+<th>적합한 사용자</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/experimental</td>
+<td>실험 기능 켜기</td>
+<td>새 기능을 먼저 써 보고 싶은 사용자</td>
+</tr>
+<tr>
+<td>/hooks</td>
+<td>라이프사이클 hooks 확인 및 관리</td>
+<td>고급 사용자, 팀 프로젝트</td>
+</tr>
+<tr>
+<td>/feedback</td>
+<td>로그 또는 피드백 보내기</td>
+<td>문제를 보고해야 할 때</td>
+</tr>
+<tr>
+<td>/agent</td>
+<td>active agent thread 전환</td>
+<td>subagent 워크플로를 사용하는 사용자</td>
+</tr>
+</tbody>
+</table>
+<p>이 항목들은 입문 단계에서 반드시 배울 필요는 없습니다.</p>
+<p>초보자는 이런 기능이 있다는 정도만 알면 됩니다. 처음부터 익힐 필요는 없습니다.</p>
+<hr>
+<h6>초보자가 먼저 기억할 8개 명령</h6>
+<table>
+<thead>
+<tr>
+<th>순위</th>
+<th>명령</th>
+<th>왜 중요한가요?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>/diff</td>
+<td>Codex가 무엇을 바꿨는지 확인</td>
+</tr>
+<tr>
+<td>2</td>
+<td>/plan</td>
+<td>복잡한 작업 전에 계획을 받음</td>
+</tr>
+<tr>
+<td>3</td>
+<td>/permissions</td>
+<td>권한을 제어해 불필요한 수정을 피함</td>
+</tr>
+<tr>
+<td>4</td>
+<td>/model</td>
+<td>모델과 추론 강도 전환</td>
+</tr>
+<tr>
+<td>5</td>
+<td>/status</td>
+<td>현재 모델, 권한, 컨텍스트 확인</td>
+</tr>
+<tr>
+<td>6</td>
+<td>/init</td>
+<td>프로젝트 규칙 생성</td>
+</tr>
+<tr>
+<td>7</td>
+<td>/compact</td>
+<td>긴 대화를 핵심 내용으로 압축</td>
+</tr>
+<tr>
+<td>8</td>
+<td>/quit</td>
+<td>Codex 종료</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>초보자에게 권장하는 사용 흐름</h6>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>명령</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>/init</td>
+<td>프로젝트 규칙 생성</td>
+</tr>
+<tr>
+<td>2</td>
+<td>/permissions</td>
+<td>권한이 너무 넓지 않은지 확인</td>
+</tr>
+<tr>
+<td>3</td>
+<td>/model</td>
+<td>모델과 추론 강도 확인</td>
+</tr>
+<tr>
+<td>4</td>
+<td>/plan</td>
+<td>복잡한 작업은 먼저 계획</td>
+</tr>
+<tr>
+<td>5</td>
+<td>작업 입력</td>
+<td>Codex가 작업을 시작하게 함</td>
+</tr>
+<tr>
+<td>6</td>
+<td>/diff</td>
+<td>코드 변경사항 검사</td>
+</tr>
+<tr>
+<td>7</td>
+<td>/review</td>
+<td>Codex가 한 번 더 검사하게 함</td>
+</tr>
+<tr>
+<td>8</td>
+<td>/status</td>
+<td>현재 상태와 컨텍스트 확인</td>
+</tr>
+<tr>
+<td>9</td>
+<td>/compact</td>
+<td>대화가 너무 길 때 압축</td>
+</tr>
+<tr>
+<td>10</td>
+<td>/quit</td>
+<td>Codex 종료</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>한 문장 요약</h6>
+<p>Slash Commands는 Codex CLI 안에서 쓰는 빠른 제어 명령입니다.</p>
+<p>초보자는 전부 외울 필요 없습니다. 우선 다음 몇 가지만 기억하면 충분합니다.</p>
+<pre><code class="language-text">/diff       변경사항 보기
+/plan       먼저 계획하기
+/permissions 권한 제어
+/model      모델 바꾸기
+/status     상태 보기
+/init       규칙 만들기
+/compact    긴 대화 압축
+/quit       종료
+</code></pre>

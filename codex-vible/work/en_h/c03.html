@@ -1,0 +1,766 @@
+<h2>Part 2: Install, configure, and set up your environment</h2>
+<h3>Before you install</h3>
+<h4>Account preparation</h4>
+<p>Individual users should prepare the following:</p>
+<ul>
+<li>A ChatGPT account</li>
+<li>Use a network connection that can reach ChatGPT / OpenAI services normally.</li>
+<li>Choose a current ChatGPT plan that includes Codex. Plan names, quotas, and feature coverage may change, so check the official page and the details shown in your account.</li>
+</ul>
+<h4>System setup</h4>
+<p>Codex is available in four main forms:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Best for</th>
+<th>What you need</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex App desktop version</td>
+<td>Beginners and users who want a graphical interface</td>
+<td>Windows or macOS</td>
+</tr>
+<tr>
+<td>Codex CLI</td>
+<td>People familiar with the terminal</td>
+<td>Terminal, Git, project environment</td>
+</tr>
+<tr>
+<td>Codex IDE Extension plugin</td>
+<td>People who use VS Code / Cursor / Windsurf</td>
+<td>Editor + plugin</td>
+</tr>
+<tr>
+<td>Codex Web / Cloud</td>
+<td>People who want Codex to work remotely on GitHub projects</td>
+<td>GitHub repository</td>
+</tr>
+</tbody>
+</table>
+<p>Codex App supports <strong>macOS and Windows</strong>; Codex CLI supports macOS, Windows, and Linux.</p>
+<h4>Software tools to prepare</h4>
+<p>Before installing Codex, prepare these basic tools:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Download / registration link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Git</td>
+<td>Helps Codex see code changes, generate diffs, and roll back changes</td>
+<td>Official Git download</td>
+</tr>
+<tr>
+<td>VS Code / Cursor</td>
+<td>Helps you view and edit code</td>
+<td>VS Code download / Cursor download</td>
+</tr>
+<tr>
+<td>Terminal</td>
+<td>Use PowerShell on Windows; use Terminal on Mac</td>
+<td>No download needed; built into the system</td>
+</tr>
+<tr>
+<td>Browser</td>
+<td>Log in to ChatGPT / OpenAI / GitHub</td>
+<td>Chrome download</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>Commonly used for web pages, frontend work, Next.js, and Vite projects</td>
+<td>Node.js download</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Commonly used for scripts, automation, and data processing</td>
+<td>Python download</td>
+</tr>
+<tr>
+<td>GitHub account</td>
+<td>Required if you want to use Codex Cloud or push code</td>
+<td>GitHub registration</td>
+</tr>
+<tr>
+<td>Codex App</td>
+<td>Codex desktop version for managing tasks and projects through a graphical interface</td>
+<td>Official Codex App page</td>
+</tr>
+<tr>
+<td>Codex CLI</td>
+<td>Use Codex in the terminal; suitable for actual project development</td>
+<td>Official Codex CLI documentation</td>
+</tr>
+<tr>
+<td>Codex Web version</td>
+<td>Let Codex work on projects in the cloud after you connect GitHub</td>
+<td>Codex Web</td>
+</tr>
+</tbody>
+</table>
+<h4>Project directory setup</h4>
+<p>Codex works inside a specific project directory rather than only in chat. In the official getting-started flow, you log in to Codex, choose a folder on your computer or a Git repository, and then start your first task.</p>
+<p>Create a dedicated practice directory in advance, for example:</p>
+<pre><code class="language-text">D:\AI-Codex-Projects
+</code></pre>
+<p>You can put projects like these inside:</p>
+<pre><code class="language-text">hello-web
+ai-tools-page
+product-cover-tool
+landing-page-demo
+</code></pre>
+<p>Do not start by letting Codex operate on your most important real project. Use practice projects first to learn how it edits files, runs commands, and generates results.</p>
+<h4>Permissions and security setup</h4>
+<p>Codex can read and modify files, and it can also run commands in your project directory. The CLI documentation says it can read and modify code in the directory you choose, and run commands.</p>
+<p>Before installing, pay attention to the following:</p>
+<table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Do not put important files there directly</td>
+<td>Use a test project first</td>
+</tr>
+<tr>
+<td>Do not write passwords/API Keys in code</td>
+<td>Use a .env file and avoid uploading it</td>
+</tr>
+<tr>
+<td>Make a Git commit before starting</td>
+<td>Makes it easier to roll back</td>
+</tr>
+<tr>
+<td>Read the commands Codex wants to execute carefully</td>
+<td>If you do not understand a command, ask it to explain first</td>
+</tr>
+<tr>
+<td>Do not give it access to the entire C drive</td>
+<td>Select only the specific project folder</td>
+</tr>
+</tbody>
+</table>
+<p>Initialize Git for each project first:</p>
+<pre><code class="language-text">git init
+git add .
+git commit -m &quot;initial commit&quot;
+</code></pre>
+<p>Then if Codex breaks something, you can roll back.</p>
+<hr>
+<h3>Codex App installation and getting started (recommended for beginners and the most capable option)</h3>
+<h4>Download and install</h4>
+<h5>macOS installation</h5>
+<p>If you use a Mac, first confirm your chip type.</p>
+<p>Click the Apple icon in the upper-left corner of your computer and choose "About This Mac".</p>
+<p>If it shows:</p>
+<ul>
+<li>For an Apple M1, M2, M3, or M4 device, choose the Apple Silicon version.</li>
+<li>Intel: choose the Intel version</li>
+</ul>
+<p>On the official Codex App page, download the version that matches your chip. When the download finishes, open the installer package and drag Codex into the "Applications" folder.</p>
+<p>After installation, open Codex from "Applications".</p>
+<p>The first time you open it, the system may prompt:</p>
+<p>"This is an app downloaded from the Internet. Are you sure you want to open it?"</p>
+<p>Choose "Open".</p>
+<h6>Difference between Intel Mac and Apple Silicon</h6>
+<p>Macs mainly use two kinds of chips:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Common models</th>
+<th>Version to download</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple Silicon</td>
+<td>M1 / M2 / M3 / M4 Mac</td>
+<td>Apple Silicon version</td>
+</tr>
+<tr>
+<td>Intel Mac</td>
+<td>Older Macs with Intel chips</td>
+<td>Intel version</td>
+</tr>
+</tbody>
+</table>
+<p>The quickest way to check:</p>
+<p>Open "About This Mac" and look at the chip information.</p>
+<p>If it shows an Apple M series chip, it is Apple Silicon.</p>
+<p>If it shows Intel Core i5, Intel Core i7, or Intel Core i9, it is an Intel Mac.</p>
+<p>Choose the version carefully. The wrong version may fail to install, fail to open, or run unstably.</p>
+<h5>Windows installation</h5>
+<p>If you use Windows, go to the official Codex App page and choose the Windows version.</p>
+<p>The Windows version usually redirects to Microsoft Store for installation.</p>
+<p>Installation steps:</p>
+<ol>
+<li>Open the <a href="https://openai.com/zh-Hans-CN/codex/">official Codex App page</a></li>
+<li>Click the Windows download entry</li>
+</ol>
+<p align="center">
+  <img src="assets/images/image-009-83f16b5f97.png" alt="Codex App download page for Windows" width="860">
+</p>
+
+<ol start="3">
+<li>Microsoft Store opens</li>
+</ol>
+<p align="center">
+  <img src="assets/images/image-010-8cac2e1d37.png" alt="Codex app page in Microsoft Store" width="860">
+</p>
+
+<ol start="4">
+<li>Click "Get" or "Install" (I have already installed it here, so it shows Open)</li>
+<li>Open Codex App</li>
+<li>Codex App is now installed</li>
+</ol>
+<h4>Opening Codex App for the first time</h4>
+<h5>Choose a project directory</h5>
+<p>After you open Codex App for the first time and log in, Codex asks you to choose a project directory.</p>
+<p>A "project directory" means:</p>
+<p>The folder where Codex will work.</p>
+<p>For example, if you want Codex to help you build a web page, create a new folder in advance:</p>
+<pre><code class="language-text">hello-codex
+</code></pre>
+<p>Then choose this folder in Codex App.</p>
+<p>For your first run, choose a clean practice directory. Do not choose the C drive directly, and do not start with an important work project.</p>
+<p>Recommended directory structure:</p>
+<pre><code class="language-text">AI-Codex-Projects
+└── hello-codex
+    └── index.html
+</code></pre>
+<p>After you choose a project directory, Codex knows which files to read and modify, and where to run commands.</p>
+<p align="center">
+  <img src="assets/images/image-011-59a65b6cbe.png" alt="Interface for choosing a project directory in Codex App" width="860">
+</p>
+
+<h5>Understanding the project list</h5>
+<p>After entering Codex App, you will usually see the project list on the left.</p>
+<p>The project list means:</p>
+<p>The different code folders you have given to Codex.</p>
+<p>For example:</p>
+<pre><code class="language-text">hello-codex
+ai-first-page
+</code></pre>
+<p>Each project corresponds to a local folder on your computer, or to a Git repository.</p>
+<p>If you previously opened projects in Codex App, Codex CLI, or Codex IDE Extension, those projects may also appear in the list.</p>
+<p>Remember this:</p>
+<p>The project list is not a chat history list; it is a "code project list".</p>
+<p>When you click into different projects, the set of files Codex can see is different.</p>
+<p align="center">
+  <img src="assets/images/image-012-caf9bf0f60.png" alt="Left menu bar in the Codex App interface" width="860">
+</p>
+
+<h5>Understanding threads (conversations)</h5>
+<p>A thread means:</p>
+<p>A task conversation inside the same project.</p>
+<p>For example, in the <code>hello-Codex</code> project, you can open multiple threads:</p>
+<pre><code class="language-text">Thread 1: build a homepage
+Thread 2: fix the issue where clicking the button does nothing
+Thread 3: optimize mobile styles
+Thread 4: help me write the README
+</code></pre>
+<p align="center">
+  <img src="assets/images/image-013-ab6166a144.png" alt="Codex App menu interface" width="860">
+</p>
+
+<p>Each thread has its own context.</p>
+<p>When you ask Codex in Thread 1 to build a homepage, it keeps working around that task.</p>
+<p>When you ask it in Thread 2 to fix a bug, it works around a different task.</p>
+<p>A simple way to think about it:</p>
+<ul>
+<li>Project = a company</li>
+<li>thread = an employee in the company</li>
+</ul>
+<p>Do not put every task into the same thread.</p>
+<p>Better:</p>
+<p>Open one thread for each clear task.</p>
+<p>For example:</p>
+<pre><code class="language-text">Please help me build a personal homepage
+</code></pre>
+<p>This is one thread.</p>
+<pre><code class="language-text">Please check why the mobile layout is misaligned
+</code></pre>
+<p>This is another thread.</p>
+<p>This keeps the project organized and helps Codex understand task boundaries.</p>
+<h5>Understanding the task window</h5>
+<p>The task window is where you talk to Codex and assign work.</p>
+<p>Enter a task here, for example:</p>
+<pre><code class="language-text">Please help me build a simple web page with a black background and Hello, Codex displayed in the center.
+</code></pre>
+<p align="center">
+  <img src="assets/images/image-014-f4cad7a35b.png" alt="Execution interface for the “build a homepage” task in Codex App" width="860">
+</p>
+
+<p>You can also ask follow-up questions:</p>
+<pre><code class="language-text">Please make this page look more like a technology product homepage.
+</code></pre>
+<p>The task window usually shows these items:</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your task description</td>
+<td>Tells Codex what to do</td>
+</tr>
+<tr>
+<td>Codex's plan</td>
+<td>How it plans to do it</td>
+</tr>
+<tr>
+<td>Codex's execution process</td>
+<td>Shows Codex reading files, editing files, and running commands</td>
+</tr>
+<tr>
+<td>Codex's summary</td>
+<td>What Codex changed at the end</td>
+</tr>
+<tr>
+<td>Follow-up input box</td>
+<td>Use this to ask for more changes</td>
+</tr>
+</tbody>
+</table>
+<p>The first time you use it, avoid overly complex tasks.</p>
+<p>Not recommended:</p>
+<pre><code class="language-text">Help me build a complete AI tools platform with login, payment, database, and admin dashboard.
+</code></pre>
+<p>Recommended:</p>
+<pre><code class="language-text">Please help me build a simple product introduction page using only HTML and CSS.
+</code></pre>
+<p>The clearer the task, the easier it is for Codex to do it well.</p>
+<h5>Understanding the review pane</h5>
+<p>The review pane is:</p>
+<p>The place where you check what Codex changed.</p>
+<p>After Codex finishes editing files, do not read only its text summary. Open the review pane and inspect the actual changes.</p>
+<p align="center">
+  <img src="assets/images/image-015-6a51d13719.png" alt="Review pane interface for the “build a homepage” task in Codex App" width="860">
+</p>
+
+<p>It shows:</p>
+<ul>
+<li>Which files were modified</li>
+<li>Where code was added</li>
+<li>Where code was deleted</li>
+<li>Which changes can be accepted</li>
+<li>Which changes can be reverted</li>
+</ul>
+<p>For beginners, the review pane is:</p>
+<p>Codex's "homework inspection area".</p>
+<p>Do not simply trust Codex after it finishes writing. Check here to see exactly what it submitted.</p>
+<p>If you are not satisfied with a line of code, leave a comment there and ask Codex to revise it.</p>
+<p>For example, you can write:</p>
+<pre><code class="language-text">The button color here is too bright. Change it to a more restrained dark blue.
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">This code is too complex. Please rewrite it in a way that is easier for beginners to understand.
+</code></pre>
+<h5>Understanding diff</h5>
+<p>A diff compares code changes.</p>
+<p align="center">
+  <img src="assets/images/image-016-a4f222f686.png" alt="Codex App interface, with the project folder on the left, code editing area in the center, and review pane on the right" width="860">
+</p>
+
+<p>For beginners:</p>
+<pre><code class="language-text">Green = added content
+Red = deleted content
+</code></pre>
+<p>For example, if Codex originally did not write a title and later adds a line:</p>
+<pre><code class="language-html">&lt;h1&gt;Hello, Codex&lt;/h1&gt;
+</code></pre>
+<p>This line appears as an addition.</p>
+<p>If Codex deletes old code, that part appears as deleted.</p>
+<p>The diff shows:</p>
+<p>Exactly what Codex changed.</p>
+<p>Do not look only at the final page or read only Codex's summary.</p>
+<p>Always check the diff.</p>
+<p>Codex may sometimes:</p>
+<ul>
+<li>Change places you did not ask it to change</li>
+<li>Delete code that you still need</li>
+<li>Make simple code complex</li>
+<li>Modify multiple files without explaining clearly</li>
+</ul>
+<p>Build this habit from the first use:</p>
+<pre><code class="language-text">Every time Codex completes a task, look at the diff first, then decide whether to accept it.
+</code></pre>
+<h5>Recommended workflow after opening it for the first time</h5>
+<p>When you open Codex App for the first time, follow this order:</p>
+<pre><code class="language-text">1. Log in to ChatGPT
+2. Choose a practice project directory
+3. Create or choose a thread
+4. Enter a simple task in the task window
+5. Wait for Codex to modify files
+6. Open the review pane
+7. View the diff
+8. After confirming there are no issues, continue making changes
+</code></pre>
+<p>Recommended first task:</p>
+<pre><code class="language-text">Please help me build a simple web page with these requirements:
+1. Black background
+2. Large text Hello, Codex displayed in the center of the page
+3. White font
+4. The whole page is centered horizontally and vertically
+5. Use only HTML and CSS
+</code></pre>
+<p>This task is simple enough for learning the basic Codex App workflow.</p>
+<h5>Concepts beginners should remember</h5>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Simple understanding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project directory</td>
+<td>Your company's address</td>
+</tr>
+<tr>
+<td>Project list</td>
+<td>Your company's project departments</td>
+</tr>
+<tr>
+<td>thread</td>
+<td>An employee in a project department</td>
+</tr>
+<tr>
+<td>Task window</td>
+<td>The place where you give instructions to the employee</td>
+</tr>
+<tr>
+<td>review pane</td>
+<td>The place where you inspect changes</td>
+</tr>
+<tr>
+<td>diff</td>
+<td>A comparison of added and deleted code</td>
+</tr>
+</tbody>
+</table>
+<h4>Basic use of Codex App</h4>
+<h5>Basic layout</h5>
+<p>Codex App uses a standard three-column layout.</p>
+<p>The left side is the task list.</p>
+<p>The center is the conversation window.</p>
+<p>The right side is the multifunction area.</p>
+<p align="center">
+  <img src="assets/images/image-017-45e7b1f44c.png" alt="Basic layout of Codex App" width="860">
+</p>
+
+<h5>New conversation</h5>
+<h6>Using a project</h6>
+<p>Start a new conversation to perform a new task.</p>
+<p>After starting a new conversation, choose which project it belongs to.</p>
+<p align="center">
+  <img src="assets/images/image-018-3206c339e6.png" alt="Codex App interface, with the “hello - Codex” project selected in the task list on the left" width="860">
+</p>
+
+<p>You can also click the small button on the right side of a project to start a new conversation for that project.</p>
+<p align="center">
+  <img src="assets/images/image-019-257b446265.png" alt="Codex App interface, with the “hello - Codex” project highlighted by a red box in the task list on the left" width="860">
+</p>
+
+<h6>Without using a project</h6>
+<p>Click the option not to use a project. The session appears in conversations and can be used for questions unrelated to a project.</p>
+<p align="center">
+  <img src="assets/images/image-020-00b4c4d600.png" alt="Codex App conversation interface" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-021-dfac5ddc9d.png" alt="Codex App interface" width="860">
+</p>
+
+<h5>Search</h5>
+<p>Later, if there are too many task conversations and you remember only a few keywords, use search here. Search for keywords to find the matching task conversation.</p>
+<p align="center">
+  <img src="assets/images/image-022-35963eb7d8.png" alt="Codex App interface, with the task list on the left, conversation window in the center, and multifunction area on the right" width="860">
+</p>
+
+<h5>Plugins</h5>
+<p>This includes many features; later sections cover them.</p>
+<h5>Automation</h5>
+<p>This includes many features; later sections cover them.</p>
+<h5>Projects</h5>
+<h6>Create a project</h6>
+<p>You can create a new project directly in Codex, or use an existing project.</p>
+<p>The project you create or choose appears in the project column, which makes it easier to manage later.</p>
+<p align="center">
+  <img src="assets/images/image-023-e2925cfe7a.png" alt="Automation feature interface in Codex App" width="860">
+</p>
+
+<h6>thread</h6>
+<p>A thread is a "separate task conversation" inside a project.</p>
+<p align="center">
+  <img src="assets/images/image-024-5597f4da7e.png" alt="Automation page in Codex App" width="860">
+</p>
+
+<p>For example, suppose you have a project named:</p>
+<pre><code class="language-text">hello-codex
+</code></pre>
+<p>You can open multiple threads in this project:</p>
+<table>
+<thead>
+<tr>
+<th>Thread</th>
+<th>Task it represents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thread 1</td>
+<td>Build a homepage</td>
+</tr>
+<tr>
+<td>Thread 2</td>
+<td>Fix the issue where clicking the button does nothing</td>
+</tr>
+<tr>
+<td>Thread 3</td>
+<td>Optimize mobile styles</td>
+</tr>
+<tr>
+<td>Thread 4</td>
+<td>Help me write the README</td>
+</tr>
+<tr>
+<td>Thread 5</td>
+<td>Check whether the project has errors</td>
+</tr>
+</tbody>
+</table>
+<p>A simple way to define them:</p>
+<pre><code class="language-text">Project = one code folder
+Thread = one specific task in this project
+</code></pre>
+<p>For example:</p>
+<pre><code class="language-text">Project: Product cover generator
+Thread 1: build the homepage
+Thread 2: fix image upload failure
+Thread 3: optimize mobile layout
+Thread 4: write project documentation
+</code></pre>
+<p><strong>Why have threads?</strong></p>
+<p>Different tasks are easier to handle separately.</p>
+<p>If you put "build the homepage, fix bugs, change styles, write documentation" all into one conversation, Codex can easily confuse the context, and it is hard for you to check exactly what changed.</p>
+<p>A better pattern is:</p>
+<pre><code class="language-text">One clear task = one thread
+</code></pre>
+<p>For example, if you want to build a page:</p>
+<pre><code class="language-text">Please help me build an AI tool introduction page.
+</code></pre>
+<p>This is one thread.</p>
+<p>Later, if you find a problem with the button, open another thread:</p>
+<pre><code class="language-text">Please check why the homepage button does not respond after clicking.
+</code></pre>
+<p>Summary:</p>
+<p><strong>A thread is a task conversation in Codex App; one thread handles one specific task.</strong></p>
+<h6>Waiting for approval</h6>
+<p>When Codex executes tasks, it often needs the user to approve permissions.</p>
+<p>A waiting-for-approval label also appears on the corresponding conversation.</p>
+<p>Click the corresponding conversation, then click Allow, and Codex continues with the next steps.</p>
+<p align="center">
+  <img src="assets/images/image-025-3c0bbdb2c9.png" alt="Waiting for approval interface in Codex App" width="860">
+</p>
+
+<h6>Archive</h6>
+<p>Archive means setting aside a completed thread that you do not need to handle for now.</p>
+<p>It does not delete or merge code. It only makes your task list cleaner.</p>
+<p align="center">
+  <img src="assets/images/image-026-e376d9b72b.png" alt="Automation feature interface in Codex App" width="860">
+</p>
+
+<p>For example, you have finished these tasks:</p>
+<pre><code class="language-text">Thread 1: optimize mobile styles
+Thread 2: build a homepage
+Thread 3: build a homepage
+
+</code></pre>
+<p>Thread 2 and Thread 3 are complete, and you do not plan to use Thread 1 either, so you can archive these threads.</p>
+<p>After archiving, they no longer occupy space in the current task list, so the project interface is cleaner.</p>
+<p><strong>To unarchive a conversation, find it in settings and restore it.</strong></p>
+<p align="center">
+  <img src="assets/images/image-027-fe65838194.png" alt="Archived conversations interface in Codex App" width="860">
+</p>
+<h5>Settings</h5>
+<h6>Remaining quota</h6>
+<p>Here you can see your current account quota, rate limits, or usage.</p>
+<p>The limits shown may differ across plans, workspaces, models, and versions. How long you can use it, when quota recovers, and whether you can buy more all depend on the current Codex interface and official documentation.</p>
+<p align="center">
+  <img src="assets/images/image-028-428085256a.png" alt="Remaining quota page in Codex App" width="860">
+</p>
+
+<h5>Conversation window</h5>
+<h6>Permission controls</h6>
+<h6>Sandbox</h6>
+<p>To understand permission controls, first understand the sandbox concept.</p>
+<p>Think of it this way:</p>
+<blockquote>
+<p>Codex can work inside the fence, but it cannot freely leave the fence and modify your computer.</p>
+</blockquote>
+<p>Codex App is not an ordinary chat tool. It can read files, modify files, and run commands, so it needs a "fence" that limits where it can operate, whether it can connect to the network, and whether it can modify files outside the project. In the official documentation, Codex sandbox modes include <code>read-only</code>, <code>workspace-write</code>, and <code>danger-full-access</code>, which control filesystem and network access boundaries.</p>
+<h6><strong>In simple terms</strong></h6>
+<p>Suppose your project folder is:</p>
+<pre><code class="language-text">D:\AI-Codex-Projects\hello-codex
+</code></pre>
+<p>If the sandbox is enabled, Codex normally works only within this project folder, for example:</p>
+<pre><code class="language-text">It can view index.html
+It can edit style.css
+It can run npm run dev
+</code></pre>
+<p>These actions may require your approval:</p>
+<pre><code class="language-text">Access desktop files
+Read the Downloads folder
+Modify files outside the project
+Download things from the internet
+Run high-risk commands
+</code></pre>
+<p>In short:</p>
+<pre><code class="language-text">Sandbox = setting work boundaries for Codex
+</code></pre>
+<h6>Three main permission levels</h6>
+<p align="center">
+  <img src="assets/images/image-029-36088a5605.png" alt="Permission controls interface in Codex App" width="860">
+</p>
+
+<pre><code class="language-text">Request approval
+Approve for me
+Full access
+</code></pre>
+<p>The relationship works like this:</p>
+<table>
+<thead>
+<tr>
+<th>Option you see</th>
+<th>Relationship to Sandbox</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request approval</td>
+<td>Sandbox restrictions apply; it asks you before crossing boundaries</td>
+</tr>
+<tr>
+<td>Approve for me</td>
+<td>Let the system automatically judge part of the approvals for you</td>
+</tr>
+<tr>
+<td>Full access</td>
+<td>Removes sandbox limits, can perform any operation on the computer, and has the highest risk</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners should enable:</p>
+<p><strong>Request approval or automatic-approval options</strong>. For a first setup, choose a mode that keeps the project boundary closed. Let Codex work inside the current project, but require confirmation when it crosses boundaries, uses the network, or runs high-risk commands. Permission option names may differ across versions, but the core principle is the same: do not enable full access at the beginning.</p>
+<h6>One-sentence summary</h6>
+<p><strong>Sandbox is Codex's safety fence.</strong></p>
+<p>It decides whether Codex can:</p>
+<pre><code class="language-text">View files
+Edit files
+Access directories outside the project
+Use the network
+Run commands
+</code></pre>
+<h6>Model selection</h6>
+<h6>Reasoning effort</h6>
+<p>Reasoning effort has four levels. Higher levels provide stronger reasoning, but they take more time and use more tokens.</p>
+<p align="center">
+  <img src="assets/images/image-030-5e67deee5c.png" alt="Conversation window interface for the “build a homepage” task in Codex App" width="860">
+</p>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>In simple terms</th>
+<th>Suitable tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low</td>
+<td>Thinks less, runs fast, saves quota</td>
+<td>Change copy, change colors, small issues</td>
+</tr>
+<tr>
+<td>Medium</td>
+<td>Balances speed and quality</td>
+<td>Ordinary web pages, simple bugs, everyday development</td>
+</tr>
+<tr>
+<td>High</td>
+<td>Thinks more deeply; better for complex problems</td>
+<td>Multi-file changes, complex bugs, refactoring</td>
+</tr>
+<tr>
+<td>Very high</td>
+<td>Most careful, slowest, uses the most quota</td>
+<td>Very difficult problems, architecture analysis, bugs that cannot be fixed after repeated attempts</td>
+</tr>
+</tbody>
+</table>
+<h6>Model selection</h6>
+<p>Here you can choose different models. Model capabilities, availability, and usage depend on account plan, region, version, and model catalog. For ordinary tasks, use the default recommended model. For complex tasks, consider switching to a stronger model or increasing reasoning effort.</p>
+<p align="center">
+  <img src="assets/images/image-031-223a38b5c0.png" alt="Interface for the “build a homepage” task in Codex App" width="860">
+</p>
+
+<h6>Speed</h6>
+<p>Some models or versions provide service tiers such as standard / fast.</p>
+<p>Fast mode speed, quota use, and availability all depend on what the current interface shows. Consider enabling it when a task is urgent and you have enough quota; you do not need to enable it by default for daily tasks.</p>
+<p align="center">
+  <img src="assets/images/image-032-19abbbf80a.png" alt="Interface for the “build a homepage” task in Codex App" width="860">
+</p>
+
+<h6>Guidance</h6>
+<p>You can add guidance while a task is running.</p>
+<p>If you notice that the AI has misunderstood your intent while it is running, do not let it continue. Provide guidance right away.</p>
+<p>If you do not choose guidance, the request is queued. The AI runs your next request only after the previous task finishes.</p>
+<p align="center">
+  <img src="assets/images/image-033-ab2aaf4b7c.png" alt="Codex App interface, with the project management area on the left, showing the “build a homepage” project, and two tasks, “Hello” and “build a homepage”, where the “Hello” task ended 22 hours ago" width="860">
+</p>
+
+<h6>Plan mode</h6>
+<p>When Plan mode is enabled, Codex does not start immediately. It first writes a work plan and starts only after you confirm it.</p>
+<p>For complex tasks, enable Plan mode first so you can catch omissions.</p>
+<p align="center">
+  <img src="assets/images/image-034-6c91bab459.png" alt="Conversation window interface for the “build a homepage” task in Codex App" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-035-14008ae664.png" alt="Conversation window for the “minimal animation enhancement plan” in Codex App" width="860">
+</p>
+
+<h5>Multifunction area</h5>
+<h6>Annotations</h6>
+<p>Annotations are in the upper-right area of the multifunction panel.</p>
+<p>After you open a page with the built-in browser in Codex, the annotation feature becomes available.</p>
+<p>Use it to ask the AI to modify only a specific part of the page.</p>
+<p align="center">
+  <img src="assets/images/image-036-3a26d98ad0.png" alt="Codex App interface" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-037-2ce03561dc.png" alt="Codex App interface, with the project list on the left and the “Hello, Codex.” page on the right" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-038-bea3475dc4.png" alt="Codex App interface" width="860">
+</p>
+
+<hr>
