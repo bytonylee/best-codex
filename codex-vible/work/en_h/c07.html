@@ -1,0 +1,299 @@
+<h2>Part 3: Core features in depth</h2>
+<h3>Automation</h3>
+<h4>What is automation?</h4>
+<p><strong>Codex Automation = letting Codex follow your instructions, regularly inspect your project, find issues, and handle them according to rules.</strong></p>
+<p>This is like having an "AI on-call engineer" for your project:</p>
+<blockquote>
+<p>It does not interrupt you in normal times,
+ it reminds you when there is a problem,
+ it tries to fix simple issues first,
+ and finally lets you review and decide.</p>
+</blockquote>
+<h4>How to use automation</h4>
+<p>For example, a "weekly automatic Codex session review" can make Codex more useful over time.</p>
+<p>You can ask Codex to inspect recent session records, task results, and common issues on a schedule, then organize them into a reusable workflow profile.</p>
+<p>Use a prompt like this:</p>
+<pre><code class="language-text">Please retrieve and review the Codex session records and execution logs from the past week, and maintain a “Codex session review and personal style profile.”
+
+Requirements:
+1. Prioritize any available session-history retrieval capability; if logs need to be read, only perform search, metadata extraction, and extraction of relevant snippets. Do not load large session files in full.
+2. Do not reproduce raw logs, private content, keys, internal reasoning, or long original conversations.
+3. Summarize execution lessons: which practices caused problems, what the final correct approach was, and which scenarios it is suitable to reuse in.
+4. Summarize my preferences: UI design preferences, product philosophy, interaction principles, content-system preferences, and workflow preferences.
+5. Organize a reusable rule checklist: rewrite the review conclusions into concise rules that later Codex sessions can follow.
+6. When updating the document, deduplicate and merge similar rules, and keep the date range or task type as source clues.
+7. If there are rules suitable for long-term reuse, suggest whether to add them to project-level or user-level AGENTS.md.
+</code></pre>
+<p align="center">
+  <img src="assets/images/image-039-1274ebbc52.png" alt="Automation page on the Codex platform" width="860">
+</p>
+
+<p align="center">
+  <img src="assets/images/image-040-9839b03471.png" alt="Codex desktop interface with the feature navigation bar on the left and the Automation option selected" width="860">
+</p>
+
+<h3>Plugins</h3>
+<p>Additional "capability packages" installed for Codex.</p>
+<h4>What are plugins?</h4>
+<p>Codex can already read code, modify code, and run commands. Plugins add connections to more tools, fixed workflows, or specialized capabilities.</p>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Plugin type</th>
+<th>What it lets Codex do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chrome Plugin</td>
+<td>Open web pages, inspect pages, and debug with the browser</td>
+</tr>
+<tr>
+<td>Gmail Plugin</td>
+<td>Summarize emails and draft replies</td>
+</tr>
+<tr>
+<td>Google Drive Plugin</td>
+<td>Read documents, spreadsheets, and slides</td>
+</tr>
+<tr>
+<td>Slack Plugin</td>
+<td>Summarize channel messages and draft team replies</td>
+</tr>
+<tr>
+<td>Security Plugin</td>
+<td>Check code for security issues</td>
+</tr>
+<tr>
+<td>Computer Use Plugin</td>
+<td>Operate applications on the computer</td>
+</tr>
+</tbody>
+</table>
+<h4>How plugins, Skill, and MCP relate to each other (read this table first)</h4>
+<p>Plugins, Skill, and MCP are the three concepts in this part that are easiest to confuse. They do not replace one another; each manages a different layer. Use the overview table below first. Later sections will not repeat this comparison.</p>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Plugin</th>
+<th>Skill</th>
+<th>MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In one sentence</td>
+<td>A capability installation package</td>
+<td>A fixed working method</td>
+<td>An interface for connecting external tools</td>
+</tr>
+<tr>
+<td>What problem it solves</td>
+<td>Installing, packaging, and distributing capabilities</td>
+<td>"How to do" similar tasks</td>
+<td>"What tool or data to connect to"</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Largest; can package Skill, MCP, and other pieces</td>
+<td>Smaller; the workflow for one type of task</td>
+<td>A connection to a single external tool or data source</td>
+</tr>
+<tr>
+<td>Analogy</td>
+<td>A toolbox</td>
+<td>The manual inside the toolbox</td>
+<td>The socket that powers the toolbox</td>
+</tr>
+<tr>
+<td>Who uses it</td>
+<td>Ordinary users can also install it with one click</td>
+<td>Ordinary users can also use it</td>
+<td>More oriented toward developer and team configuration</td>
+</tr>
+<tr>
+<td>Examples</td>
+<td>GitHub Plugin, Figma Plugin</td>
+<td>README Skill, code review Skill</td>
+<td>Database MCP, documentation MCP</td>
+</tr>
+</tbody>
+</table>
+<p>Keep one sentence in mind: <strong>Plugins can package Skill and MCP into capability packages that are easier to install; Skill manages "how to do it," and MCP manages "what tool to connect to."</strong></p>
+<h4>How to install plugins in Codex App</h4>
+<h5>Open Codex App</h5>
+<p align="center">
+  <img src="assets/images/image-041-2ec5f4e518.png" alt="Plugin page in Codex App" width="860">
+</p>
+
+<h5>Search or browse plugins</h5>
+<p>You can also search for the plugin you need.</p>
+<p align="center">
+  <img src="assets/images/image-042-c93789737a.png" alt="Plugin page in Codex App" width="860">
+</p>
+
+<h5>Open the plugin details</h5>
+<p align="center">
+  <img src="assets/images/image-043-b5ddc23cd8.png" alt="Details page for the GitHub Plugin in Codex App" width="860">
+</p>
+
+<h5>Click Add to Codex or the add button</h5>
+<p align="center">
+  <img src="assets/images/image-044-d06ab5db7e.png" alt="Interface of the Plugin details page in Codex App" width="860">
+</p>
+
+<h5>Open a new thread after installation to use it</h5>
+<p align="center">
+  <img src="assets/images/image-045-053d643836.png" alt="The “hello - Codex” project page in Codex App" width="860">
+</p>
+
+<h4>How to install plugins in Codex CLI</h4>
+<p>Go to the project directory, then start Codex:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>Then enter the following command in Codex CLI:</p>
+<pre><code class="language-text">/plugins
+</code></pre>
+<p>After you open the plugin list, you can:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search for Plugins</td>
+<td>Find the plugin you need</td>
+</tr>
+<tr>
+<td>View details</td>
+<td>Check what the plugin can do and what permissions it needs</td>
+</tr>
+<tr>
+<td>Install plugin</td>
+<td>Install the plugin</td>
+</tr>
+<tr>
+<td>Uninstall plugin</td>
+<td>Uninstall the plugin</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>Enable or disable installed plugins</td>
+</tr>
+</tbody>
+</table>
+<h4>Common plugins and capability areas</h4>
+<p>The plugin catalog changes by Codex version, workspace, and account permissions. The following is not a fixed ranking; it lists common capability areas. The plugins you can install depend on what appears on your current Codex Plugin page.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Included plugins</th>
+<th>What they are suitable for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser and computer operations</td>
+<td>Chrome, Computer Use</td>
+<td>Web testing, automated clicking, and software operation</td>
+</tr>
+<tr>
+<td>Code and project collaboration</td>
+<td>GitHub</td>
+<td>Repository management, bug fixes, and PR creation</td>
+</tr>
+<tr>
+<td>Frontend and design</td>
+<td>Build Web Apps, Figma</td>
+<td>Web page generation and design-to-code conversion</td>
+</tr>
+<tr>
+<td>Office deliverables</td>
+<td>Documents, Presentations, Spreadsheets</td>
+<td>Document, PPT, and spreadsheet analysis</td>
+</tr>
+<tr>
+<td>Video generation</td>
+<td>HyperFrames, Remotion</td>
+<td>Video generation with code or HTML</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>Plugin / capability</th>
+<th>Main purpose</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Chrome</td>
+<td>Allows Codex to operate the browser directly</td>
+<td>Opens web pages, clicks buttons, checks page appearance, and tests web features</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GitHub</td>
+<td>Code repository management and collaboration</td>
+<td>Allows Codex to read repositories, handle issues, edit code, and create PRs</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Computer Use</td>
+<td>Allows Codex to operate the computer</td>
+<td>Sees the screen, clicks buttons, and operates software like a person, with relatively high permissions</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Build Web Apps</td>
+<td>Generate frontend web applications from one sentence</td>
+<td>Enter requirements to generate web pages, small tools, landing pages, and demos</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Figma</td>
+<td>Design-to-code and prototype design</td>
+<td>Turn Figma designs into frontend pages; suitable for UI development</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Documents</td>
+<td>Helps create formal documents</td>
+<td>Generates README files, project descriptions, tutorial documents, and product documents</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Presentations</td>
+<td>Generates presentation-ready PPTs</td>
+<td>Generates reports, course materials, product introductions, and proposal-style PPTs from content</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Spreadsheets</td>
+<td>AI data analysis and spreadsheet processing</td>
+<td>Helps organize Excel files, analyze data, and generate spreadsheet conclusions</td>
+</tr>
+<tr>
+<td>9</td>
+<td>HyperFrames</td>
+<td>Generate video directly from HTML</td>
+<td>Uses web page/HTML structure to generate video content</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Remotion</td>
+<td>Generate high-quality videos with code</td>
+<td>Uses React/code to generate more professional videos</td>
+</tr>
+</tbody>
+</table>
