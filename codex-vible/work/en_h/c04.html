@@ -1,0 +1,1512 @@
+<h3>Codex CLI installation and getting started</h3>
+<p>Codex CLI is Codex for the command line.</p>
+<p>Use it if you are comfortable opening a terminal, such as PowerShell, Terminal, iTerm, or Windows Terminal.</p>
+<h4>macOS / Linux installation</h4>
+<p>On macOS, you usually install it one of two ways.</p>
+<h5>Method 1: Install with npm</h5>
+<p>First, check that Node.js is installed on your computer.</p>
+<p>Open Terminal and run:</p>
+<pre><code class="language-text">node -v
+npm -v
+</code></pre>
+<p>If version numbers appear, Node.js and npm are available.</p>
+<p>Then install Codex CLI:</p>
+<pre><code class="language-text">npm install -g @openai/codex
+</code></pre>
+<p>After installation, verify it:</p>
+<pre><code class="language-text">codex --version
+</code></pre>
+<p>You can also run it directly:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<hr>
+<h5>Method 2: Install with Homebrew</h5>
+<p>Mac users can use Homebrew instead:</p>
+<pre><code class="language-text">brew install --cask codex
+</code></pre>
+<p>After installation, run:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>For beginners:</p>
+<ul>
+<li>If you already have Node.js installed, use npm.</li>
+<li>If you are already used to Homebrew, use brew.</li>
+</ul>
+<h4>Windows installation</h4>
+<p>On Windows, use PowerShell or Windows Terminal.</p>
+<p>Step 1: install Node.js.</p>
+<p>After installation, open PowerShell and run:</p>
+<pre><code class="language-text">node -v
+npm -v
+</code></pre>
+<p>If version numbers appear, the installation succeeded.</p>
+<p>Step 2: install Codex CLI:</p>
+<pre><code class="language-text">npm install -g @openai/codex
+</code></pre>
+<p>Step 3: verify the installation:</p>
+<pre><code class="language-text">codex --version
+</code></pre>
+<p>You can also run it directly:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>On first use in Windows, do not run Codex in a system directory.</p>
+<p>Do not work directly in these locations:</p>
+<pre><code class="language-text">C:\
+System directory
+Desktop
+Downloads folder
+Important files folder
+</code></pre>
+<p>Create a practice directory instead:</p>
+<pre><code class="language-text">D:\AI-Codex-Projects\hello-codex
+</code></pre>
+<h4>First run</h4>
+<p>After installation, run this in the terminal:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>On first run, Codex will prompt you to log in.</p>
+<p>Codex CLI usually supports two login methods:</p>
+<pre><code class="language-text">1. Log in with a ChatGPT account
+2. Log in with an OpenAI API Key
+</code></pre>
+<p>Beginners should start with the first option: logging in with a ChatGPT account.</p>
+<h5>Method 1: Log in with a ChatGPT account</h5>
+<p>This is the simplest option for regular users and beginners.</p>
+<p>Run this in the terminal:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>Or:</p>
+<pre><code class="language-text">codex login
+</code></pre>
+<p>Then select:</p>
+<pre><code class="language-text">Sign in with ChatGPT
+</code></pre>
+<p>The login flow usually works like this:</p>
+<pre><code class="language-text">1. Enter codex or codex login in the terminal
+2. Choose Sign in with ChatGPT
+3. The browser automatically opens the login page
+4. Enter your ChatGPT account
+5. After login succeeds, the browser sends the login result back to the terminal
+6. Return to the terminal, and Codex CLI is ready to use
+</code></pre>
+<h5>Method 2: Log in with an API Key</h5>
+<p>Codex CLI also supports logging in with an OpenAI API Key.</p>
+<p>API Key login fits developers, automation scripts, CI/CD, server tasks, and similar uses.</p>
+<p>Beginners can think of it this way:</p>
+<pre><code class="language-text">ChatGPT login = uses your ChatGPT account and plan quota
+API Key login = uses OpenAI Platform API billing
+</code></pre>
+<p>To log in with an API Key, first create an API Key in OpenAI Platform.</p>
+<p>Then set the environment variable in the terminal.</p>
+<p>On macOS / Linux, use:</p>
+<pre><code class="language-text">export OPENAI_API_KEY=&quot;your_API_Key&quot;
+printenv OPENAI_API_KEY | codex login --with-api-key
+</code></pre>
+<p>In Windows PowerShell, use:</p>
+<pre><code class="language-text">$env:OPENAI_API_KEY=&quot;your_API_Key&quot;
+$env:OPENAI_API_KEY | codex login --with-api-key
+</code></pre>
+<p>After login succeeds, Codex CLI saves your login information. Later, run:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>You can keep using it after that.</p>
+<hr>
+<h5>What is the difference between ChatGPT login and API Key login?</h5>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>ChatGPT account login</th>
+<th>API Key login</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best for</td>
+<td>Regular users and beginners</td>
+<td>Developers, automation, CI/CD</td>
+</tr>
+<tr>
+<td>Quota usage</td>
+<td>Depends on your ChatGPT plan</td>
+<td>Billed through the OpenAI Platform API</td>
+</tr>
+<tr>
+<td>Learning curve</td>
+<td>Simpler</td>
+<td>Slightly more complex</td>
+</tr>
+<tr>
+<td>Recommended for beginners</td>
+<td>Recommended</td>
+<td>Not recommended at first</td>
+</tr>
+<tr>
+<td>Good for local practice</td>
+<td>Yes</td>
+<td>Also possible, but unnecessary</td>
+</tr>
+<tr>
+<td>Good for automation scripts</td>
+<td>Average</td>
+<td>Better suited</td>
+</tr>
+</tbody>
+</table>
+<h5>API Key login precautions</h5>
+<p>An API Key is sensitive. Do not leak it.</p>
+<p>Do not put an API Key in these places:</p>
+<pre><code class="language-text">In code
+Send it to others
+Expose it in screenshots
+Upload it to GitHub
+Put it in README
+Put it in a frontend web page
+Commit it to a Git repository
+</code></pre>
+<p>If you accidentally leak an API Key, go to OpenAI Platform immediately and delete or regenerate it.</p>
+<p>API Key login is convenient for automation, but billing follows API usage. Beginners should not run long tasks until they understand the cost rules.</p>
+<hr>
+<h5>Check current login status</h5>
+<p>Use the command below to check whether you are currently logged in:</p>
+<pre><code class="language-text">codex login status
+</code></pre>
+<p>If you need to log out, run:</p>
+<pre><code class="language-text">codex logout
+</code></pre>
+<p>After logging out, you must log in again the next time you run Codex CLI.</p>
+<h4>CLI basic commands</h4>
+<p>Codex CLI commands fall into two categories:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Where to use</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terminal commands</td>
+<td>Entered in PowerShell / Terminal</td>
+<td>Start, log in to, update, diagnose, and manage Codex</td>
+</tr>
+<tr>
+<td>Slash commands</td>
+<td>Entered after starting Codex</td>
+<td>Switch models, adjust permissions, view diffs, generate rules, or exit sessions</td>
+</tr>
+</tbody>
+</table>
+<h5>CLI terminal commands</h5>
+<p>CLI terminal commands are entered in PowerShell / Terminal / Windows Terminal.</p>
+<h6>Most used terminal commands for beginners</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex</code></td>
+<td>Start Codex CLI</td>
+<td>Open Codex in the terminal</td>
+<td>Use after entering a project</td>
+</tr>
+<tr>
+<td><code>codex --version</code></td>
+<td>Show the version</td>
+<td>Check whether installation succeeded</td>
+<td>First step after installation</td>
+</tr>
+<tr>
+<td><code>codex --help</code></td>
+<td>View help</td>
+<td>See which commands are supported</td>
+<td>When you do not know how to use a command</td>
+</tr>
+<tr>
+<td><code>codex login</code></td>
+<td>Log in to Codex</td>
+<td>Log in with a ChatGPT account or API Key</td>
+<td>First-time setup</td>
+</tr>
+<tr>
+<td><code>codex login status</code></td>
+<td>View login status</td>
+<td>See whether you are currently logged in</td>
+<td>When login is not working</td>
+</tr>
+<tr>
+<td><code>codex logout</code></td>
+<td>Log out</td>
+<td>Clear saved login credentials</td>
+<td>Switching accounts or using a public computer</td>
+</tr>
+<tr>
+<td><code>codex doctor</code></td>
+<td>Check environment issues</td>
+<td>Automatically generate a diagnostic report</td>
+<td>Startup, login, or environment problems</td>
+</tr>
+<tr>
+<td><code>codex update</code></td>
+<td>Update Codex</td>
+<td>Update the CLI version</td>
+<td>When you need an upgrade</td>
+</tr>
+<tr>
+<td><code>codex app</code></td>
+<td>Open Codex App</td>
+<td>Open the desktop app from a terminal</td>
+<td>When you want the graphical interface</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>Commands for entering a project</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>Example</th>
+<th>In simple terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cd project-directory</code></td>
+<td>Enter the project folder</td>
+<td><code>cd D:\\AI-Codex-Projects\\hello-Codex</code></td>
+<td>Enter the project first</td>
+</tr>
+<tr>
+<td><code>codex</code></td>
+<td>Start Codex in the current directory</td>
+<td><code>codex</code></td>
+<td>Run Codex in the current project</td>
+</tr>
+<tr>
+<td><code>codex --cd project-path</code></td>
+<td>Start in a specified directory</td>
+<td><code>codex --cd D:\\AI-Codex-Projects\\hello-Codex</code></td>
+<td>Specify the project without running cd first</td>
+</tr>
+<tr>
+<td><code>codex -C project-path</code></td>
+<td>Short form of --cd</td>
+<td><code>codex -C ./hello-Codex</code></td>
+<td>A shorter form</td>
+</tr>
+</tbody>
+</table>
+<p>The simplest approach for beginners is:</p>
+<pre><code class="language-text">cd project-directory
+codex
+</code></pre>
+<p>Do not run Codex directly in these places:</p>
+<pre><code class="language-text">C:\
+Desktop
+Downloads folder
+System directory
+Important files folder
+</code></pre>
+<hr>
+<h6>Login-related commands</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex login</code></td>
+<td>Open a browser by default and log in with a ChatGPT account</td>
+<td>First choice for new users</td>
+</tr>
+<tr>
+<td><code>codex login --device-auth</code></td>
+<td>Log in with a device code</td>
+<td>Remote servers or systems where the browser cannot open</td>
+</tr>
+<tr>
+<td><code>printenv OPENAI_API_KEY \| codex login --with-api-key</code></td>
+<td>Log in with an API Key</td>
+<td>Developers, automation, CI/CD</td>
+</tr>
+<tr>
+<td><code>codex login status</code></td>
+<td>View the current login method and status</td>
+<td>When you are not sure you are logged in</td>
+</tr>
+<tr>
+<td><code>codex logout</code></td>
+<td>Delete locally saved login credentials</td>
+<td>Switching accounts or using a public computer</td>
+</tr>
+</tbody>
+</table>
+<p>Log in with an API Key in Windows PowerShell:</p>
+<pre><code class="language-text">$env:OPENAI_API_KEY | codex login --with-api-key
+</code></pre>
+<hr>
+<h6>Send a task directly at startup</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex "task content"</code></td>
+<td>Start Codex and send the first task at once</td>
+<td><code>codex "Please explain this project structure"</code></td>
+</tr>
+<tr>
+<td><code>codex -i image-path "task"</code></td>
+<td>Attach an image to analyze</td>
+<td><code>codex -i ./error.png "Analyze this error"</code></td>
+</tr>
+<tr>
+<td><code>codex --image image-path "task"</code></td>
+<td>Full form of <code>-i</code></td>
+<td><code>codex --image ./ui.png "Optimize the page based on the screenshot"</code></td>
+</tr>
+<tr>
+<td><code>codex --search "task"</code></td>
+<td>Allow search</td>
+<td><code>codex --search "Check the new usage of this library"</code></td>
+</tr>
+</tbody>
+</table>
+<p>Useful for:</p>
+<pre><code class="language-text">Simple project explanation
+Analyzing an error screenshot
+Suggesting changes based on a UI screenshot
+Checking documentation for a new version
+</code></pre>
+<p>Beginners should run this first:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>After it starts, type the task. This makes the execution process easier to follow.</p>
+<hr>
+<h6>Model, permission, and sandbox commands</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Beginner advice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex --model model-name</code></td>
+<td>Specify a model</td>
+<td>Choose the model</td>
+<td>Use the default and change it only for complex tasks</td>
+</tr>
+<tr>
+<td><code>codex -m model-name</code></td>
+<td>Short form of <code>--model</code></td>
+<td>A shorter form</td>
+<td>No need to memorize it</td>
+</tr>
+<tr>
+<td><code>codex --sandbox read-only</code></td>
+<td>Read-only mode</td>
+<td>Can inspect files and generally will not change them</td>
+<td>Use when only analyzing a project</td>
+</tr>
+<tr>
+<td><code>codex --sandbox workspace-write</code></td>
+<td>Current project is readable and writable</td>
+<td>Can work in the project</td>
+<td>Recommended for daily use</td>
+</tr>
+<tr>
+<td><code>codex --sandbox danger-full-access</code></td>
+<td>Fully removes restrictions</td>
+<td>Very broad permissions</td>
+<td>Beginners should not use it</td>
+</tr>
+<tr>
+<td><code>codex --ask-for-approval on-request</code></td>
+<td>Ask you before sensitive operations</td>
+<td>Request approval</td>
+<td>Recommended for beginners</td>
+</tr>
+<tr>
+<td><code>codex -a on-request</code></td>
+<td>Short form for approval mode</td>
+<td>A shorter form</td>
+<td>Recommended</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended beginner combination:</p>
+<pre><code class="language-text">codex --sandbox workspace-write --ask-for-approval on-request
+</code></pre>
+<p>This means:</p>
+<pre><code class="language-text">Codex can work in the current project, but it must ask me before sensitive operations.
+</code></pre>
+<p>Do not treat this as a convenience setting:</p>
+<pre><code class="language-text">codex --sandbox danger-full-access
+</code></pre>
+<hr>
+<h6>Non-interactive task commands</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex exec "task"</code></td>
+<td>Run a one-time task</td>
+<td>Runs once and exits instead of opening a long conversation</td>
+<td>Automation, checks, report generation</td>
+</tr>
+<tr>
+<td><code>codex e "task"</code></td>
+<td>Short form of <code>exec</code></td>
+<td>Same as above</td>
+<td>Quick runs</td>
+</tr>
+<tr>
+<td><code>codex exec --cd project-path "task"</code></td>
+<td>Run a task in a specified directory</td>
+<td>Run a one-time task inside a project</td>
+<td>Automation scripts</td>
+</tr>
+<tr>
+<td><code>codex exec resume</code></td>
+<td>Resume an exec session</td>
+<td>Continue the previous non-interactive task</td>
+<td>After an automation task gets interrupted</td>
+</tr>
+<tr>
+<td><code>codex exec resume --last</code></td>
+<td>Resume the latest exec session</td>
+<td>Continue the latest task</td>
+<td>Most common way to resume</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<pre><code class="language-text">codex exec &quot;Check whether the current project has any obvious issues&quot;
+</code></pre>
+<p>While learning, prefer:</p>
+<pre><code class="language-text">codex
+</code></pre>
+<p>Use <code>codex exec</code> after you are familiar with it.</p>
+<hr>
+<h6>Session management commands</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex resume</code></td>
+<td>Resume an earlier session</td>
+<td>Continue the earlier thread</td>
+<td>When the previous task was not finished</td>
+</tr>
+<tr>
+<td><code>codex resume --last</code></td>
+<td>Resume the latest session</td>
+<td>Continue the latest task</td>
+<td>Most commonly used</td>
+</tr>
+<tr>
+<td><code>codex archive</code></td>
+<td>Archive a session</td>
+<td>Store tasks you no longer need</td>
+<td>When a task is done or no longer needed</td>
+</tr>
+<tr>
+<td><code>codex unarchive</code></td>
+<td>Restore an archived session</td>
+<td>Restore a task that was archived</td>
+<td>When you want to continue after archiving</td>
+</tr>
+<tr>
+<td><code>codex fork</code></td>
+<td>Copy an old session into a new thread</td>
+<td>Keep the original task and try another direction</td>
+<td>Trying more than one approach</td>
+</tr>
+</tbody>
+</table>
+<p>Plain meaning:</p>
+<pre><code class="language-text">resume = continue working
+archive = put away
+unarchive = bring back
+fork = copy one version and try a new approach
+</code></pre>
+<hr>
+<h6>Diagnostic, update, and maintenance commands</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex doctor</code></td>
+<td>Generate a diagnostic report</td>
+<td>Codex startup, login, or environment issues</td>
+</tr>
+<tr>
+<td><code>codex update</code></td>
+<td>Check and update Codex CLI</td>
+<td>When you want to upgrade</td>
+</tr>
+<tr>
+<td><code>codex completion</code></td>
+<td>Generate a command completion script</td>
+<td>Frequent terminal users</td>
+</tr>
+<tr>
+<td><code>codex features list</code></td>
+<td>View feature flags</td>
+<td>Checking whether a feature is enabled</td>
+</tr>
+<tr>
+<td><code>codex features enable feature-name</code></td>
+<td>Enable a feature</td>
+<td>Advanced configuration</td>
+</tr>
+<tr>
+<td><code>codex features disable feature-name</code></td>
+<td>Disable a feature</td>
+<td>Advanced configuration</td>
+</tr>
+</tbody>
+</table>
+<p>Most common for beginners:</p>
+<pre><code class="language-text">codex doctor
+codex update
+</code></pre>
+<p>You do not need to remember the others yet.</p>
+<hr>
+<h6>Cloud, MCP, and plugin commands</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>Do beginners need it?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex cloud</code></td>
+<td>Browse or run Codex Cloud tasks in the terminal</td>
+<td>Not for now</td>
+</tr>
+<tr>
+<td><code>codex apply</code></td>
+<td>Apply a diff generated by Codex Cloud locally</td>
+<td>Learn it after you start using Cloud</td>
+</tr>
+<tr>
+<td><code>codex mcp list</code></td>
+<td>View MCP tools</td>
+<td>Not for now</td>
+</tr>
+<tr>
+<td><code>codex mcp add</code></td>
+<td>Add an MCP server</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td><code>codex mcp remove</code></td>
+<td>Remove an MCP server</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td><code>codex plugin list</code></td>
+<td>View plugins</td>
+<td>Not for now</td>
+</tr>
+<tr>
+<td><code>codex plugin add</code></td>
+<td>Install a plugin</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td><code>codex plugin remove</code></td>
+<td>Remove a plugin</td>
+<td>Advanced</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners can skip these for now.</p>
+<p>Wait until you start using:</p>
+<pre><code class="language-text">Codex Cloud
+External tools
+Databases
+Figma
+Project management tools
+MCP
+Plugins
+</code></pre>
+<p>Then learn this group of commands.</p>
+<hr>
+<h6>Sandbox test commands</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codex sandbox</code></td>
+<td>Run commands using Codex sandbox rules</td>
+<td>Advanced users</td>
+</tr>
+<tr>
+<td><code>codex sandbox --cd project-directory -- command</code></td>
+<td>Run a sandboxed command in a specific directory</td>
+<td>Debugging permission problems</td>
+</tr>
+<tr>
+<td><code>codex execpolicy</code></td>
+<td>Check whether a command will be allowed, require approval, or be blocked</td>
+<td>Advanced security configuration</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners can skip this.</p>
+<p>Remember this:</p>
+<pre><code class="language-text">Use workspace-write + on-request by default.
+Do not casually use full access.
+</code></pre>
+<hr>
+<h6>Dangerous commands and parameters</h6>
+<table>
+<thead>
+<tr>
+<th>Command / parameter</th>
+<th>Why it is dangerous</th>
+<th>Beginner advice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--sandbox danger-full-access</td>
+<td>Removes file and network limits</td>
+<td>Do not use</td>
+</tr>
+<tr>
+<td>--dangerously-bypass-approvals-and-sandbox</td>
+<td>Bypasses approvals and sandboxing</td>
+<td>Do not use</td>
+</tr>
+<tr>
+<td>--yolo</td>
+<td>Alias for the dangerous parameter above</td>
+<td>Do not use</td>
+</tr>
+<tr>
+<td>--ask-for-approval never</td>
+<td>Codex will stop asking during operations</td>
+<td>Beginners should not use it</td>
+</tr>
+<tr>
+<td>sudo</td>
+<td>May modify system-level files</td>
+<td>Do not allow it unless you understand it</td>
+</tr>
+<tr>
+<td>rm -rf</td>
+<td>May delete many files</td>
+<td>High risk</td>
+</tr>
+<tr>
+<td>git reset --hard</td>
+<td>May discard unsaved changes</td>
+<td>Confirm first</td>
+</tr>
+<tr>
+<td>git clean -fd</td>
+<td>May delete untracked files</td>
+<td>Confirm first</td>
+</tr>
+<tr>
+<td>curl xxx | sh</td>
+<td>Downloads a script and runs it directly</td>
+<td>High risk</td>
+</tr>
+</tbody>
+</table>
+<p>If you see one of these, ask Codex first:</p>
+<pre><code class="language-text">Explain what this command does, its risks, and whether there is a safer alternative.
+</code></pre>
+<hr>
+<h6>Commands beginners should remember first</h6>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Command</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Codex</td>
+<td>Start Codex CLI</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>codex login</code></td>
+<td>Log in to your account</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>codex login status</code></td>
+<td>Check login status</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>codex doctor</code></td>
+<td>Troubleshoot environment issues</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>codex --version</code></td>
+<td>Show the version</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>codex resume --last</code></td>
+<td>Continue the previous task</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>codex archive</code></td>
+<td>Archive tasks you no longer need</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>codex update</code></td>
+<td>Update Codex</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>codex exec "task"</code></td>
+<td>Run a one-time task</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>codex logout</code></td>
+<td>Log out</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>Recommended beginner workflow</h6>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>cd project-directory</td>
+<td>Enter the project folder</td>
+</tr>
+<tr>
+<td>2</td>
+<td>git status</td>
+<td>See the current project status</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Codex</td>
+<td>Start Codex CLI</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Enter task</td>
+<td>Let Codex start the work</td>
+</tr>
+<tr>
+<td>5</td>
+<td>/diff</td>
+<td>View changes inside Codex</td>
+</tr>
+<tr>
+<td>6</td>
+<td>git diff</td>
+<td>Check once more in Git</td>
+</tr>
+<tr>
+<td>7</td>
+<td>git add .</td>
+<td>Stage the changes you are satisfied with</td>
+</tr>
+<tr>
+<td>8</td>
+<td>git commit -m "description"</td>
+<td>Save one version</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>codex archive</code> or <code>/quit</code></td>
+<td>Archive the task or exit</td>
+</tr>
+</tbody>
+</table>
+<h5>CLI slash commands</h5>
+<p>Do not enter these in the outer PowerShell / Terminal. After entering Codex, type <code>/</code> in the Codex input box to use them.</p>
+<h6>Most used commands for beginners</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/model</td>
+<td>Switch model and reasoning effort</td>
+<td>Change the model and reasoning depth</td>
+<td>When the task is too hard or too slow, or when you want to save quota</td>
+</tr>
+<tr>
+<td>/permissions</td>
+<td>Adjust permissions</td>
+<td>Control whether Codex can edit files, access the network, or run commands</td>
+<td>When you want to tighten or loosen permissions</td>
+</tr>
+<tr>
+<td>/diff</td>
+<td>View code changes</td>
+<td>See exactly what Codex changed</td>
+<td>Always check after Codex modifies files</td>
+</tr>
+<tr>
+<td>/plan</td>
+<td>Enter Plan mode</td>
+<td>Ask Codex for a plan before changing code</td>
+<td>Before complex tasks, bug fixes, or refactors</td>
+</tr>
+<tr>
+<td>/init</td>
+<td>Create AGENTS.md</td>
+<td>Create a project rules file</td>
+<td>When using Codex in a new project for the first time</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>View current status</td>
+<td>See the model, permissions, context, tokens, and related status</td>
+<td>When you are not sure about the current configuration</td>
+</tr>
+<tr>
+<td>/quit</td>
+<td>Exit Codex CLI</td>
+<td>End the current session</td>
+<td>After a task is complete</td>
+</tr>
+<tr>
+<td>/exit</td>
+<td>Exit Codex CLI</td>
+<td>Similar to /quit</td>
+<td>After a task is complete</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>Model and speed</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/model</td>
+<td>Choose a model and reasoning effort</td>
+<td>When you want to switch GPT-5.5, mini, or low/medium/high reasoning</td>
+</tr>
+<tr>
+<td>/fast</td>
+<td>Turn Fast mode on or off</td>
+<td>When you want supported models to respond faster</td>
+</tr>
+<tr>
+<td>/personality</td>
+<td>Adjust response style</td>
+<td>When you want Codex responses to be more concise, more explanatory, or more collaborative</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>View current model and context status</td>
+<td>When you want to confirm which model is being used</td>
+</tr>
+</tbody>
+</table>
+<p>For beginners:</p>
+<pre><code class="language-text">Normal tasks: default model + medium reasoning
+Complex bugs: high reasoning
+Simple copy changes: low reasoning
+Do not use the highest reasoning for every task
+</code></pre>
+<hr>
+<h6>Permissions and security</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Advice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/permissions</td>
+<td>Modify the permission policy</td>
+<td>Control what Codex can do</td>
+<td>Beginners should keep "request approval"</td>
+</tr>
+<tr>
+<td>/approve</td>
+<td>Approve one automatically rejected operation</td>
+<td>Retry a blocked operation one time</td>
+<td>Use only after understanding the risk</td>
+</tr>
+<tr>
+<td>/sandbox-add-read-dir</td>
+<td>Allow Codex to read an additional directory</td>
+<td>Let Codex read a specific directory outside the project</td>
+<td>Windows-specific scenarios; use this sparingly</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>View permissions and writable directories</td>
+<td>Confirm Codex's current permission scope</td>
+<td>Check after changing permissions</td>
+</tr>
+</tbody>
+</table>
+<p>For beginners:</p>
+<pre><code class="language-text">Use /permissions by default to keep request approval.
+Do not casually allow full access.
+Do not use /approve for operations you do not understand.
+</code></pre>
+<hr>
+<h6>Code checks and review</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/diff</td>
+<td>View the current Git diff</td>
+<td>See what was added and deleted</td>
+<td>Always check after changes</td>
+</tr>
+<tr>
+<td>/review</td>
+<td>Ask Codex to review the current changes</td>
+<td>Let Codex check the code for problems</td>
+<td>Check before committing</td>
+</tr>
+<tr>
+<td>/copy</td>
+<td>Copy the most recent Codex output</td>
+<td>Copy results quickly</td>
+<td>Copy plans, summaries, or command explanations</td>
+</tr>
+<tr>
+<td>/raw</td>
+<td>Toggle raw output mode</td>
+<td>Makes long logs or terminal output easier to copy</td>
+<td>When logs are long</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended flow:</p>
+<pre><code class="language-text">Codex finishes modifying
+→ /diff to view changes
+→ /review to check for issues
+→ git commit only if everything is fine
+</code></pre>
+<hr>
+<h6>Session management</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/new</td>
+<td>Start a new conversation</td>
+<td>Switch to a new task in the current CLI</td>
+<td>When the current task is finished and you want to start a new one</td>
+</tr>
+<tr>
+<td>/clear</td>
+<td>Clear the terminal and start a new chat</td>
+<td>Clear the current display and context</td>
+<td>When the interface is messy or you want to restart</td>
+</tr>
+<tr>
+<td>/resume</td>
+<td>Resume an earlier session</td>
+<td>Continue an earlier task</td>
+<td>When the previous task was not finished</td>
+</tr>
+<tr>
+<td>/archive</td>
+<td>Archive the current session and exit</td>
+<td>Store tasks you no longer need</td>
+<td>When the task is done or the approach is no longer useful</td>
+</tr>
+<tr>
+<td>/fork</td>
+<td>Copy the current session into a new thread</td>
+<td>Keep the original idea and try another branch</td>
+<td>When you want to try another approach</td>
+</tr>
+<tr>
+<td>/side</td>
+<td>Open a temporary side conversation</td>
+<td>Ask a small question without affecting the main task</td>
+<td>When you want to confirm one point quickly</td>
+</tr>
+<tr>
+<td>/quit</td>
+<td>Exit CLI</td>
+<td>End the current session</td>
+<td>Task complete</td>
+</tr>
+<tr>
+<td>/exit</td>
+<td>Exit CLI</td>
+<td>Same as /quit</td>
+<td>Task complete</td>
+</tr>
+</tbody>
+</table>
+<p>Beginner distinctions:</p>
+<pre><code class="language-text">/new = start a new task
+/clear = clean up and restart
+/archive = put away the current task
+/fork = copy the current task and try a new approach
+/side = temporarily ask a small question
+</code></pre>
+<hr>
+<h6>Context and long conversations</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/compact</td>
+<td>Compact the current conversation</td>
+<td>Summarize a long conversation into key points</td>
+<td>When the conversation is long and the context is nearly full</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>View context usage</td>
+<td>See how much context space remains</td>
+<td>After many rounds of work on a task</td>
+</tr>
+<tr>
+<td>/mention</td>
+<td>Attach a file or folder</td>
+<td>Tell Codex to focus on a specific file</td>
+<td>When you want it to look only at a few files</td>
+</tr>
+<tr>
+<td>/ide</td>
+<td>Bring in the current IDE context</td>
+<td>Bring in files open in the editor</td>
+<td>Use with VS Code / Cursor</td>
+</tr>
+</tbody>
+</table>
+<p>For beginners:</p>
+<pre><code class="language-text">Use /compact when the conversation gets long.
+Use /mention when you want Codex to look at specific files.
+If you do not want it scanning the whole project, explicitly specify files.
+</code></pre>
+<hr>
+<h6>Project rules and capabilities</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/init</td>
+<td>Create AGENTS.md</td>
+<td>Create a project rules file</td>
+<td>First time using Codex in a new project</td>
+</tr>
+<tr>
+<td>/skills</td>
+<td>Browse and use Skills</td>
+<td>Choose a specialized Skill</td>
+<td>Specialized tasks such as UI, documentation, or review</td>
+</tr>
+<tr>
+<td>/memories</td>
+<td>Configure memories</td>
+<td>Control whether Codex uses or creates memories</td>
+<td>When you want to manage long-term preferences</td>
+</tr>
+<tr>
+<td>/goal</td>
+<td>Set a task goal</td>
+<td>Give Codex a persistent goal</td>
+<td>Large or long-running tasks</td>
+</tr>
+<tr>
+<td>/apps</td>
+<td>Browse apps you can connect</td>
+<td>Let Codex use external apps</td>
+<td>When connecting external tools</td>
+</tr>
+<tr>
+<td>/plugins</td>
+<td>Manage plugins</td>
+<td>View or enable plugin features</td>
+<td>When you need plugin tools</td>
+</tr>
+<tr>
+<td>/mcp</td>
+<td>View MCP tools</td>
+<td>See which external tools Codex can call</td>
+<td>Check after configuring MCP</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners should learn these first:</p>
+<pre><code class="language-text">/init
+/skills
+</code></pre>
+<p>You can learn the other commands later.</p>
+<hr>
+<h6>Terminal and background tasks</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/ps</td>
+<td>View background terminal tasks</td>
+<td>See which commands are still running</td>
+<td>When npm dev, tests, or builds are still running</td>
+</tr>
+<tr>
+<td>/stop</td>
+<td>Stop background terminal tasks</td>
+<td>Stop a command running in the background</td>
+<td>When a command is stuck or should not keep running</td>
+</tr>
+<tr>
+<td>/raw</td>
+<td>Raw output mode</td>
+<td>Makes terminal logs easier to copy</td>
+<td>When logs are long</td>
+</tr>
+</tbody>
+</table>
+<p>Common scenarios:</p>
+<pre><code class="language-text">Codex ran npm run dev
+You want to see whether it is still running
+→ Use /ps
+
+A command is stuck
+→ Use /stop
+</code></pre>
+<hr>
+<h6>Interface and keyboard shortcuts</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>In simple terms</th>
+<th>Used often?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/theme</td>
+<td>Switch the code highlight theme</td>
+<td>Change the terminal display style</td>
+<td>Average</td>
+</tr>
+<tr>
+<td>/statusline</td>
+<td>Configure the bottom status line</td>
+<td>Show model, token, Git branch, and more</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>/title</td>
+<td>Set the terminal title</td>
+<td>Show project information in the window title</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>/keymap</td>
+<td>Change keyboard shortcuts</td>
+<td>Customize operation keys</td>
+<td>Advanced</td>
+</tr>
+<tr>
+<td>/vim</td>
+<td>Turn Vim editing mode on or off</td>
+<td>Edit the input box with Vim controls</td>
+<td>For people who know Vim</td>
+</tr>
+<tr>
+<td>/debug-config</td>
+<td>View configuration layers</td>
+<td>Troubleshoot configuration that is not taking effect</td>
+<td>Advanced troubleshooting</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners can skip these for now.</p>
+<hr>
+<h6>Developer and advanced features</h6>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/experimental</td>
+<td>Enable experimental features</td>
+<td>Users who want to try new features early</td>
+</tr>
+<tr>
+<td>/hooks</td>
+<td>View and manage lifecycle hooks</td>
+<td>Advanced users and team projects</td>
+</tr>
+<tr>
+<td>/feedback</td>
+<td>Send logs or feedback</td>
+<td>When you need to report an issue</td>
+</tr>
+<tr>
+<td>/agent</td>
+<td>Switch the active agent thread</td>
+<td>People using subagent workflows</td>
+</tr>
+</tbody>
+</table>
+<p>Beginners do not need to learn these at first.</p>
+<p>Beginners only need to know that these commands exist.</p>
+<hr>
+<h6>8 commands beginners should remember first</h6>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Command</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>/diff</td>
+<td>See what Codex changed</td>
+</tr>
+<tr>
+<td>2</td>
+<td>/plan</td>
+<td>Ask it for a plan before complex tasks</td>
+</tr>
+<tr>
+<td>3</td>
+<td>/permissions</td>
+<td>Control permissions and avoid uncontrolled changes</td>
+</tr>
+<tr>
+<td>4</td>
+<td>/model</td>
+<td>Switch model and reasoning effort</td>
+</tr>
+<tr>
+<td>5</td>
+<td>/status</td>
+<td>View current model, permissions, and context</td>
+</tr>
+<tr>
+<td>6</td>
+<td>/init</td>
+<td>Generate project rules</td>
+</tr>
+<tr>
+<td>7</td>
+<td>/compact</td>
+<td>Compress long conversations into key points</td>
+</tr>
+<tr>
+<td>8</td>
+<td>/quit</td>
+<td>Exit Codex</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>Recommended beginner workflow</h6>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>/init</td>
+<td>Generate project rules</td>
+</tr>
+<tr>
+<td>2</td>
+<td>/permissions</td>
+<td>Check that permissions are not too broad</td>
+</tr>
+<tr>
+<td>3</td>
+<td>/model</td>
+<td>Confirm model and reasoning effort</td>
+</tr>
+<tr>
+<td>4</td>
+<td>/plan</td>
+<td>Plan before complex tasks</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Enter task</td>
+<td>Let Codex start the work</td>
+</tr>
+<tr>
+<td>6</td>
+<td>/diff</td>
+<td>Check code changes</td>
+</tr>
+<tr>
+<td>7</td>
+<td>/review</td>
+<td>Ask Codex to check once more</td>
+</tr>
+<tr>
+<td>8</td>
+<td>/status</td>
+<td>View current status and context</td>
+</tr>
+<tr>
+<td>9</td>
+<td>/compact</td>
+<td>Compact the conversation when it gets too long</td>
+</tr>
+<tr>
+<td>10</td>
+<td>/quit</td>
+<td>Exit Codex</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h6>One-sentence summary</h6>
+<p>Slash commands are quick controls inside Codex CLI.</p>
+<p>Beginners do not need to memorize all of them. These are enough to start:</p>
+<pre><code class="language-text">/diff       view changes
+/plan       plan first
+/permissions control permissions
+/model      switch model
+/status     view status
+/init       create rules
+/compact    compress long conversations
+/quit       exit
+</code></pre>
