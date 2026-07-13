@@ -13,6 +13,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|images-en/|images-ko/).*)", "destination": "/index.html" }
   ]
 }
